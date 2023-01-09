@@ -131,3 +131,28 @@ def fn_prime():
     results[0] = factor
     results[1] = notation
     return results
+
+
+@app.route('/fn/pwgen', methods=['post'])
+def fn_pwgen():
+    char_type = request.json['char_type']
+    length = request.json['length']
+
+    list_symbol = '!@#$%^&'
+
+    map = {
+        '0': list_A + list_a + list_0,
+        '1': list_A + list_a + list_0 + list_symbol,
+        '2': list_A + list_a,
+        '3': list_A,
+        '4': list_a,
+        '5': list_0,
+        '6': list_A + list_a + list_symbol,
+        '7': list_A + list_0,
+        '8': list_a + list_0
+    }
+    table = map.get(char_type)
+
+    results = {}
+    results[0] = password_generate(int(length), table)
+    return results

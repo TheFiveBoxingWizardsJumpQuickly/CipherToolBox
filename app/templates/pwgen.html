@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Password Generator</title>
+        <meta name="viewport" content="width=device-width" >
+        <link rel="stylesheet" href="/static/css/style.css">
+        <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
+        <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    </head>
+    <body>
+        <h1>Password Generator</h1>
+        <div id="app">
+            <div class="cp_ipselect cp_sl01">
+                <select required id="char_type" v-on:input="pwgen">
+                    <option value="" hidden>Choose</option>
+                    <option value="0" selected>A-Z, a-z, 0-9</option>
+                    <option value="1">A-Z, a-z, 0-9, !@#$%^&</option>
+                    <option value="2">A-Z, a-z</option>
+                    <option value="3">A-Z</option>
+                    <option value="4">a-z</option>
+                    <option value="5">0-9</option>
+                    <option value="6">A-Z, a-z, !@#$%^&</option>
+                    <option value="7">A-Z, 0-9</option>
+                    <option value="8">a-z, 0-9</option>
+                </select>
+            </div>
+
+            <p>Length<p><textarea id="length" class="input_text_area_key" inputmode="numeric" v-on:input="pwgen"></textarea>
+            <br>
+            <p>Results</p>
+            
+            <div class="results_area" v-for="row in results">
+                [[row]]
+            </div>
+        </div>
+        
+        <script>
+            var app = new Vue({
+                el: '#app',
+                data: {
+                        results:[]
+                },
+                methods: {
+                    pwgen: function () {
+                        char_type = document.getElementById( "char_type" ).value;
+                        length = document.getElementById( "length" ).value;
+                        if (length == ""){
+                            this.results = [];
+                        } else {
+                            url = new URL('fn/pwgen', {{BASEURL|tojson}});
+                            axios.post(url, {
+                                char_type: char_type,
+                                length:length
+                            }).then(response => this.results = response.data);
+                        }
+                    }
+                },
+                delimiters: ['[[', ']]']
+            })
+        </script>
+
+    </body>
+</html>
