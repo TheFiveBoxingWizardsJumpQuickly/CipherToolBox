@@ -2,15 +2,50 @@
 <html>
     <head>
         <title>Cipher Tool Box</title>
+        <style>
+            body {
+                font-family: Arial, sans-serif;
+                background-color: #f4f4f4;
+            }
+            h1 {
+                color: #333;
+                text-align: center;
+                margin: 20px 0;
+            }
+            nav {
+                display: flex;
+                justify-content: space-around;
+                align-items: center;
+                background-color: #333;
+                color: #fff;
+            }
+            nav a {
+                display: block;
+                padding: 15px;
+                text-decoration: none;
+                color: #fff;
+                font-size: 18px;
+            }
+            nav a:hover {
+                background-color: #555;
+            }
+        </style>
     </head>
     <body>
         <h1>Cipher Tool Box</h1>
-        <li><a href="/rot" target="_blank">ROT</a></li>
-        <li><a href="/vigenere" target="_blank">Vigenere etc.</a></li>
-        <li><a href="/enigma" target="_blank">Enigma</a></li>
-        <li><a href="/purple" target="_blank">PURPLE</a></li>
-        <li><a href="/prime" target="_blank">Prime Decomposition (素因数分解)</a></li>
-        <li><a href="/pwgen" target="_blank">Password Generator</a></li>
-
+        <nav>
+            <ul>
+                <li><a href="/rot" target="_blank">ROT</a></li>
+                <li><a href="/enigma" target="_blank">Enigma</a></li>
+                <li><a href="/prime" target="_blank">Prime Decomposition (素因数分解)</a></li>
+            </ul>
+            <ul>
+                <li><a href="/vigenere" target="_blank">Vigenere etc.</a></li>
+                <li><a href="/purple" target="_blank">PURPLE</a></li>
+                <li><a href="/pwgen" target="_blank">Password Generator</a></li>
+            </ul>
+        </nav>
     </body>
+
 </html>
+
