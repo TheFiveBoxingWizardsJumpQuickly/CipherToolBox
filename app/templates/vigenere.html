@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Vigenere</title>
+        <meta name="viewport" content="width=device-width" >
+        <link rel="stylesheet" href="/static/css/style.css">
+        <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
+        <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    </head>
+    <body>
+        <h1>Vigenere, Beaufort, Auto key Vigenere</h1>
+        <div id="app">
+            <p>Text</p>
+            <textarea id="TXT" class="input_text_area" v-on:input="vigenere"></textarea>
+            <p>Key</p>
+            <textarea id="KEY" class="input_text_area_key" v-on:input="vigenere"></textarea>
+            <br>
+            <p>Results</p>
+            
+            <div class='results_area' v-for="row in results">
+                [[row]]
+            </div>
+        </div>
+        
+        <script>
+            var app = new Vue({
+                el: '#app',
+                data: {
+                        results:[]
+                },
+                methods: {
+                    vigenere: function () {
+                        input_text = document.getElementById( "TXT" ).value;
+                        key = document.getElementById( "KEY" ).value;
+                        if (input_text == "" || key == ""){
+                            this.results = [];
+                        } else {
+                            url = new URL('fn/vigenere', {{BASEURL|tojson}});
+                            axios.post(url, {
+                                input_text: input_text,
+                                key: key
+                            }).then(response => this.results = response.data);
+                        }
+                    }
+                },
+                delimiters: ['[[', ']]']
+            })
+        </script>
+
+    </body>
+</html>

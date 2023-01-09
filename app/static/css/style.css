@@ -1,0 +1,141 @@
+.body{
+	word-wrap : break-word;
+	overflow-wrap : break-word;
+}
+
+.input_text_area{
+    color: #222222;
+    font-family:"Courier New", Consolas, monospace;
+    font-size: 16px;
+    width:100%;
+    height:88px;
+}
+
+.input_text_area_key{
+    color: #222222;
+    font-family:"Courier New", Consolas, monospace;
+    font-size: 16px;
+    width:100%;
+    height:auto;
+}
+
+.results_area {
+    font-family:"Courier New", Consolas, monospace;
+    font-size: 16px;
+    width:100%;    
+}
+
+
+p {
+    font-family:"Courier New", Consolas, monospace;
+    font-size: 16px;
+    width:100%;    
+}
+
+h1 {
+    font-family:"Courier New", Consolas, monospace;
+    font-size: 20px;
+    width:100%;
+}
+
+.b1 {
+    color: #222222;
+    font-family:"Courier New", Consolas, monospace;
+    font-size: 16px;
+	width:100%;
+	word-wrap : break-word;
+	overflow-wrap : break-word;
+}
+
+.menu_bar {
+    width:100%;
+    background-color: rgba(0, 0, 0);
+    font-family:"Courier New", Consolas, monospace;
+    font-size:16px;
+    color: white;
+}
+
+.menu_link_text:link { color: white; }
+.menu_link_text:visited { color: white; }
+.menu_link_text:hover { color: white; }
+.menu_link_text:active { color: white; }
+
+.myButton {
+	box-shadow:inset 0px 0px 15px 3px #23395e;
+	background:linear-gradient(to bottom, #2e466e 5%, #415989 100%);
+	background-color:#2e466e;
+	border-radius:17px;
+	border:1px solid #1f2f47;
+	display:inline-block;
+	cursor:pointer;
+	color:#ffffff;
+	font-family:"Courier New", Consolas, monospace;
+	font-size:16px;
+	padding:6px 13px;
+	text-decoration:none;
+    text-shadow:0px 1px 0px #264c66;
+    height:40px;
+    width:20%;
+    text-align: center;
+    line-height:40px;
+}
+.myButton:hover {
+	background:linear-gradient(to bottom, #415989 5%, #2e466e 100%);
+	background-color:#415989;
+}
+.myButton:active {
+	position:relative;
+	top:1px;
+}
+
+.cp_ipselect {
+	overflow: hidden;
+	width: 30%;
+    margin: 2em;
+    margin-left: 0em;
+	text-align: center;
+}
+.cp_ipselect select {
+	width: 100%;
+	padding-right: 1em;
+	cursor: pointer;
+	text-indent: 0.01px;
+	text-overflow: ellipsis;
+	border: none;
+	outline: none;
+	background: transparent;
+	background-image: none;
+	box-shadow: none;
+	-webkit-appearance: none;
+	appearance: none;
+}
+.cp_ipselect select::-ms-expand {
+    display: none;
+}
+.cp_ipselect.cp_sl01 {
+	position: relative;
+	border: 1px solid #bbbbbb;
+	border-radius: 2px;
+	background: #ffffff;
+}
+.cp_ipselect.cp_sl01::before {
+	position: absolute;
+	top: 0.8em;
+	right: 0.9em;
+	width: 0;
+	height: 0;
+	padding: 0;
+	content: '';
+	border-left: 6px solid transparent;
+	border-right: 6px solid transparent;
+	border-top: 6px solid #666666;
+	pointer-events: none;
+}
+.cp_ipselect.cp_sl01 select {
+	padding: 8px 38px 8px 8px;
+	color: #666666;
+}
+.cp_ipselect.cp_sl01.small {
+	width: 80px;
+	margin: 1em;
+}
