@@ -1,14 +1,8 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <title>Vigenere</title>
-        <meta name="viewport" content="width=device-width" >
-        <link rel="stylesheet" href="/static/css/style.css">
-        <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
-        <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-    </head>
-    <body>
-        <h1>Vigenere, Beaufort, Auto key Vigenere</h1>
+{% extends "base_apps.html" %}
+{% block title %}Vigenere{% endblock %}
+{% block h1 %}Vigenere{% endblock %}
+{% block content %}
+        <p>Vigenere, Beaufort, Auto key Vigenere</p>
         <div id="app">
             <p>Text</p>
             <textarea id="TXT" class="input_text_area" v-on:input="vigenere"></textarea>
@@ -46,6 +40,4 @@
                 delimiters: ['[[', ']]']
             })
         </script>
-
-    </body>
-</html>
+{% endblock %}

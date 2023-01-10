@@ -1,10 +1,12 @@
-.body{
+body{
 	word-wrap : break-word;
 	overflow-wrap : break-word;
+	background-color: #2d3037;
 }
 
 .input_text_area{
     color: #222222;
+	background-color: #eeeeee;
     font-family:"Courier New", Consolas, monospace;
     font-size: 16px;
     width:100%;
@@ -20,6 +22,7 @@
 }
 
 .results_area {
+	color: #999999;
     font-family:"Courier New", Consolas, monospace;
     font-size: 16px;
     width:100%;    
@@ -27,6 +30,7 @@
 
 
 p {
+	color: #8ce1f5;
     font-family:"Courier New", Consolas, monospace;
     font-size: 16px;
     width:100%;    
@@ -34,8 +38,9 @@ p {
 
 h1 {
     font-family:"Courier New", Consolas, monospace;
-    font-size: 20px;
+    font-size: px;
     width:100%;
+	color: #8ce1f5;
 }
 
 .b1 {
@@ -136,6 +141,7 @@ h1 {
 	color: #666666;
 }
 .cp_ipselect.cp_sl01.small {
-	width: 80px;
+	width: 60px;
 	margin: 1em;
+	background-color: #eeeeee;
 }

@@ -1,14 +1,7 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <title>Password Generator</title>
-        <meta name="viewport" content="width=device-width" >
-        <link rel="stylesheet" href="/static/css/style.css">
-        <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
-        <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-    </head>
-    <body>
-        <h1>Password Generator</h1>
+{% extends "base_apps.html" %}
+{% block title %}Password Generator{% endblock %}
+{% block h1 %}Password Generator{% endblock %}
+{% block content %}
         <div id="app">
             <div class="cp_ipselect cp_sl01">
                 <select required id="char_type" v-on:input="pwgen">
@@ -58,6 +51,4 @@
                 delimiters: ['[[', ']]']
             })
         </script>
-
-    </body>
-</html>
+{% endblock %}

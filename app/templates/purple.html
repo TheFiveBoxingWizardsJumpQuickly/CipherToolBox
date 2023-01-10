@@ -1,71 +1,73 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <title>PURPLE</title>
-        <meta name="viewport" content="width=device-width" >
-        <link rel="stylesheet" href="/static/css/style.css">
-        <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
-        <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-    </head>
-    <body>
-        <h1>PURPLE</h1>
+{% extends "base_apps.html" %}
+{% block title %}PURPLE{% endblock %}
+{% block h1 %}PURPLE{% endblock %}
+{% block content %}
         <p>PURPLE also known as パープル暗号, 九七式欧文印字機, 暗号機B型, 97-shiki-obun In-ji-ki, Angooki Taipu B</p>
         <div id="app">
             <textarea id="TXT" class="input_text_area" v-on:input="purple"></textarea>
             <p></p>
 
-            <div style="float:left;" class="cp_ipselect cp_sl01 small"> 
-                <select required id="sixes_initial_position" >
-                    <option v-for="n in switch_list" :key="n" :value="n">[[n]]</option>
-                </select>
-            </div>
-            <div style="float:left;" margin="40px"><p>SIXes initial position</p></div>
-            <div style="clear:both;"></div>
+            <ul style="display:flex; list-style:none;" >
+                <li>
+                    <p>SIXes initial position</p>
+                    <div class="cp_ipselect cp_sl01 small"> 
+                        <select required id="sixes_initial_position" >
+                            <option v-for="n in switch_list" :key="n" :value="n">[[n]]</option>
+                        </select>
+                    </div>
+                </li>
+                <li style="margin-left:20px;">
+                    <p>TWENTIes 1 initial position</p>
+                    <div class="cp_ipselect cp_sl01 small"> 
+                        <select required id="twenties_1_initial_position" v-on:input="purple">
+                            <option v-for="n in switch_list" :key="n" :value="n">[[n]]</option>
+                        </select>
+                    </div>
+                </li>
+                <li style="margin-left:20px;">
+                    <p>TWENTIes 2 initial position</p>
+                    <div class="cp_ipselect cp_sl01 small"> 
+                        <select required id="twenties_2_initial_position" v-on:input="purple">
+                            <option v-for="n in switch_list" :key="n" :value="n">[[n]]</option>
+                        </select>
+                    </div>
+                </li>
+                <li style="margin-left:20px;">
+                    <p>TWENTIes 3 initial position</p>
+                    <div class="cp_ipselect cp_sl01 small"> 
+                        <select required id="twenties_3_initial_position" v-on:input="purple">
+                            <option v-for="n in switch_list" :key="n" :value="n">[[n]]</option>
+                        </select>
+                    </div>
+                </li>
+            </ul>
+        
+            <ul style="display:flex; list-style:none;" >
+                <li>
+                    <p>Motion</p>
+                    <div class="cp_ipselect cp_sl01"> 
+                        <select required id="rotor_motion_key" v-on:input="purple">
+                            <option value="" hidden>Choose</option>
+                            <option value="123" selected>123: fast, middle, slow</option>
+                            <option value="132">132: fast, slow, middle</option>
+                            <option value="213">213: middle, fast, slow</option>
+                            <option value="312">312: middle, slow, fast</option>
+                            <option value="231">231: slow, fast, middle</option>
+                            <option value="321">321: slow, middle, fast</option>
+                        </select>
+                    </div>
+                    <p>ex. 132 means Switch #1 is fast, Switch #3 is middle and Switch #2 is slow</p>
+                </li>
+            </ul>
 
-            <div style="float:left;" class="cp_ipselect cp_sl01 small"> 
-                <select required id="twenties_1_initial_position" v-on:input="purple">
-                    <option v-for="n in switch_list" :key="n" :value="n">[[n]]</option>
-                </select>
-            </div>
-            <div style="float:left;" margin="40px"><p>TWENTIES 1 initial position</p></div>
-            <div style="clear:both;"></div>
-
-            <div style="float:left;" class="cp_ipselect cp_sl01 small"> 
-                <select required id="twenties_2_initial_position" v-on:input="purple">
-                    <option v-for="n in switch_list" :key="n" :value="n">[[n]]</option>
-                </select>
-            </div>
-            <div style="float:left;" margin="40px"><p>TWENTIES 2 initial position</p></div>
-            <div style="clear:both;"></div>
-
-            <div style="float:left;" class="cp_ipselect cp_sl01 small"> 
-                <select required id="twenties_3_initial_position" v-on:input="purple">
-                    <option v-for="n in switch_list" :key="n" :value="n">[[n]]</option>
-                </select>
-            </div>
-            <div style="float:left;" margin="40px"><p>TWENTIES 3 initial position</p></div>
-            <div style="clear:both;"></div>            
-
-            <div style="float:left;" class="cp_ipselect cp_sl01"> 
-                <select required id="rotor_motion_key" v-on:input="purple">
-                    <option value="" hidden>Choose</option>
-                    <option value="123" selected>123: fast, middle, slow</option>
-                    <option value="132">132: fast, slow, middle</option>
-                    <option value="213">213: middle, fast, slow</option>
-                    <option value="312">312: middle, slow, fast</option>
-                    <option value="231">231: slow, fast, middle</option>
-                    <option value="321">321: slow, middle, fast</option>
-                </select>
-            </div>
-            <div style="float:left;" margin="40px"><p>Motion (ex 132 means Switch #1 is fast, Switch #3 is middle and Switch
-#2 is slow</p></div>
-            <div style="clear:both;"></div>
-
-            <div style="float:left;" > 
-                <input size ="26" maxlength="26" id="plugboard" value="AEIOUYBCDFGHJKLMNPQRSTVWXZ" v-on:input="purple">
-            </div>
-            <div style="float:left;" margin="40px"><p>Plugboard</p></div>
-            <div style="clear:both;"></div>
+            <ul style="display:flex; list-style:none;" >
+                <li>
+                    <p>Plugboard</p>
+                    <div class="input_text_area_key"> 
+                        <input size ="26" maxlength="26" id="plugboard" value="AEIOUYBCDFGHJKLMNPQRSTVWXZ" v-on:input="purple">
+                    </div>
+                </li>
+            </ul>
 
             <br>
             <p>Results</p>
@@ -112,6 +114,4 @@
                 delimiters: ['[[', ']]']
             })
         </script>
-
-    </body>
-</html>
+{% endblock %}
