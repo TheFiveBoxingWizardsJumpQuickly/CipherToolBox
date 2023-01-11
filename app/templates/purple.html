@@ -2,38 +2,38 @@
 {% block title %}PURPLE{% endblock %}
 {% block h1 %}PURPLE{% endblock %}
 {% block content %}
-        <p>PURPLE also known as パープル暗号, 九七式欧文印字機, 暗号機B型, 97-shiki-obun In-ji-ki, Angooki Taipu B</p>
+        <p>Also known as パープル暗号, 九七式欧文印字機, 暗号機B型, 97-shiki-obun In-ji-ki, Angooki Taipu B</p>
         <div id="app">
             <textarea id="TXT" class="input_text_area" v-on:input="purple"></textarea>
-            <p></p>
-
-            <ul style="display:flex; list-style:none;" >
-                <li>
-                    <p>SIXes initial position</p>
+            
+            <p class="sec_title" style="margin-bottom:0px;">Initial position</p>
+            <ul style="display:flex; list-style:none; margin-top:0px;" >
+                <li style="text-align: left;">
+                    <p>SIXes</p>
                     <div class="cp_ipselect cp_sl01 small"> 
                         <select required id="sixes_initial_position" >
                             <option v-for="n in switch_list" :key="n" :value="n">[[n]]</option>
                         </select>
                     </div>
                 </li>
-                <li style="margin-left:20px;">
-                    <p>TWENTIes 1 initial position</p>
+                <li style="margin-left:20px; text-align: left;">
+                    <p>TWENTIes-1</p>
                     <div class="cp_ipselect cp_sl01 small"> 
                         <select required id="twenties_1_initial_position" v-on:input="purple">
                             <option v-for="n in switch_list" :key="n" :value="n">[[n]]</option>
                         </select>
                     </div>
                 </li>
-                <li style="margin-left:20px;">
-                    <p>TWENTIes 2 initial position</p>
+                <li style="margin-left:20px; text-align: left;">
+                    <p>TWENTIes-2</p>
                     <div class="cp_ipselect cp_sl01 small"> 
                         <select required id="twenties_2_initial_position" v-on:input="purple">
                             <option v-for="n in switch_list" :key="n" :value="n">[[n]]</option>
                         </select>
                     </div>
                 </li>
-                <li style="margin-left:20px;">
-                    <p>TWENTIes 3 initial position</p>
+                <li style="margin-left:20px; text-align: left;">
+                    <p>TWENTIes-3</p>
                     <div class="cp_ipselect cp_sl01 small"> 
                         <select required id="twenties_3_initial_position" v-on:input="purple">
                             <option v-for="n in switch_list" :key="n" :value="n">[[n]]</option>
@@ -42,9 +42,9 @@
                 </li>
             </ul>
         
-            <ul style="display:flex; list-style:none;" >
+            <ul style="display:flex; list-style:none; margin-top:0px;" >
                 <li>
-                    <p>Motion</p>
+                    <p class="sec_title">Motion</p>
                     <div class="cp_ipselect cp_sl01"> 
                         <select required id="rotor_motion_key" v-on:input="purple">
                             <option value="" hidden>Choose</option>
@@ -60,9 +60,9 @@
                 </li>
             </ul>
 
-            <ul style="display:flex; list-style:none;" >
+            <ul style="display:flex; list-style:none; margin-top:0px;" >
                 <li>
-                    <p>Plugboard</p>
+                    <p class="sec_title">Plugboard</p>
                     <div class="input_text_area_key"> 
                         <input size ="26" maxlength="26" id="plugboard" value="AEIOUYBCDFGHJKLMNPQRSTVWXZ" v-on:input="purple">
                     </div>
@@ -70,7 +70,7 @@
             </ul>
 
             <br>
-            <p>Results</p>
+            <p class="sec_title">Results</p>
             
             <div class="results_area" v-for="row in results">
                 [[row]]

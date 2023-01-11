@@ -30,10 +30,14 @@ body{
 
 
 p {
-	color: #8ce1f5;
+	color: #cccccc;
     font-family:"Courier New", Consolas, monospace;
     font-size: 16px;
     width:100%;    
+}
+
+.sec_title {
+	color: #8ce1f5;
 }
 
 h1 {
@@ -50,6 +54,10 @@ h1 {
 	width:100%;
 	word-wrap : break-word;
 	overflow-wrap : break-word;
+}
+
+ul {
+	padding-inline-start: 0px;
 }
 
 .menu_bar {
@@ -98,7 +106,6 @@ h1 {
 	width: 30%;
     margin: 2em;
     margin-left: 0em;
-	text-align: center;
 }
 .cp_ipselect select {
 	width: 100%;
@@ -139,9 +146,11 @@ h1 {
 .cp_ipselect.cp_sl01 select {
 	padding: 8px 38px 8px 8px;
 	color: #666666;
+	background-color: #eeeeee;
 }
 .cp_ipselect.cp_sl01.small {
 	width: 60px;
-	margin: 1em;
+	margin-top: 1em;
+	margin-bottom: 1em;
 	background-color: #eeeeee;
 }

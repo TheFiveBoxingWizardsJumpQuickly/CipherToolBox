@@ -5,9 +5,10 @@
         <div id="app">
             <textarea id="TXT" class="input_text_area" v-on:input="enigma"></textarea>
 
-            <ul style="display:flex; list-style:none;" >
-                <li>
-                    <p>Left Rotor</p>
+            <p class="sec_title" style="margin-bottom:0px;">Rotors</p>
+            <ul style="display:flex; list-style:none; margin-top:0px;" >
+                <li style="text-align: left;">
+                    <p>Left</p>
                     <div class="cp_ipselect cp_sl01 small"> 
                         <select required id="left_rotor" v-on:input="enigma">
                             <option value="" hidden>Choose</option>
@@ -19,8 +20,8 @@
                         </select>
                     </div>
                 </li>
-                <li style="margin-left:20px;">                
-                    <p>Mid Rotor</p>
+                <li style="margin-left:20px; text-align: left;">                
+                    <p>Mid</p>
                     <div class="cp_ipselect cp_sl01 small"> 
                         <select required id="mid_rotor" v-on:input="enigma">
                             <option value="" hidden>Choose</option>
@@ -32,8 +33,8 @@
                         </select>
                     </div>
                 </li>
-                <li style="margin-left:20px;">
-                    <p>Right Rotor</p>
+                <li style="margin-left:20px; text-align: left;">
+                    <p>Right</p>
                     <div class="cp_ipselect cp_sl01 small"> 
                         <select required id="right_rotor" v-on:input="enigma">
                             <option value="" hidden>Choose</option>
@@ -45,27 +46,27 @@
                         </select>
                     </div>
                 </li>
-                <li style="margin-left:20px;">
+                <li style="margin-left:20px; text-align: left;">
                     <p>Reflector</p>
                     <div class="cp_ipselect cp_sl01 small"> 
-                <select required id="reflector" v-on:input="enigma">
-                    <option value="" hidden>Choose</option>
-                    <option value="A">A</option>
-                    <option value="B" selected>B</option>
-                    <option value="C">C</option>
-                </select>
-            </div>
+                        <select required id="reflector" v-on:input="enigma">
+                            <option value="" hidden>Choose</option>
+                            <option value="A">A</option>
+                            <option value="B" selected>B</option>
+                            <option value="C">C</option>
+                        </select>
+                    </div>
                 </li>
             </ul>
 
             <ul style="display:flex; list-style:none;" >
-                <li>
+                <li style="text-align: left;">
                     <p>Rotator Key</p>
                     <div class="input_text_area_key">
                         <input size ="3" maxlength="3" id="rotor_key" v-on:input="enigma">
                     </div>
                 </li>  
-                <li style="margin-left:20px;">
+                <li style="margin-left:20px; text-align: left;">
                     <p>Ring Setting Key</p>
                     <div class="input_text_area_key">
                         <input size ="3" maxlength="3" id="ring_key" v-on:input="enigma">
@@ -85,7 +86,7 @@
             </ul>
 
             <br>
-            <p>Results</p>
+            <p class="sec_title">Results</p>
             
             <div class='results_area' v-for="row in results">
                 [[row]]
