@@ -353,6 +353,7 @@ def fn_simplesub():
 @app.route('/fn/frequency', methods=['post'])
 def fn_frequency():
     input_text = request.json['input_text']
+    input_text = input_text.replace('\n', '')
 
     results = {}
 
@@ -375,10 +376,99 @@ def fn_frequency():
     t += 1
     results[t] = 'Letter frequency (Sorted by Frequency)'
     t += 1
-    freq = letter_frequency(input_text, 0, True)
+    freq = letter_frequency(input_text, 1, True)
     for i in freq:
         results[t] = i[0] + ': ' + str(i[1]) + ' (' '{percent:.2%}'.format(
             percent=i[1]/total_letter_count) + ')'
         t += 1
+
+    return results
+
+
+@app.route('/fn/subs_handsolve', methods=['post'])
+def fn_subs_handsolve():
+    input_text = request.json['input_text']
+    subs_from = request.json['subs_from']
+    subs_to = request.json['subs_to']
+
+    results = {}
+    text_from = unique(subs_from)
+    text_to = subs_to
+    text_length = min(len(text_from), len(text_to))
+    text_del = text_from[text_length:]
+    text_from = text_from[:text_length]
+    text_to = text_to[:text_length]
+    map_dict = dict(zip(text_from, text_to))
+
+    input_text_working = input_text
+    for i in text_del:
+        input_text_working = input_text_working.replace(i, '')
+
+    results[0] = 'Replace characters'
+    results[1] = '_del: ' + text_del.upper()
+    results[2] = 'from: ' + text_from.upper()
+    results[3] = '__to: ' + text_to.upper()
+    results[4] = '-----'
+    results[5] = '[Before]'
+    results[6] = input_text
+    results[7] = ' '
+    results[8] = '[After]'
+    results[9] = replace_all_case_insensitive(
+        input_text_working, text_from, text_to)
+    results[10] = ' '
+    results[11] = '-----'
+    results[12] = 'Letter frequency'
+
+    t = 13
+    results[13] = ''
+    results[14] = ''
+    results[15] = ''
+    analysys_text = re.sub(r"[^A-Z]", "", input_text.upper())
+    total_letter_count = len(analysys_text)
+    freq = letter_frequency(analysys_text, 1, True)
+    for i in range(len(freq)):
+        results[t] = results[t] + freq[i][0] + ': ' + \
+            '{percent:.2%}'.format(
+                percent=freq[i][1]/total_letter_count)
+        if i % 9 == 8:
+            t += 1
+        else:
+            results[t] = results[t] + ', '
+
+    results[16] = ' '
+    results[17] = '-----'
+    results[18] = 'Bigram frequency'
+
+    t = 19
+    results[19] = ''
+    results[20] = ''
+    results[21] = ''
+    analysys_text = re.sub(r"[^A-Z ]", "", input_text.upper())
+    total_bigram_count = len(analysys_text) - 1
+    freq = bigram_frequency(analysys_text)
+
+    for i in range(min(len(freq), 18)):
+        results[t] = results[t] + freq[i][0] + ': ' + \
+            '{percent:.2%}'.format(
+                percent=freq[i][1]/total_bigram_count)
+        if i % 9 == 8:
+            t += 1
+        else:
+            results[t] = results[t] + ', '
+
+    results[22] = ' '
+    results[23] = '-----'
+    results[24] = 'Basic English info.'
+    results[25] = 'Letter frequency'
+    results[26] = 'E: 12.49%, T: 9.28%, A: 8.04%, O: 7.64%, I: 7.57%, N: 7.23%, S: 6.51%, R: 6.28%, H: 5.05%'
+    results[27] = 'L: 4.07%, D: 3.82%, C: 3.34%, U: 2.73%, M: 2.51%, F: 2.40%, P: 2.14%, G: 1.87%, W: 1.68%'
+    results[28] = 'Y: 1.66%, B: 1.48%, V: 1.05%, K: 0.54%, X: 0.23%, J: 0.16%, Q: 0.12%, Z: 0.09%'
+    results[29] = ' '
+    results[30] = 'Bigram frequency'
+    results[31] = 'TH: 3.56%, HE: 3.07%, IN: 2.43%, ER: 2.05%, AN: 1.99%, RE: 1.85%, ON: 1.76%, AT: 1.49%, EN: 1.45%'
+    results[32] = 'ND: 1.35%, TI: 1.34%, ES: 1.34%, OR: 1.28%, TE: 1.20%, OF: 1.17%, ED: 1.17%, IS: 1.13%, IT: 1.12%'
+    results[33] = ' '
+    results[34] = '* This is based on below site\'s great work. '
+    results[35] = 'https://norvig.com/mayzner.html'
 
     return results

@@ -1,0 +1,44 @@
+{% extends "base_apps.html" %}
+{% block title %}subs_handsolve{% endblock %}
+{% block h1 %}subs_handsolve{% endblock %}
+{% block content %}
+        <p>Substitution hand solver (not linked from top)</p>
+        <div id="app">
+            <p>Text</p>
+            <textarea id="TXT" class="input_text_area" v-on:input="subs_handsolve"></textarea>
+            <p>Substitution</p>
+            <textarea id="subs_from" class="input_text_area_key" v-on:input="subs_handsolve"></textarea>
+            <textarea id="subs_to" class="input_text_area_key" v-on:input="subs_handsolve"></textarea>
+            <br>
+            <p class="sec_title">Results</p>
+            
+            <div class='results_area' v-for="row in results">[[row]]</div>
+        </div>
+        
+        <script>
+            var app = new Vue({
+                el: '#app',
+                data: {
+                        results:[]
+                },
+                methods: {
+                    subs_handsolve: function () {
+                        input_text = document.getElementById( "TXT" ).value;
+                        subs_from = document.getElementById( "subs_from" ).value;
+                        subs_to = document.getElementById( "subs_to" ).value;
+                        if (input_text == ""){
+                            this.results = [];
+                        } else {
+                            url = new URL('fn/subs_handsolve', {{BASEURL|tojson}});
+                            axios.post(url, {
+                                input_text: input_text,
+                                subs_from: subs_from,
+                                subs_to:subs_to
+                            }).then(response => this.results = response.data);
+                        }
+                    }
+                },
+                delimiters: ['[[', ']]']
+            })
+        </script>
+{% endblock %}
