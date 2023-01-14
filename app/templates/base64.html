@@ -1,21 +1,18 @@
 {% extends "base_apps.html" %}
-{% block title %}Character Code{% endblock %}
-{% block h1 %}Character Code{% endblock %}
+{% block title %}Base64 etc.{% endblock %}
+{% block h1 %}Base32, Base64, UUencode, ASCII85, Base85{% endblock %}
 {% block content %}
         <div id="app">
-            <p>Text/Code points</p>
-            <textarea id="TXT" class="input_text_area" v-on:input="charcode"></textarea>
+            <p>Input</p>
+            <textarea id="TXT" class="input_text_area" v-on:input="base64"></textarea>
             <div class="cp_ipselect cp_sl01">
-                <select required id="mode" v-on:input="charcode">
+                <select required id="mode" v-on:input="base64">
                     <option value="" hidden>Choose</option>
-                    <option value="Char to Codepoint" selected>Char to Codepoint</option>
-                    <option value="Codepoint to Char">Codepoint to Char</option>
+                    <option value="Decode" selected>Decode</option>
+                    <option value="Encode">Encode</option>
                 </select>
             </div>
 
-            <p>Number base<p>
-            <textarea id="base" cols ="3" style="width:auto;" class="input_text_area_key" inputmode="number" v-on:input="charcode">16</textarea>
-            <br>
             <p class="sec_title">Results</p>
             
             <div class="results_area" v-for="row in results">
@@ -30,15 +27,13 @@
                         results:[]
                 },
                 methods: {
-                    charcode: function () {
+                    base64: function () {
                         input_text = document.getElementById( "TXT" ).value;
                         mode = document.getElementById( "mode" ).value;
-                        base = document.getElementById( "base" ).value;
-                            url = new URL('fn/charcode', {{BASEURL|tojson}});
+                            url = new URL('fn/base64', {{BASEURL|tojson}});
                             axios.post(url, {
                                 input_text: input_text,
                                 mode: mode,
-                                base:base
                             }).then(response => this.results = response.data);
                     }
                 },

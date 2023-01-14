@@ -212,3 +212,82 @@ def fn_charcode():
                             for code_point in code_points])
 
     return results
+
+
+@app.route('/fn/base64', methods=['post'])
+def fn_base64():
+    input_text = request.json['input_text']
+    mode = request.json['mode']
+
+    results = {}
+    if mode == 'Decode':
+        # Base32 block
+        results[0] = '---Base32---'
+        input_text_formatted = input_text.upper()
+        input_text_formatted = input_text_formatted + \
+            "="*(-len(input_text_formatted) % 8)
+        try:
+            results[2] = 'decoded: ' + \
+                str(base64.b32decode(input_text_formatted))[2:-1]
+        except:
+            results[2] = '# input was not interpreted as Base32 encoding.'
+        results[3] = ''
+
+        # Base64 block
+        results[4] = '---Base64---'
+        input_text_formatted = input_text + "="*(-len(input_text) % 4)
+        try:
+            results[6] = 'decoded: ' + \
+                str(base64.b64decode(
+                    input_text_formatted, validate=True))[2:-1]
+        except:
+            results[6] = '# input was not interpreted as Base64 encoding.'
+        results[7] = ''
+
+        # UUencoding block
+        results[8] = '---UUencode---'
+        input_text_formatted = input_text + " "*(-len(input_text) % 4)
+        try:
+            results[10] = 'decoded: ' + \
+                str(uu_decode(input_text_formatted))[2:-1]
+        except:
+            results[10] = '# input was not interpreted as UU encoding.'
+        results[11] = ''
+
+        # ASCII85 block
+        results[12] = '---ASCII85---'
+        input_text_formatted = input_text
+        try:
+            results[14] = 'decoded: ' + \
+                str(base64.a85decode(input_text_formatted))[2:-1]
+        except:
+            results[14] = '# input was not interpreted as ASCII85 encoding.'
+        results[15] = ''
+
+        # Base85 block
+        results[16] = '---Base85---'
+        input_text_formatted = input_text
+        try:
+            results[18] = 'decoded: ' + \
+                str(base64.b85decode(input_text_formatted))[2:-1]
+        except:
+            results[18] = '# input was not interpreted as BASE85 encoding.'
+        results[19] = ''
+
+    elif mode == 'Encode':
+        results[0] = 'Base32:'
+        results[1] = str(base64.b32encode(input_text.encode()))[2:-1]
+        results[2] = ''
+        results[3] = 'Base64:'
+        results[4] = str(base64.b64encode(input_text.encode()))[2:-1]
+        results[5] = ''
+        results[6] = 'UUencode:'
+        results[7] = str(uu_encode(input_text.encode()))[2:-1]
+        results[8] = ''
+        results[9] = 'ASCII85:'
+        results[10] = str(base64.a85encode(input_text.encode()))[2:-1]
+        results[11] = ''
+        results[12] = 'Base85:'
+        results[13] = str(base64.b85encode(input_text.encode()))[2:-1]
+
+    return results
