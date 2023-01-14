@@ -228,7 +228,7 @@ def fn_base64():
             "="*(-len(input_text_formatted) % 8)
         try:
             results[2] = 'decoded: ' + \
-                str(base64.b32decode(input_text_formatted))[2:-1]
+                base64.b32decode(input_text_formatted).decode()
         except:
             results[2] = '# input was not interpreted as Base32 encoding.'
         results[3] = ''
@@ -238,8 +238,8 @@ def fn_base64():
         input_text_formatted = input_text + "="*(-len(input_text) % 4)
         try:
             results[6] = 'decoded: ' + \
-                str(base64.b64decode(
-                    input_text_formatted, validate=True))[2:-1]
+                base64.b64decode(
+                    input_text_formatted, validate=True).decode()
         except:
             results[6] = '# input was not interpreted as Base64 encoding.'
         results[7] = ''
@@ -249,7 +249,7 @@ def fn_base64():
         input_text_formatted = input_text + " "*(-len(input_text) % 4)
         try:
             results[10] = 'decoded: ' + \
-                str(uu_decode(input_text_formatted))[2:-1]
+                uu_decode(input_text_formatted).decode()
         except:
             results[10] = '# input was not interpreted as UU encoding.'
         results[11] = ''
@@ -259,7 +259,7 @@ def fn_base64():
         input_text_formatted = input_text
         try:
             results[14] = 'decoded: ' + \
-                str(base64.a85decode(input_text_formatted))[2:-1]
+                base64.a85decode(input_text_formatted).decode()
         except:
             results[14] = '# input was not interpreted as ASCII85 encoding.'
         results[15] = ''
@@ -269,7 +269,7 @@ def fn_base64():
         input_text_formatted = input_text
         try:
             results[18] = 'decoded: ' + \
-                str(base64.b85decode(input_text_formatted))[2:-1]
+                base64.b85decode(input_text_formatted).decode()
         except:
             results[18] = '# input was not interpreted as BASE85 encoding.'
         results[19] = ''
