@@ -348,3 +348,37 @@ def fn_simplesub():
         t += 1
 
     return results
+
+
+@app.route('/fn/frequency', methods=['post'])
+def fn_frequency():
+    input_text = request.json['input_text']
+
+    results = {}
+
+    total_letter_count = len(input_text)
+    results[0] = 'Text length = ' + str(total_letter_count)
+    results[1] = 'Used characters (unique) = ' + \
+        unique(input_text, sort=True)
+    results[2] = '-----'
+    t = 3
+
+    results[t] = 'Letter frequency(Sorted Alphabetically)'
+    t += 1
+    freq = letter_frequency(input_text, 0, False)
+    for i in freq:
+        results[t] = i[0] + ': ' + str(i[1]) + ' (' '{percent:.2%}'.format(
+            percent=i[1]/total_letter_count) + ')'
+        t += 1
+
+    results[t] = '-----'
+    t += 1
+    results[t] = 'Letter frequency (Sorted by Frequency)'
+    t += 1
+    freq = letter_frequency(input_text, 0, True)
+    for i in freq:
+        results[t] = i[0] + ': ' + str(i[1]) + ' (' '{percent:.2%}'.format(
+            percent=i[1]/total_letter_count) + ')'
+        t += 1
+
+    return results
