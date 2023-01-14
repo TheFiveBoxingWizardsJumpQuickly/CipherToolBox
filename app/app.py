@@ -165,3 +165,50 @@ def fn_pwgen():
     results = {}
     results[0] = password_generate(int(length), table)
     return results
+
+
+@app.route('/fn/charcode', methods=['post'])
+def fn_charcode():
+    input_text = request.json['input_text']
+    base = int(request.json['base'])
+    mode = request.json['mode']
+
+    results = {}
+    if base < 2 or 36 < base:
+        results[0] = 'Number base should be between 2-36.'
+    else:
+        if mode == 'Char to Codepoint':
+            results[0] = 'UTF-8: ' + \
+                ' '.join([char_to_codepoint(char, codec='utf_8', base=base)
+                          for char in input_text])
+            results[1] = 'Shift JIS: ' + \
+                ' '.join([char_to_codepoint(char, codec='shift_jis', base=base)
+                          for char in input_text])
+            results[2] = 'EUC JP: ' +\
+                ' '.join([char_to_codepoint(char, codec='euc_jp', base=base)
+                          for char in input_text])
+            results[3] = 'ISO-2022-JP: ' +\
+                ' '.join([char_to_codepoint(char, codec='iso2022_jp', base=base)
+                          for char in input_text])
+        elif mode == 'Codepoint to Char':
+            valid_chars = set(' ' + valid_chars_for_base_n(base))
+            if not all(c in valid_chars for c in input_text):
+                results[0] = 'Input contains invalid characters for base ' + \
+                    str(base)
+            else:
+                code_points = list(
+                    filter(lambda x: len(x) > 0, input_text.split(' ')))
+                results[0] = 'UTF-8: ' + \
+                    ''.join([codepoint_to_char(code_point, codec='utf_8', base=base)
+                            for code_point in code_points])
+                results[1] = 'Shift JIS: ' + \
+                    ''.join([codepoint_to_char(code_point, codec='shift_jis', base=base)
+                            for code_point in code_points])
+                results[2] = 'EUC JP: ' +\
+                    ''.join([codepoint_to_char(code_point, codec='euc_jp', base=base)
+                            for code_point in code_points])
+                results[3] = 'ISO-2022-JP: ' +\
+                    ''.join([codepoint_to_char(code_point, codec='iso2022_jp', base=base)
+                            for code_point in code_points])
+
+    return results
