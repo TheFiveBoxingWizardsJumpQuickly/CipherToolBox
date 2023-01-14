@@ -318,3 +318,33 @@ def fn_rectangle():
                 t += 1
 
     return results
+
+
+@app.route('/fn/simplesub', methods=['post'])
+def fn_simplesub():
+    input_text = request.json['input_text']
+
+    results = {}
+
+    t = 0
+    menus = [
+        'A-a swap',
+        'Atbash',
+        'Morse .- swap',
+        'Morse reverse',
+        'Morse .- swap and reverse',
+        'US keyboard left shift',
+        'US keyboard right shift',
+        'US keyboard right <-> left',
+        'US keyboard up <-> down',
+        'US keyboard to Dvorak keyboard',
+        'Dvorak keyboard to US keyboard',
+        'US keyboard to MALTRON keyboard',
+        'MALTRON keyboard to US keyboard']
+
+    for menu in menus:
+        results[t] = menu + ': ' + \
+            table_subtitution(input_text, menu)
+        t += 1
+
+    return results

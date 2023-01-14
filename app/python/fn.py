@@ -582,6 +582,9 @@ def table_subtitution(text, method):
     elif method == 'MALTRON keyboard to US keyboard':
         t1 = '1234567890abcdefghijklmnopqrstuvwxyz-=[]\;,./`ABCDEFGHIJKLMNOPQRSTUVWXYZ'
         t2 = "1234567890atrh?gvkdc,puslwq;fjiym/eo>?????????ATRH?GVKDC,PUSLWQ;FJIYM/EO"
+    elif method == 'Atbash':
+        t1 = list_A + list_a
+        t2 = rev(list_A) + rev(list_a)
 
     return replace_all(text, t1, t2)
 

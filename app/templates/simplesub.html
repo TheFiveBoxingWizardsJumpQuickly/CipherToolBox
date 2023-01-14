@@ -1,0 +1,34 @@
+{% extends "base_apps.html" %}
+{% block title %}Simple substitutions{% endblock %}
+{% block h1 %}Simple substitutions{% endblock %}
+{% block content %}
+        <div id="app">
+            <p>Input</p>
+            <textarea id="TXT" class="input_text_area" v-on:input="simplesub"></textarea>
+
+            <p class="sec_title">Results</p>
+            
+            <div class="results_area" v-for="row in results">
+                [[row]]
+            </div>
+        </div>
+        
+        <script>
+            var app = new Vue({
+                el: '#app',
+                data: {
+                        results:[]
+                },
+                methods: {
+                    simplesub: function () {
+                        input_text = document.getElementById( "TXT" ).value;
+                            url = new URL('fn/simplesub', {{BASEURL|tojson}});
+                            axios.post(url, {
+                                input_text: input_text,
+                            }).then(response => this.results = response.data);
+                    }
+                },
+                delimiters: ['[[', ']]']
+            })
+        </script>
+{% endblock %}
