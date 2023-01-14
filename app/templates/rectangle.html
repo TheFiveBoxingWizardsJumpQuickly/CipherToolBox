@@ -1,0 +1,43 @@
+{% extends "base_apps.html" %}
+{% block title %}Rectangle{% endblock %}
+{% block h1 %}Rectangle{% endblock %}
+{% block content %}
+        <div id="app">
+            <p>Input</p>
+            <textarea id="TXT" class="input_text_area" v-on:input="rectangle"></textarea>
+            <div class="cp_ipselect cp_sl01">
+                <select required id="mode" v-on:input="rectangle">
+                    <option value="" hidden>Choose</option>
+                    <option value="Divisor column" selected>Divisor column</option>
+                    <option value="All pattern">All pattern</option>
+                </select>
+            </div>
+
+            <p class="sec_title">Results</p>
+            
+            <div class="results_area" v-for="row in results">
+                [[row]]
+            </div>
+        </div>
+        
+        <script>
+            var app = new Vue({
+                el: '#app',
+                data: {
+                        results:[]
+                },
+                methods: {
+                    rectangle: function () {
+                        input_text = document.getElementById( "TXT" ).value;
+                        mode = document.getElementById( "mode" ).value;
+                            url = new URL('fn/rectangle', {{BASEURL|tojson}});
+                            axios.post(url, {
+                                input_text: input_text,
+                                mode: mode,
+                            }).then(response => this.results = response.data);
+                    }
+                },
+                delimiters: ['[[', ']]']
+            })
+        </script>
+{% endblock %}

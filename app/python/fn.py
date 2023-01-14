@@ -1,12 +1,13 @@
 import base64
 import binascii
 import hashlib
+import math
 
 from .transposition import *
 from .common import *
 from .code_tables import *
 from .base_conversion import *
-from .math import *
+from .math_functions import *
 from .enigma import enigma, plugboard_gen
 from .purple import purple_decode, purple_encode
 from .misc import *

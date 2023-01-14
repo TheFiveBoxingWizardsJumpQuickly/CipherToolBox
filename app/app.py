@@ -291,3 +291,30 @@ def fn_base64():
         results[13] = str(base64.b85encode(input_text.encode()))[2:-1]
 
     return results
+
+
+@app.route('/fn/rectangle', methods=['post'])
+def fn_rectangle():
+    input_text = request.json['input_text']
+    mode = request.json['mode']
+
+    results = {}
+
+    t = 0
+
+    results[t] = 'Text length = ' + str(len(input_text))
+    t += 1
+    for i in range(2, math.ceil(len(input_text)/2)+1):
+        if len(input_text) % i == 0 or mode == 'All pattern':
+            rectangle_i = rect(input_text, i)
+
+            results[t] = '-----'
+            t += 1
+
+            results[t] = 'Column count = ' + str(i)
+            t += 1
+            for r in range(len(rectangle_i)):
+                results[t] = rectangle_i[r]
+                t += 1
+
+    return results
