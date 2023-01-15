@@ -1,30 +1,18 @@
-{% extends "base_apps.html" %}
+{% extends "base_apps.html.jinja" %}
 {% block title %}Base64 etc.{% endblock %}
 {% block h1 %}Base32, Base64, UUencode, ASCII85, Base85{% endblock %}
-{% block content %}
-        <div id="app">
-            <p>Input</p>
-            <textarea id="TXT" class="input_text_area" v-on:input="update"></textarea>
-            <div class="cp_ipselect cp_sl01">
-                <select required id="mode" v-on:input="update">
-                    <option value="" hidden>Choose</option>
-                    <option value="Decode" selected>Decode</option>
-                    <option value="Encode">Encode</option>
-                </select>
-            </div>
-
-            <p class="sec_title">Results</p>
-            
-            <div class="results_area" v-for="row in results">[[row]]</div>
+{% block input_area %}
+        <p>Input</p>
+        <textarea id="TXT" class="input_text_area" v-on:input="update"></textarea>
+        <div class="cp_ipselect cp_sl01">
+            <select required id="mode" v-on:input="update">
+                <option value="" hidden>Choose</option>
+                <option value="Decode" selected>Decode</option>
+                <option value="Encode">Encode</option>
+            </select>
         </div>
-        
-        <script>
-            var app = new Vue({
-                el: '#app',
-                data: {
-                        results:[]
-                },
-                methods: {
+{% endblock %}
+{% block vue_app_methods %}
                     update: function () {
                         input_text = document.getElementById( "TXT" ).value;
                         mode = document.getElementById( "mode" ).value;
@@ -34,8 +22,4 @@
                                 mode: mode,
                             }).then(response => this.results = response.data);
                     }
-                },
-                delimiters: ['[[', ']]']
-            })
-        </script>
 {% endblock %}

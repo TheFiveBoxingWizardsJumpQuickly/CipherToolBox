@@ -1,10 +1,8 @@
-{% extends "base_apps.html" %}
+{% extends "base_apps.html.jinja" %}
 {% block title %}Enigma{% endblock %}
 {% block h1 %}Enigma{% endblock %}
-{% block content %}
-        <div id="app">
+{% block input_area %}
             <textarea id="TXT" class="input_text_area" v-on:input="update"></textarea>
-
             <p class="sec_title" style="margin-bottom:0px;">Rotors</p>
             <ul style="display:flex; list-style:none; margin-top:0px;" >
                 <li style="text-align: left;">
@@ -84,20 +82,8 @@
 
                 </li>
             </ul>
-
-            <br>
-            <p class="sec_title">Results</p>
-            
-            <div class="results_area" v-for="row in results">[[row]]</div>
-        </div>
-        
-        <script>
-            var app = new Vue({
-                el: '#app',
-                data: {
-                        results:[]
-                },
-                methods: {
+{% endblock %}
+{% block vue_app_methods %}
                     update: function () {
                         input_text = document.getElementById( "TXT" ).value;
                         left_rotor = document.getElementById( "left_rotor" ).value;
@@ -124,8 +110,4 @@
                             }).then(response => this.results = response.data);
                         }
                     }
-                },
-                delimiters: ['[[', ']]']
-            })
-        </script>
 {% endblock %}

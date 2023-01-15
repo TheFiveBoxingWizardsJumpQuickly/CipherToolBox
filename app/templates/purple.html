@@ -1,9 +1,8 @@
-{% extends "base_apps.html" %}
+{% extends "base_apps.html.jinja" %}
 {% block title %}PURPLE{% endblock %}
 {% block h1 %}PURPLE{% endblock %}
-{% block content %}
-        <p>Also known as パープル暗号, 九七式欧文印字機, 暗号機B型, 97-shiki-obun In-ji-ki, Angooki Taipu B</p>
-        <div id="app">
+{% block lead %}Also known as パープル暗号, 九七式欧文印字機, 暗号機B型, 97-shiki-obun In-ji-ki, Angooki Taipu B{% endblock %}
+{% block input_area %}
             <textarea id="TXT" class="input_text_area" v-on:input="update"></textarea>
             
             <p class="sec_title" style="margin-bottom:0px;">Initial position</p>
@@ -69,22 +68,12 @@
                 </li>
             </ul>
 
-            <br>
-            <p class="sec_title">Results</p>
-            
-            <div class="results_area" v-for="row in results">[[row]]</div>
-
-        </div>
-        
-        <script>
-            var app = new Vue({
-                el: '#app',
-                data: {
+{% endblock %}
+{% block vue_app_data %}
                         selected:1,
                         switch_list:[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25],
-                        results:[]
-                },
-                methods: {
+{% endblock %}
+{% block vue_app_methods %}
                     update: function () {
                         input_text = document.getElementById( "TXT" ).value;
                         sixes_switch_position = document.getElementById( "sixes_initial_position" ).value;
@@ -108,8 +97,4 @@
                             }).then(response => this.results = response.data);
                         }
                     }
-                },
-                delimiters: ['[[', ']]']
-            })
-        </script>
 {% endblock %}

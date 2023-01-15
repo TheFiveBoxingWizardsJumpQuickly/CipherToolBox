@@ -1,26 +1,13 @@
-{% extends "base_apps.html" %}
+{% extends "base_apps.html.jinja" %}
 {% block title %}Vigenere{% endblock %}
-{% block h1 %}Vigenere{% endblock %}
-{% block content %}
-        <p>Vigenere, Beaufort, Auto key Vigenere</p>
-        <div id="app">
+{% block h1 %}Vigenere, Beaufort, Auto key Vigenere{% endblock %}
+{% block input_area %}
             <p>Text</p>
             <textarea id="TXT" class="input_text_area" v-on:input="update"></textarea>
             <p>Key</p>
             <textarea id="KEY" class="input_text_area_key" v-on:input="update"></textarea>
-            <br>
-            <p class="sec_title">Results</p>
-            
-            <div class="results_area" v-for="row in results">[[row]]</div>
-        </div>
-        
-        <script>
-            var app = new Vue({
-                el: '#app',
-                data: {
-                        results:[]
-                },
-                methods: {
+{% endblock %}
+{% block vue_app_methods %}
                     update: function () {
                         input_text = document.getElementById( "TXT" ).value;
                         key = document.getElementById( "KEY" ).value;
@@ -34,8 +21,4 @@
                             }).then(response => this.results = response.data);
                         }
                     }
-                },
-                delimiters: ['[[', ']]']
-            })
-        </script>
 {% endblock %}

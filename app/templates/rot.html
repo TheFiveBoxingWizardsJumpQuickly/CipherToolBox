@@ -1,34 +1,19 @@
-{% extends "base_apps.html" %}
+{% extends "base_apps.html.jinja" %}
 {% block title %}ROT{% endblock %}
 {% block h1 %}ROT{% endblock %}
-{% block content %}
-<div id="app">
-    <textarea id="TXT" class="input_text_area" v-on:input="update"></textarea>
-    <br>
-    <p class="sec_title">Results</p>
-    <div class="results_area" v-for="row in results">[[row]]</div>
-</div>
-
-<script>
-    var app = new Vue({
-        el: '#app',
-        data: {
-                results:[]
-        },
-        methods: {
-            update: function () {
-                input_text = document.getElementById( "TXT" ).value;
-                if (input_text == ""){
-                    this.results = [];
-                } else {
-                    url = new URL('gear/rot_gen', {{BASEURL|tojson}});
-                    axios.post(url, {
-                        input_text: input_text
-                    }).then(response => this.results = response.data);
-                }
-            }
-        },
-        delimiters: ['[[', ']]']
-    })
-</script>
+{% block input_area %}
+        <textarea id="TXT" class="input_text_area" v-on:input="update"></textarea>
+{% endblock %}
+{% block vue_app_methods %}
+                    update: function () {
+                        input_text = document.getElementById( "TXT" ).value;
+                        if (input_text == ""){
+                            this.results = [];
+                        } else {
+                            url = new URL('gear/rot_gen', {{BASEURL|tojson}});
+                            axios.post(url, {
+                                input_text: input_text
+                            }).then(response => this.results = response.data);
+                        }
+                    }
 {% endblock %}

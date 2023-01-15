@@ -1,8 +1,7 @@
-{% extends "base_apps.html" %}
+{% extends "base_apps.html.jinja" %}
 {% block title %}Password Generator{% endblock %}
 {% block h1 %}Password Generator{% endblock %}
-{% block content %}
-        <div id="app">
+{% block input_area %}
             <div class="cp_ipselect cp_sl01">
                 <select required id="char_type" v-on:input="update">
                     <option value="" hidden>Choose</option>
@@ -19,19 +18,8 @@
             </div>
 
             <p>Length<p><textarea id="length" class="input_text_area_key" inputmode="numeric" v-on:input="update"></textarea>
-            <br>
-            <p class="sec_title">Results</p>
-            
-            <div class="results_area" v-for="row in results">[[row]]</div>
-        </div>
-        
-        <script>
-            var app = new Vue({
-                el: '#app',
-                data: {
-                        results:[]
-                },
-                methods: {
+{% endblock %}
+{% block vue_app_methods %}
                     update: function () {
                         char_type = document.getElementById( "char_type" ).value;
                         length = document.getElementById( "length" ).value;
@@ -45,8 +33,4 @@
                             }).then(response => this.results = response.data);
                         }
                     }
-                },
-                delimiters: ['[[', ']]']
-            })
-        </script>
 {% endblock %}

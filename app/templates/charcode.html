@@ -1,8 +1,7 @@
-{% extends "base_apps.html" %}
+{% extends "base_apps.html.jinja" %}
 {% block title %}Character Code{% endblock %}
 {% block h1 %}Character Code{% endblock %}
-{% block content %}
-        <div id="app">
+{% block input_area %}
             <p>Text/Code points</p>
             <textarea id="TXT" class="input_text_area" v-on:input="update"></textarea>
             <div class="cp_ipselect cp_sl01">
@@ -15,19 +14,8 @@
 
             <p>Number base<p>
             <textarea id="base" cols ="3" style="width:auto;" class="input_text_area_key" inputmode="number" v-on:input="update">16</textarea>
-            <br>
-            <p class="sec_title">Results</p>
-            
-            <div class="results_area" v-for="row in results">[[row]]</div>
-        </div>
-        
-        <script>
-            var app = new Vue({
-                el: '#app',
-                data: {
-                        results:[]
-                },
-                methods: {
+{% endblock %}
+{% block vue_app_methods %}
                     update: function () {
                         input_text = document.getElementById( "TXT" ).value;
                         mode = document.getElementById( "mode" ).value;
@@ -39,8 +27,4 @@
                                 base:base
                             }).then(response => this.results = response.data);
                     }
-                },
-                delimiters: ['[[', ']]']
-            })
-        </script>
 {% endblock %}

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width" >
+        <link rel="stylesheet" href="/static/css/style.css">
+        <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
+        <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+        <title>{% block title %}{% endblock %}</title>
+    </head>
+    <body>
+        <h1>{% block h1 %}{% endblock %}</h1>
+        <p>{% block lead %}{% endblock %}</p>
+        <div id="app">
+            {% block input_area %}
+            {% endblock %}
+        <br>
+        <p class="sec_title">Results</p>
+        <div class="results_area" v-for="row in results">[[row]]</div>
+        </div>
+        
+        <script>
+            var app = new Vue({
+                el: '#app',
+                data: {
+                        {% block vue_app_data %}
+                        {% endblock %}
+                        results:[]
+                },
+                methods: {
+                    {% block vue_app_methods %}
+                    {% endblock %}
+                },
+                delimiters: ['[[', ']]']
+            })
+        </script>
+    </body>
+</html>
