@@ -1,0 +1,19 @@
+{% extends "base_apps.html.jinja" %}
+{% block title %}Reverse{% endblock %}
+{% block h1 %}Reverse{% endblock %}
+{% block input_area %}
+        <textarea id="TXT" class="input_text_area" v-on:input="update"></textarea>
+{% endblock %}
+{% block vue_app_methods %}
+                    update: function () {
+                        input_text = document.getElementById( "TXT" ).value;
+                        if (input_text == ""){
+                            this.results = [];
+                        } else {
+                            url = new URL('gear/reverse_gen', {{BASEURL|tojson}});
+                            axios.post(url, {
+                                input_text: input_text
+                            }).then(response => this.results = response.data);
+                        }
+                    }
+{% endblock %}

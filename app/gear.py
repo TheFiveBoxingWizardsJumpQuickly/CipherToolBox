@@ -531,3 +531,11 @@ def charreplace_gen(request):
         replace_all(input_text, replace_from, replace_to)
 
     return results
+
+
+def reverse_gen(request):
+    input_text = request.json['input_text']
+
+    results = {}
+    results[0] = rev(input_text)
+    return results
