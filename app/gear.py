@@ -169,16 +169,19 @@ def charcode_gen(request):
         results[0] = 'Number base should be between 2-36.'
     else:
         if mode == 'Char to Codepoint':
-            results[0] = 'UTF-8: ' + \
+            results[0] = 'Unicode code point: ' + \
+                ' '.join([base_a_to_base_b_onenumber(ord(char), 10, base)
+                          for char in input_text])
+            results[1] = 'UTF-8: ' + \
                 ' '.join([char_to_codepoint(char, codec='utf_8', base=base)
                           for char in input_text])
-            results[1] = 'Shift JIS: ' + \
+            results[2] = 'Shift JIS: ' + \
                 ' '.join([char_to_codepoint(char, codec='shift_jis', base=base)
                           for char in input_text])
-            results[2] = 'EUC JP: ' +\
+            results[3] = 'EUC JP: ' +\
                 ' '.join([char_to_codepoint(char, codec='euc_jp', base=base)
                           for char in input_text])
-            results[3] = 'ISO-2022-JP: ' +\
+            results[4] = 'ISO-2022-JP: ' +\
                 ' '.join([char_to_codepoint(char, codec='iso2022_jp', base=base)
                           for char in input_text])
         elif mode == 'Codepoint to Char':
@@ -189,16 +192,19 @@ def charcode_gen(request):
             else:
                 code_points = list(
                     filter(lambda x: len(x) > 0, input_text.split(' ')))
-                results[0] = 'UTF-8: ' + \
+                results[0] = 'Unicode code point: ' + \
+                    ''.join([chr(int(base_a_to_base_b_onenumber(code_point, base, 10)))
+                            for code_point in code_points])
+                results[1] = 'UTF-8: ' + \
                     ''.join([codepoint_to_char(code_point, codec='utf_8', base=base)
                             for code_point in code_points])
-                results[1] = 'Shift JIS: ' + \
+                results[2] = 'Shift JIS: ' + \
                     ''.join([codepoint_to_char(code_point, codec='shift_jis', base=base)
                             for code_point in code_points])
-                results[2] = 'EUC JP: ' +\
+                results[3] = 'EUC JP: ' +\
                     ''.join([codepoint_to_char(code_point, codec='euc_jp', base=base)
                             for code_point in code_points])
-                results[3] = 'ISO-2022-JP: ' +\
+                results[4] = 'ISO-2022-JP: ' +\
                     ''.join([codepoint_to_char(code_point, codec='iso2022_jp', base=base)
                             for code_point in code_points])
 
@@ -471,5 +477,29 @@ def railfence_gen(request):
     for i in range(2, len(input_text)):
         results[0] += str(i).zfill(3) + ': ' +\
             railfence_d(input_text, i, offset) + '\n'
+
+    return results
+
+
+def morse_gen(request):
+    input_text = request.json['input_text']
+    mode = request.json['mode']
+
+    results = {}
+
+    if mode == 'Decode':
+        results[0] =\
+            'Morse Decode:' + '\n' +\
+            morse_d(input_text) + '\n' +\
+            '\n' +\
+            'Wabun Morse Decode:' + '\n' +\
+            morse_wabun_d(input_text) + '\n'
+    elif mode == 'Encode':
+        results[0] =\
+            'Morse Decode:' + '\n' +\
+            morse_e(input_text) + '\n' +\
+            '\n' +\
+            'Wabun Morse Decode:' + '\n' +\
+            morse_wabun_e(input_text) + '\n'
 
     return results

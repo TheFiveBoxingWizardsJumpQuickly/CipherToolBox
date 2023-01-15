@@ -112,7 +112,7 @@ def Base_10_to_b(n, b):
 
 def base_a_to_base_b_onenumber(n, a, b):
     try:
-        return Base_10_to_b(int(n, a), b)
+        return Base_10_to_b(int(str(n), a), b)
     except:
         return "#"
 

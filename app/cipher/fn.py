@@ -42,6 +42,8 @@ def decode_help():
         purple_encode, purple_decode (text, sixes_switch_position, twenties_switch_1_position, twenties_switch_2_position, twenties_switch_3_position, plugboard_full, rotor_motion_key): switch_positionは1-6 or 1-25 int, plugboard_fullは26 文字のプラグボード配列, rotor_motion_keyは231等のキーで指示
         text_split(text, step, sep = ' ')
         table_subtitution(text, method) the method should be the right name. See the code for avaliable names.
+        hiragana_to_katakana(text)
+        split_dakuten(text): ガ to カ゛ 
         '''
     return(txt)
 
@@ -441,7 +443,8 @@ def morse_d(text, bin_code=False, delimiter=" "):
 
 
 def morse_wabun_e(text, bin_code=False, delimiter=" "):
-    text = text.upper()
+    text = hiragana_to_katakana(text)
+    text = split_dakuten(text)
     return code_table_e(text, morse_wabun_code_table, {"-": "0", ".": "1"}, bin_code, delimiter)
 
 
@@ -681,6 +684,23 @@ def uu_decode(text):
     for s in range(0, len(text), 60):
         result += binascii.a2b_uu(text[s:s+60])
     return result
+
+
+def hiragana_to_katakana(text):
+    hiragana = 'ぁあぃいぅうぇえぉおかがきぎくぐけげこごさざしじすずせぜそぞただちぢっつづてでとどなにぬねのはばぱひびぴふぶぷへべぺほぼぽまみむめもゃやゅゆょよらりるれろゎわゐゑをんゔゕゖ'
+    katakana = 'ァアィイゥウェエォオカガキギクグケゲコゴサザシジスズセゼソゾタダチヂッツヅテデトドナニヌネノハバパヒビピフブプヘベペホボポマミムメモャヤュユョヨラリルレロヮワヰヱヲンヴヵヶ'
+    return replace_all(text=text, table_from=hiragana, table_to=katakana)
+
+
+def split_dakuten(text):
+    dict = {
+        'ガ': 'カ゛', 'ギ': 'キ゛', 'グ': 'ク゛', 'ゲ': 'ケ゛', 'ゴ': 'コ゛',
+        'ザ': 'サ゛', 'ジ': 'シ゛', 'ズ': 'ス゛', 'ゼ': 'セ゛', 'ゾ': 'ソ゛',
+        'ダ': 'タ゛', 'ヂ': 'チ゛', 'ヅ': 'ツ゛', 'デ': 'テ゛', 'ド': 'ト゛',
+        'バ': 'ハ゛', 'ビ': 'ヒ゛', 'ブ': 'フ゛', 'ベ': 'ヘ゛', 'ボ': 'ホ゛',
+        'パ': 'ハ゜', 'ピ': 'ヒ゜', 'プ': 'フ゜', 'ペ': 'ヘ゜', 'ポ': 'ホ゜',
+    }
+    return text.translate(str.maketrans(dict))
 
 # SECOM cipher
 # http://users.telenet.be/d.rijmenants/en/secom.htm
