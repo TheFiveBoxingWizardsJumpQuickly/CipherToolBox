@@ -1,5 +1,5 @@
 import re
-from app.python.fn import *
+from app.cipher.fn import *
 
 
 def gear_globals():
