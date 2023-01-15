@@ -63,16 +63,16 @@ ul {
 
 .menu_bar {
     width:100%;
-    background-color: rgba(0, 0, 0);
+    background-color: #2d3037;
     font-family:"Courier New", Consolas, monospace;
     font-size:16px;
-    color: white;
+    color: #cccccc;
 }
 
-.menu_link_text:link { color: white; }
-.menu_link_text:visited { color: white; }
-.menu_link_text:hover { color: white; }
-.menu_link_text:active { color: white; }
+.menu_link_text:link { color: #cccccc; }
+.menu_link_text:visited { color: #cccccc; }
+.menu_link_text:hover { color: #cccccc; }
+.menu_link_text:active { color: #cccccc; }
 
 .myButton {
 	box-shadow:inset 0px 0px 15px 3px #23395e;
