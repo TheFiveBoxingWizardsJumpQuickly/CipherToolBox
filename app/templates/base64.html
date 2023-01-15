@@ -16,10 +16,14 @@
                     update: function () {
                         input_text = document.getElementById( "TXT" ).value;
                         mode = document.getElementById( "mode" ).value;
+                        if (input_text == ""){
+                            this.results = [];
+                        } else {
                             url = new URL('gear/base64_gen', {{BASEURL|tojson}});
                             axios.post(url, {
                                 input_text: input_text,
                                 mode: mode,
                             }).then(response => this.results = response.data);
+                        }
                     }
 {% endblock %}
