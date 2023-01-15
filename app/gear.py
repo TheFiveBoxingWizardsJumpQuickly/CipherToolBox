@@ -503,3 +503,31 @@ def morse_gen(request):
             morse_wabun_e(input_text) + '\n'
 
     return results
+
+
+def charreplace_gen(request):
+    input_text = request.json['input_text']
+    replace_from = request.json['replace_from']
+    replace_to = request.json['replace_to']
+
+    results = {}
+
+    replace_from = unique(replace_from)
+    text_length = min(len(replace_from), len(replace_to))
+    text_del = replace_from[text_length:]
+    replace_from = replace_from[:text_length]
+    replace_to = replace_to[:text_length]
+    map_dict = dict(zip(replace_from, replace_to))
+
+    for i in text_del:
+        input_text = input_text.replace(i, '')
+
+    results[0] = \
+        'Replace characters' + '\n' +\
+        ' del: ' + text_del + '\n' +\
+        'from: ' + replace_from + '\n' +\
+        '  to: ' + replace_to + '\n' +\
+        '\n' +\
+        replace_all(input_text, replace_from, replace_to)
+
+    return results

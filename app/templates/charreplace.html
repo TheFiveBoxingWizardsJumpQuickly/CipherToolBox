@@ -1,0 +1,28 @@
+{% extends "base_apps.html.jinja" %}
+{% block title %}Character replace{% endblock %}
+{% block h1 %}Character replace{% endblock %}
+{% block input_area %}
+            <p>Text</p>
+            <textarea id="TXT" class="input_text_area" v-on:input="update"></textarea>
+            <p>Replace from</p>
+            <textarea id="replace_from" class="input_text_area_key" v-on:input="update"></textarea>
+            <p>Replace to</p>
+            <textarea id="replace_to" class="input_text_area_key" v-on:input="update"></textarea>
+{% endblock %}
+{% block vue_app_methods %}
+                    update: function () {
+                        input_text = document.getElementById( "TXT" ).value;
+                        replace_from = document.getElementById( "replace_from" ).value;
+                        replace_to = document.getElementById( "replace_to" ).value;
+                        if (input_text == ""){
+                            this.results = [];
+                        } else {
+                            url = new URL('gear/charreplace_gen', {{BASEURL|tojson}});
+                            axios.post(url, {
+                                input_text: input_text,
+                                replace_from: replace_from,
+                                replace_to: replace_to
+                            }).then(response => this.results = response.data);
+                        }
+                    }
+{% endblock %}
