@@ -4,7 +4,7 @@
 {% block content %}
         <div id="app">
             <div class="cp_ipselect cp_sl01">
-                <select required id="char_type" v-on:input="pwgen">
+                <select required id="char_type" v-on:input="update">
                     <option value="" hidden>Choose</option>
                     <option value="0" selected>A-Z, a-z, 0-9</option>
                     <option value="1">A-Z, a-z, 0-9, !@#$%^&</option>
@@ -18,7 +18,7 @@
                 </select>
             </div>
 
-            <p>Length<p><textarea id="length" class="input_text_area_key" inputmode="numeric" v-on:input="pwgen"></textarea>
+            <p>Length<p><textarea id="length" class="input_text_area_key" inputmode="numeric" v-on:input="update"></textarea>
             <br>
             <p class="sec_title">Results</p>
             
@@ -32,13 +32,13 @@
                         results:[]
                 },
                 methods: {
-                    pwgen: function () {
+                    update: function () {
                         char_type = document.getElementById( "char_type" ).value;
                         length = document.getElementById( "length" ).value;
                         if (length == ""){
                             this.results = [];
                         } else {
-                            url = new URL('fn/pwgen', {{BASEURL|tojson}});
+                            url = new URL('gear/pwgen_gen', {{BASEURL|tojson}});
                             axios.post(url, {
                                 char_type: char_type,
                                 length:length

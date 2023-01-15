@@ -1,6 +1,6 @@
 {% extends "base_apps.html" %}
-{% block title %}ROT{% endblock %}
-{% block h1 %}ROT{% endblock %}
+{% block title %}Play Ground{% endblock %}
+{% block h1 %}Play Ground{% endblock %}
 {% block content %}
 <div id="app">
     <textarea id="TXT" class="input_text_area" v-on:input="update"></textarea>
@@ -21,7 +21,7 @@
                 if (input_text == ""){
                     this.results = [];
                 } else {
-                    url = new URL('gear/rot_gen', {{BASEURL|tojson}});
+                    url = new URL('gear/play_ground', {{BASEURL|tojson}});
                     axios.post(url, {
                         input_text: input_text
                     }).then(response => this.results = response.data);

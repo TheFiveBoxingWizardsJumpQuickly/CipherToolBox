@@ -4,14 +4,14 @@
 {% block content %}
         <p>Also known as パープル暗号, 九七式欧文印字機, 暗号機B型, 97-shiki-obun In-ji-ki, Angooki Taipu B</p>
         <div id="app">
-            <textarea id="TXT" class="input_text_area" v-on:input="purple"></textarea>
+            <textarea id="TXT" class="input_text_area" v-on:input="update"></textarea>
             
             <p class="sec_title" style="margin-bottom:0px;">Initial position</p>
             <ul style="display:flex; list-style:none; margin-top:0px;" >
                 <li style="text-align: left;">
                     <p>SIXes</p>
                     <div class="cp_ipselect cp_sl01 small"> 
-                        <select required id="sixes_initial_position" >
+                        <select required id="sixes_initial_position" v-on:input="update">
                             <option v-for="n in switch_list" :key="n" :value="n">[[n]]</option>
                         </select>
                     </div>
@@ -19,7 +19,7 @@
                 <li style="margin-left:20px; text-align: left;">
                     <p>TWENTIes-1</p>
                     <div class="cp_ipselect cp_sl01 small"> 
-                        <select required id="twenties_1_initial_position" v-on:input="purple">
+                        <select required id="twenties_1_initial_position" v-on:input="update">
                             <option v-for="n in switch_list" :key="n" :value="n">[[n]]</option>
                         </select>
                     </div>
@@ -27,7 +27,7 @@
                 <li style="margin-left:20px; text-align: left;">
                     <p>TWENTIes-2</p>
                     <div class="cp_ipselect cp_sl01 small"> 
-                        <select required id="twenties_2_initial_position" v-on:input="purple">
+                        <select required id="twenties_2_initial_position" v-on:input="update">
                             <option v-for="n in switch_list" :key="n" :value="n">[[n]]</option>
                         </select>
                     </div>
@@ -35,7 +35,7 @@
                 <li style="margin-left:20px; text-align: left;">
                     <p>TWENTIes-3</p>
                     <div class="cp_ipselect cp_sl01 small"> 
-                        <select required id="twenties_3_initial_position" v-on:input="purple">
+                        <select required id="twenties_3_initial_position" v-on:input="update">
                             <option v-for="n in switch_list" :key="n" :value="n">[[n]]</option>
                         </select>
                     </div>
@@ -46,7 +46,7 @@
                 <li>
                     <p class="sec_title">Motion</p>
                     <div class="cp_ipselect cp_sl01"> 
-                        <select required id="rotor_motion_key" v-on:input="purple">
+                        <select required id="rotor_motion_key" v-on:input="update">
                             <option value="" hidden>Choose</option>
                             <option value="123" selected>123: fast, middle, slow</option>
                             <option value="132">132: fast, slow, middle</option>
@@ -64,7 +64,7 @@
                 <li>
                     <p class="sec_title">Plugboard</p>
                     <div class="input_text_area_key"> 
-                        <input size ="26" maxlength="26" id="plugboard" value="AEIOUYBCDFGHJKLMNPQRSTVWXZ" v-on:input="purple">
+                        <input size ="26" maxlength="26" id="plugboard" value="AEIOUYBCDFGHJKLMNPQRSTVWXZ" v-on:input="update">
                     </div>
                 </li>
             </ul>
@@ -85,7 +85,7 @@
                         results:[]
                 },
                 methods: {
-                    purple: function () {
+                    update: function () {
                         input_text = document.getElementById( "TXT" ).value;
                         sixes_switch_position = document.getElementById( "sixes_initial_position" ).value;
                         twenties_switch_1_position = document.getElementById( "twenties_1_initial_position" ).value;
@@ -96,7 +96,7 @@
                         if (input_text == "" ){
                             this.results = [];
                         } else {
-                            url = new URL('fn/purple', {{BASEURL|tojson}});
+                            url = new URL('gear/purple_gen', {{BASEURL|tojson}});
                             axios.post(url, {
                                 input_text: input_text,
                                 sixes_switch_position: sixes_switch_position,

@@ -4,9 +4,9 @@
 {% block content %}
         <div id="app">
             <p>Text/Code points</p>
-            <textarea id="TXT" class="input_text_area" v-on:input="charcode"></textarea>
+            <textarea id="TXT" class="input_text_area" v-on:input="update"></textarea>
             <div class="cp_ipselect cp_sl01">
-                <select required id="mode" v-on:input="charcode">
+                <select required id="mode" v-on:input="update">
                     <option value="" hidden>Choose</option>
                     <option value="Char to Codepoint" selected>Char to Codepoint</option>
                     <option value="Codepoint to Char">Codepoint to Char</option>
@@ -14,7 +14,7 @@
             </div>
 
             <p>Number base<p>
-            <textarea id="base" cols ="3" style="width:auto;" class="input_text_area_key" inputmode="number" v-on:input="charcode">16</textarea>
+            <textarea id="base" cols ="3" style="width:auto;" class="input_text_area_key" inputmode="number" v-on:input="update">16</textarea>
             <br>
             <p class="sec_title">Results</p>
             
@@ -28,11 +28,11 @@
                         results:[]
                 },
                 methods: {
-                    charcode: function () {
+                    update: function () {
                         input_text = document.getElementById( "TXT" ).value;
                         mode = document.getElementById( "mode" ).value;
                         base = document.getElementById( "base" ).value;
-                            url = new URL('fn/charcode', {{BASEURL|tojson}});
+                            url = new URL('gear/charcode_gen', {{BASEURL|tojson}});
                             axios.post(url, {
                                 input_text: input_text,
                                 mode: mode,

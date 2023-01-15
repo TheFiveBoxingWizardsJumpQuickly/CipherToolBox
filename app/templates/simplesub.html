@@ -4,7 +4,7 @@
 {% block content %}
         <div id="app">
             <p>Input</p>
-            <textarea id="TXT" class="input_text_area" v-on:input="simplesub"></textarea>
+            <textarea id="TXT" class="input_text_area" v-on:input="update"></textarea>
 
             <p class="sec_title">Results</p>
             
@@ -18,9 +18,9 @@
                         results:[]
                 },
                 methods: {
-                    simplesub: function () {
+                    update: function () {
                         input_text = document.getElementById( "TXT" ).value;
-                            url = new URL('fn/simplesub', {{BASEURL|tojson}});
+                            url = new URL('gear/simplesub_gen', {{BASEURL|tojson}});
                             axios.post(url, {
                                 input_text: input_text,
                             }).then(response => this.results = response.data);

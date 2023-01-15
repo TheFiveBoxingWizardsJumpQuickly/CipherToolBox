@@ -4,9 +4,9 @@
 {% block content %}
         <div id="app">
             <p>Input</p>
-            <textarea id="TXT" class="input_text_area" v-on:input="rectangle"></textarea>
+            <textarea id="TXT" class="input_text_area" v-on:input="update"></textarea>
             <div class="cp_ipselect cp_sl01">
-                <select required id="mode" v-on:input="rectangle">
+                <select required id="mode" v-on:input="update">
                     <option value="" hidden>Choose</option>
                     <option value="Divisor column" selected>Divisor column</option>
                     <option value="All pattern">All pattern</option>
@@ -25,10 +25,10 @@
                         results:[]
                 },
                 methods: {
-                    rectangle: function () {
+                    update: function () {
                         input_text = document.getElementById( "TXT" ).value;
                         mode = document.getElementById( "mode" ).value;
-                            url = new URL('fn/rectangle', {{BASEURL|tojson}});
+                            url = new URL('gear/rectangle_gen', {{BASEURL|tojson}});
                             axios.post(url, {
                                 input_text: input_text,
                                 mode: mode,

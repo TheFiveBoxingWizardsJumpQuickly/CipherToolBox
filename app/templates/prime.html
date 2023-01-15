@@ -3,7 +3,7 @@
 {% block h1 %}Prime Decomposition (素因数分解){% endblock %}
 {% block content %}
         <div id="app">
-            <textarea id="TXT" class="input_text_area" v-on:input="prime"></textarea>
+            <textarea id="TXT" class="input_text_area" v-on:input="update"></textarea>
             <br>
             <p class="sec_title">Results</p>
             
@@ -17,12 +17,12 @@
                         results:[]
                 },
                 methods: {
-                    prime: function () {
+                    update: function () {
                         input_text = document.getElementById( "TXT" ).value;
                         if (input_text == ""){
                             this.results = [];
                         } else {
-                            url = new URL('fn/prime', {{BASEURL|tojson}});
+                            url = new URL('gear/prime_gen', {{BASEURL|tojson}});
                             axios.post(url, {
                                 input_text: input_text
                             }).then(response => this.results = response.data);

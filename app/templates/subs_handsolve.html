@@ -5,10 +5,10 @@
         <p>Substitution hand solver (not linked from top)</p>
         <div id="app">
             <p>Text</p>
-            <textarea id="TXT" class="input_text_area" v-on:input="subs_handsolve"></textarea>
+            <textarea id="TXT" class="input_text_area" v-on:input="update"></textarea>
             <p>Substitution</p>
-            <textarea id="subs_from" class="input_text_area_key" v-on:input="subs_handsolve"></textarea>
-            <textarea id="subs_to" class="input_text_area_key" v-on:input="subs_handsolve"></textarea>
+            <textarea id="subs_from" class="input_text_area_key" v-on:input="update"></textarea>
+            <textarea id="subs_to" class="input_text_area_key" v-on:input="update"></textarea>
             <br>
             <p class="sec_title">Results</p>
             
@@ -22,14 +22,14 @@
                         results:[]
                 },
                 methods: {
-                    subs_handsolve: function () {
+                    update: function () {
                         input_text = document.getElementById( "TXT" ).value;
                         subs_from = document.getElementById( "subs_from" ).value;
                         subs_to = document.getElementById( "subs_to" ).value;
                         if (input_text == ""){
                             this.results = [];
                         } else {
-                            url = new URL('fn/subs_handsolve', {{BASEURL|tojson}});
+                            url = new URL('gear/subs_handsolve_gen', {{BASEURL|tojson}});
                             axios.post(url, {
                                 input_text: input_text,
                                 subs_from: subs_from,
