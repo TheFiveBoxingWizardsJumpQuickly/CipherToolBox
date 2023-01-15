@@ -452,3 +452,24 @@ def subs_handsolve_gen(request):
         'https://norvig.com/mayzner.html' + '\n'
 
     return results
+
+
+def railfence_gen(request):
+    input_text = request.json['input_text']
+    offset = request.json['offset']
+    if offset == '':
+        offset = 0
+    else:
+        offset = int(offset)
+
+    results = {}
+
+    results[0] =\
+        'Offset = ' + str(offset) + '\n' +\
+        'rails:' + '\n'
+
+    for i in range(2, len(input_text)):
+        results[0] += str(i).zfill(3) + ': ' +\
+            railfence_d(input_text, i, offset) + '\n'
+
+    return results

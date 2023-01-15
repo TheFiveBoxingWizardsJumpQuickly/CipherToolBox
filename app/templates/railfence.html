@@ -1,0 +1,22 @@
+{% extends "base_apps.html.jinja" %}
+{% block title %}Railfence{% endblock %}
+{% block h1 %}Railfence{% endblock %}
+{% block input_area %}
+        <textarea id="TXT" class="input_text_area" v-on:input="update"></textarea>
+        <p>Offset<p><textarea id="offset" class="input_text_area_key" inputmode="numeric" v-on:input="update">0</textarea>
+{% endblock %}
+{% block vue_app_methods %}
+                    update: function () {
+                        input_text = document.getElementById( "TXT" ).value;
+                        offset = document.getElementById( "offset" ).value;
+                        if (input_text == ""){
+                            this.results = [];
+                        } else {
+                            url = new URL('gear/railfence_gen', {{BASEURL|tojson}});
+                            axios.post(url, {
+                                input_text: input_text,
+                                offset:offset
+                            }).then(response => this.results = response.data);
+                        }
+                    }
+{% endblock %}
