@@ -75,16 +75,15 @@ def unit_rotor_conversion(level, rotor_wiring, rotor_position, ring_position, di
     If the rotor position is 0, level=t indicates the rotor's t-th letter.
     If the rotor position is n, level=t indicates the rotor's (t+n)-th letter.
 
-    The ring position shift the rotor output.
-    If the rotor output (before ring) is F (5) and the ring position is B (1), the final output if F-B -> E (4)
+    The ring position shift the rotor input/output.
 
+    (forward)
     level = input
-    rotor input = level + rotor position
+    rotor input = level - ring position + rotor position
     rotor output = wire's rotor input position
-    ring input = rotor output
-    ring output = ring input - ring position
+    ring output = rotor output + ring position - rotor position
 
-    Both the input and output is integer between 0-25. (Not the letter)
+    Both the input and output are integers between 0-25. (Not the letter)
     """
     if direction == 'forward':
         rotor_input = (level - ring_position + rotor_position) % 26

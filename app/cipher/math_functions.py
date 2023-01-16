@@ -1,5 +1,5 @@
 # Prime factorization
-from .prime_number import primes
+from .prime_number import prime_numbers
 
 
 def make_primenumber():
@@ -26,6 +26,7 @@ def make_primenumber():
 def calc(n):
     f = ''
     factor_exp_list = []
+    primes = prime_numbers()
     p_max = primes[len(primes)-1]
 
     if n < 0:

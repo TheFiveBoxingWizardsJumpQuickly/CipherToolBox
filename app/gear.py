@@ -169,7 +169,7 @@ def charcode_gen(request):
         results[0] = 'Number base should be between 2-36.'
     else:
         if mode == 'Char to Codepoint':
-            results[0] = 'Unicode code point: ' + \
+            results[0] = 'Unicode: ' + \
                 ' '.join([base_a_to_base_b_onenumber(ord(char), 10, base)
                           for char in input_text])
             results[1] = 'UTF-8: ' + \
@@ -192,7 +192,7 @@ def charcode_gen(request):
             else:
                 code_points = list(
                     filter(lambda x: len(x) > 0, input_text.split(' ')))
-                results[0] = 'Unicode code point: ' + \
+                results[0] = 'Unicode: ' + \
                     ''.join([chr(int(base_a_to_base_b_onenumber(code_point, base, 10)))
                             for code_point in code_points])
                 results[1] = 'UTF-8: ' + \
