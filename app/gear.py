@@ -539,3 +539,18 @@ def reverse_gen(request):
     results = {}
     results[0] = rev(input_text)
     return results
+
+
+def columnar_gen(request):
+    input_text = request.json['input_text']
+    key = request.json['key']
+
+    results = {}
+    results[0] =\
+        'Columnar decode with key: ' + key + '\n' +\
+        ''.join(columnar_d(input_text, assign_digits(key)))+'\n' +\
+        '\n' +\
+        'Columnar encode with key: ' + key+'\n' +\
+        ''.join(columnar_e(input_text, assign_digits(key)))
+
+    return results
