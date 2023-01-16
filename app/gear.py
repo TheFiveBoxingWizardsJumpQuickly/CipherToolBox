@@ -554,3 +554,28 @@ def columnar_gen(request):
         ''.join(columnar_e(input_text, assign_digits(key)))
 
     return results
+
+
+def hash_gen(request):
+    input_text = request.json['input_text']
+
+    results = {}
+    results[0] = \
+        'MD5    : ' + \
+        hashlib.md5(input_text.encode()).hexdigest()+'\n' +\
+        'SHA1   : ' + \
+        hashlib.sha1(input_text.encode()).hexdigest()+'\n' +\
+        'SHA224 : ' + \
+        hashlib.sha224(input_text.encode()).hexdigest() + '\n' +\
+        'SHA256 : ' + \
+        hashlib.sha256(input_text.encode()).hexdigest() + '\n' +\
+        'SHA384 : ' + \
+        hashlib.sha384(input_text.encode()).hexdigest() + '\n' +\
+        'SHA512 : ' + \
+        hashlib.sha512(input_text.encode()).hexdigest() + '\n' +\
+        'BLAKE2b: ' + \
+        hashlib.blake2b(input_text.encode()).hexdigest() + '\n' +\
+        'BLAKE2s: ' + \
+        hashlib.blake2s(input_text.encode()).hexdigest()
+
+    return results
