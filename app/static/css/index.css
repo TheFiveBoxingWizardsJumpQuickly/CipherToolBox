@@ -1,6 +1,6 @@
 body {
 	font-family: Arial, sans-serif;
-	background-color: #ffffff;
+	background-color: #eeeeee;
 }
 
 h1 {
@@ -9,6 +9,9 @@ h1 {
 	margin: 20px 0;
 }
 
+h3 {
+	margin: 3px 0;
+}
 nav {
 	display: flex;
 	justify-content: space-between;
@@ -28,7 +31,7 @@ nav ul {
 }
 
 nav li {
-	flex-basis: 33.33%;
+	flex-basis: 25%;
 	text-align:center;
 }
 
@@ -38,6 +41,18 @@ nav li {
 	background-color: #579bb1;
 }
 
+.space-bar {
+	flex-basis: 100%;
+	background-color: #eeeeee;
+}
+
+.icon {
+	display: block;
+	margin: 0 auto;
+	max-width: 5vw;
+	width: auto;
+	height: auto;
+}
 
 nav a {
 	display: block;
@@ -73,5 +88,13 @@ img {
 		text-decoration: none;
 		color: #fff;
 		font-size: 22px;
+	}
+
+	.icon {
+		display: block;
+		margin: 0 auto;
+		max-width: 10vw;
+		width: auto;
+		height: auto;
 	}
 }
