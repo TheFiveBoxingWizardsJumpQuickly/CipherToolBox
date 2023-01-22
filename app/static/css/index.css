@@ -31,7 +31,7 @@ nav ul {
 }
 
 nav li {
-	flex-basis: 25%;
+	flex-basis: 20%;
 	text-align:center;
 }
 
@@ -77,9 +77,9 @@ img {
 @media screen and (max-width: 480px)
 { 
 	nav li {
-		flex-basis: 50%;
+		flex-basis: 25%;
 		text-align:center;
-		font-size: 22px;
+		font-size: 18px;
 	}
 
 	nav a {
@@ -87,7 +87,7 @@ img {
 		padding: 15px;
 		text-decoration: none;
 		color: #fff;
-		font-size: 22px;
+		font-size: 18px;
 	}
 
 	.icon {

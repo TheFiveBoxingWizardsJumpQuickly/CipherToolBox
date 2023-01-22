@@ -12,16 +12,16 @@
         
         <div id="app">
             <form>
-                <input type="file" v-on:change="onFileChange" style="color: white"><br>
+                <input type="file" v-on:change="onFileChange" class="b1" style="color: #cccccc"><br>
                 <ul style="display:flex; list-style:none;" >
                     <li style="text-align: left;">
-                        <p>Width</p>
+                        <p>Width (px)</p>
                         <div class="input_text_area_key">
                             <input size ="4" maxlength="4" id="img_width" v-on:change="onParamChange" value="1080">
                         </div>
                     </li>  
                     <li style="margin-left:20px; text-align: left;">
-                        <p>Height</p>
+                        <p>Height (px)</p>
                         <div class="input_text_area_key">
                             <input size ="4" maxlength="4" id="img_height" v-on:change="onParamChange"  value="2400">
                         </div>
@@ -35,7 +35,7 @@
                         </div>
                     </li>          
                 </ul>
-                <input type="submit" v-on:click.prevent="onSubmit" value="Upload and generate wallpaper" />
+                <input type="submit" v-on:click.prevent="onSubmit" class="b1" style="width:auto" value="Upload and make a wallpaper" />
             </form>
             <br>
                 
@@ -71,7 +71,7 @@
                         formData.append('img_height', this.img_height);
                         formData.append('output_name', this.output_name);
 
-                        axios.post("/upload/",formData).then(response => 
+                        axios.post("/g/wallpaper/",formData).then(response => 
                             {this.imageUrl = response.data.image_url,
                             this.status_message = "completed!"});
                     }

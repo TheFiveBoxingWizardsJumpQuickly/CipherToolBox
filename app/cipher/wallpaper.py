@@ -6,10 +6,8 @@ from PIL import Image, ImageDraw
 from operator import itemgetter
 
 
-SATURATION = 0.4  # 0.4
-BRIGHTNESS = 0.3  # 0.3
-
-#  Functions
+SATURATION = 0.4
+BRIGHTNESS = 0.3
 
 
 def setBGColor(input_file_path):
@@ -23,7 +21,7 @@ def setBGColor(input_file_path):
     )
     usedColors = sorted(img.getcolors(
         img.size[0] * img.size[1]), key=itemgetter(0), reverse=True)
-    # print(usedColors[1])
+
     frequent_color = usedColors[1][1]
     frequent_color_hsv = colorsys.rgb_to_hsv(
         frequent_color[0]/255, frequent_color[1]/255, frequent_color[2]/255)
@@ -50,9 +48,10 @@ def setImages(canvas, input_file_path, canvas_size):
 
 def make_wallpaper(input_dir, output_dir, filename, canvas_w, canvas_h, output_name):
     if output_name == '':
-        output_name = ('abcde'+filename)[:5]
+        output_name = os.path.splitext(
+            filename)[0]
     final_output_name = os.path.splitext(
-        output_name)[0] + str(random.randint(100000, 999999)) + '.png'
+        output_name)[0] + '_' + str(random.randint(100000, 999999)) + '.png'
 
     canvas_w = int(canvas_w)
     canvas_h = int(canvas_h)
