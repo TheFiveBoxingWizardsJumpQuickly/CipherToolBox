@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" >
+        <link rel="stylesheet" href="/static/css/index.css">
+        <title>Wallpaper</title>
+        <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
+        <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    </head>
+    <body>
+        <h1>Wallpaper</h1>
+        
+        <div id="app">
+            <form>
+                <input type="file" name="image" @change="handleFileUpload">
+            </form>
+            <img v-if="imageUrl" :src="imageUrl">
+        </div>
+        <script>
+            var app = new Vue({
+                el: '#app',
+                data: {
+                    imageUrl: null
+                },
+                methods: {
+                    handleFileUpload:function (event) {
+                        var file = event.target.files[0];
+                        var formData = new FormData();
+                        formData.append('file', file);
+
+                        axios.post("/upload/",formData).then(response => 
+                            {this.imageUrl = response.data.image_url});
+                    }
+                },
+                delimiters: ['[[', ']]']
+            })
+        </script>
+    </body>
+
+</html>
+
