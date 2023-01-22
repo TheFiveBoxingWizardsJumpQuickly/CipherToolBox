@@ -32,12 +32,19 @@ def cipher_gear(function):
 
 @app.route('/upload/', methods=['POST'])
 def upload():
-    image = request.files['file']
+    image = request.files['image']
+    img_width = request.form['img_width']
+    img_height = request.form['img_height']
+    output_name = request.form['output_name']
 
     image.save(os.path.join(app.config['UPLOAD_FOLDER'], image.filename))
-    gear.make_wallpaper(app.config['UPLOAD_FOLDER'],
-                        app.config['MODIFIED_IMAGE_FOLDER'], image.filename)
-    image_url = url_for('show_modified_image', filename=image.filename)
+    final_output_name = gear.make_wallpaper(input_dir=app.config['UPLOAD_FOLDER'],
+                                            output_dir=app.config['MODIFIED_IMAGE_FOLDER'],
+                                            filename=image.filename,
+                                            canvas_w=img_width,
+                                            canvas_h=img_height,
+                                            output_name=output_name)
+    image_url = url_for('show_modified_image', filename=final_output_name)
     return jsonify({'image_url': image_url})
 
 

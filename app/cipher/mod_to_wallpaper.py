@@ -1,6 +1,7 @@
 import os
 import colorsys
 import urllib.request
+import random
 from PIL import Image, ImageDraw
 from operator import itemgetter
 
@@ -47,15 +48,21 @@ def setImages(canvas, input_file_path, canvas_size):
     )
 
 
-def make_wallpaper(input_dir, output_dir, filename):
-    canvas_w = 1080
-    canvas_h = 2400
+def make_wallpaper(input_dir, output_dir, filename, canvas_w, canvas_h, output_name):
+    if output_name == '':
+        output_name = ('abcde'+filename)[:5]
+    final_output_name = os.path.splitext(
+        output_name)[0] + str(random.randint(100000, 999999)) + '.png'
+
+    canvas_w = int(canvas_w)
+    canvas_h = int(canvas_h)
 
     canvas_size = [canvas_w, canvas_h]
     input_file_path = os.path.join(input_dir, filename)
-    output_file_path = os.path.join(output_dir, filename)
+    output_file_path = os.path.join(output_dir, final_output_name)
     bg_color = setBGColor(input_file_path)
     canvas = Image.new('RGBA', canvas_size, bg_color)
 
     setImages(canvas, input_file_path, canvas_size)
     canvas.save(output_file_path)
+    return final_output_name
