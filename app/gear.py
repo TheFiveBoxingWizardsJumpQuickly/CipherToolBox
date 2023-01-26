@@ -1,6 +1,6 @@
 import re
 from app.cipher.fn import *
-from app.cipher.wallpaper import make_wallpaper
+from app.cipher.resize import resize_image
 
 
 def gear_globals():

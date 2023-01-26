@@ -35,6 +35,14 @@ p {
     font-family:"Courier New", Consolas, monospace;
     font-size: 16px;
     width:100%;    
+	white-space: break-spaces;
+}
+
+label{
+	color: #cccccc;
+    font-family:"Courier New", Consolas, monospace;
+    font-size: 16px;
+    width:100%;    
 }
 
 .sec_title {
@@ -148,6 +156,7 @@ ul {
 	padding: 8px 38px 8px 8px;
 	color: #666666;
 	background-color: #eeeeee;
+	width: auto;
 }
 .cp_ipselect.cp_sl01.small {
 	width: 80px;
