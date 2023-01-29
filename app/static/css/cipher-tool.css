@@ -164,3 +164,32 @@ ul {
 	margin-bottom: 1em;
 	background-color: #eeeeee;
 }
+
+.selector_type1 {
+	overflow: hidden;
+	width: fit-content;
+    margin: 2em;
+    margin-left: 0em;
+	position: relative;
+	border: 1px solid #bbbbbb;
+	border-radius: 2px;
+	background: #ffffff;
+}
+
+.selector_type1 select {
+	width: auto;
+	padding-right: 1em;
+	cursor: pointer;
+	text-indent: 0.01px;
+	text-overflow: ellipsis;
+	border: none;
+	outline: none;
+	background: transparent;
+	background-image: none;
+	box-shadow: none;
+	-webkit-appearance: none;
+	appearance: none;
+	padding: 8px 38px 8px 8px;
+	color: #666666;
+	background-color: #eeeeee;
+}
