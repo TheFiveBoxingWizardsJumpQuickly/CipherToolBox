@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" >
+        <link rel="stylesheet" href="/static/css/cryptobrella.css">
+        <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
+        <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+        <script type='text/javascript' src='/static/js/cb.js'></script>
+        <title>{{title}}</title>
+    </head>
+    <body>
+        <div class="content">
+            <h1><a href="./">Crypto Brella</a></h1>
+            <div class="content-m2">
+                {% autoescape off %}{{puzzle}}{% endautoescape %}
+                <div id="app">
+                    <form name="f" autocomplete="off" style="margin-top:3.0em;">
+                        <input 
+                            v-on:keypress.enter="update"
+                            name="t" 
+                            type="text" 
+                            value="" >
+                        <br />
+                        <input 
+                            v-on:click="update"
+                            type="button" 
+                            value="submit">
+                        <br />
+                    </form>
+                    <div v-if="HintIsVisible"><p>{% autoescape off %}{{hint}}{% endautoescape %}</p></div>
+                </div>
+            </div>
+        </div>
+        
+
+        <script>
+            var app = new Vue({
+                el: '#app',
+                data: {
+                    HintIsVisible:false
+                },
+                methods: {
+                    update: function(e) {
+                        event.preventDefault();
+                        command =document.f.t.value
+                        if (command.toUpperCase() == 'HINT' ){
+                            this.HintIsVisible = true
+                        } else {
+                            verify(command, '{{answer_hash}}')
+                        }
+                    }
+                },
+                delimiters: ['[[', ']]']
+            })
+        </script>
+    </body>
+
+</html>

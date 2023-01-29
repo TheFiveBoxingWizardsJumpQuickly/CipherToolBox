@@ -1,0 +1,156 @@
+body {
+	font-family: Verdana, Geneva, sans-serif;
+	background-color: #2d3037;
+	height: 100%;
+	color: #999;
+	font-size: 14px;
+	line-height: 1.5;
+	width: auto;
+}
+
+div.content {
+	margin-left: 270px;
+}
+
+div.content-l2 {
+	margin-top:58px;
+	margin-left: 100px;
+}
+
+div.content-m2 {
+	margin-top:35px;
+	margin-left: 100px;
+}
+
+h1 {
+	margin: 0.67em 0;
+	margin-top: 24px; 
+	margin-bottom: 0;
+	font-family: Arial, Helvetica, serif;
+	font-size: 36px; 
+	font-weight: normal;
+	line-height: 1.2;
+	color: #8ce1f5;
+	clear: both;
+	white-space: nowrap;
+}
+
+h2 {
+	font-family: Arial, Helvetica, serif;
+	font-size: 28px; 
+	font-weight: normal;
+	color: #eee;
+	clear: both;
+	white-space: nowrap;
+}
+
+h1 a,
+h1 a:visited,
+h1 a:hover,
+h1 a:active,
+h1 a:focus {
+	text-decoration: none;
+	color: #8ce1f5;
+}
+
+strong {
+	font-weight: bold;
+	font-size:1.25em;
+}
+
+ul {
+	list-style: disc;
+	color: #999;
+	margin-bottom: 0;
+}
+
+ul li {
+	padding-left:0;
+	margin-bottom:0;
+}
+
+a,
+ul a,
+ul a:hover,
+ul a:focus,
+ul a:active{
+	text-decoration: none;
+	border-left: 8px solid transparent;
+	border: 0;
+	color: #eee;
+}
+
+hr {
+	background-color: #444;
+	border: 0;
+	height: 1px;
+	margin-bottom: 1.5em;
+}
+
+input,
+textarea {
+	color: inherit;
+	font: inherit;
+	margin: 0;
+}
+
+input[type="text"] {
+	color: #bbb;
+	height: 38px;
+	padding: 6px 10px; /* The 6px vertically centers text on FF, ignored by Webkit */
+	background-color: #333338;
+	border: 1px solid #444449;
+	border-radius: 4px;
+	box-shadow: none;
+	box-sizing: border-box; 
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	appearance: none;
+	border: 1px solid #55555a;
+	outline: 0; 
+}
+
+input[type="button"] {
+	display: inline-block;
+	height: 38px;
+	padding: 0 20px;
+	color: #fff;
+	text-align: center;
+	font-size: 12px;
+	font-weight: 600;
+	line-height: 38px;
+	letter-spacing: 1px;
+	text-transform: uppercase;
+	text-decoration: none;
+	white-space: nowrap;
+	background-color: #444449;
+	border-radius: 5px;
+	border: 1px solid #55555a;
+	cursor: pointer;
+	box-sizing: border-box;
+	-webkit-appearance: button;
+	cursor: pointer;
+}
+
+input[type="button"]:hover,
+input[type="button"]:focus,
+input[type="button"]:active {
+	color: #fff;
+	border-color: #55555a;
+	background-color: #55555a;
+	outline: 0; 
+}
+
+input[type="button"].button-primary {
+	color: #FFF;
+	background-color: #33C3F0;
+	border-color: #33C3F0; 
+}
+
+input[type="button"].button-primary:hover,
+input[type="button"].button-primary:focus,
+input[type="submit"].button-primary:active{
+	color: #FFF;
+	background-color: #1EAEDB;
+	border-color: #1EAEDB; 
+}

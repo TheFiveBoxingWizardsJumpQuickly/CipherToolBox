@@ -1,5 +1,6 @@
 import os
 import app.gear as gear
+import app.secret.cryptobrella as cryptobrella
 
 from flask import Flask, render_template, request, send_from_directory, url_for, jsonify
 
@@ -8,6 +9,8 @@ app.config['IMAGE_UPLOAD_FOLDER'] = os.path.join(
     app.root_path, 'temporary', 'upload')
 app.config['IMAGE_RESULT_FOLDER'] = os.path.join(
     app.root_path, 'temporary', 'result')
+app.config['SECRET_IMAGE_FOLDER'] = os.path.join(
+    app.root_path, 'secret', 'img')
 
 
 @app.route('/')
@@ -24,6 +27,39 @@ def favicon():
 def show_page(file):
     file = file.split('.')[0]
     return render_template(file+'.html', BASEURL=request.base_url)
+
+
+@app.route('/cryptobrella/')
+def cryptobrella_index():
+    return render_template('CryptoBrella/index.html')
+
+
+@app.route('/cryptobrella/<string:pageid>')
+def show_cryptobrella_page(pageid):
+    existing_challenge_page_ids = cryptobrella.cb_challenge_contents(
+        mode='keys', pageid=None)
+    existing_page_ids = cryptobrella.cb_contents(
+        mode='keys', pageid=None)
+    if pageid in existing_challenge_page_ids:
+        content = cryptobrella.cb_challenge_contents(
+            mode='page', pageid=pageid)
+        return render_template('CryptoBrella/challenge.html.jinja',
+                               BASEURL=request.base_url,
+                               title=content['title'],
+                               puzzle=content['puzzle'],
+                               answer_hash=content['answer_hash'],
+                               hint=content['hint'],
+                               )
+    elif pageid in existing_page_ids:
+        content = cryptobrella.cb_contents(
+            mode='page', pageid=pageid)
+        return render_template('CryptoBrella/challenge_no_form.html.jinja',
+                               BASEURL=request.base_url,
+                               title=content['title'],
+                               content=content['content'],
+                               )
+    else:
+        return render_template('CryptoBrella/cb_404.html')
 
 
 @app.route('/gear/<string:function>', methods=['post'])
@@ -61,3 +97,8 @@ def get_image_upload():
 def get_image_result():
     filename = request.args.get('filename')
     return send_from_directory(app.config['IMAGE_RESULT_FOLDER'], filename)
+
+
+@ app.route('/secret/img/<string:filename>')
+def get_secret_image(filename):
+    return send_from_directory(app.config['SECRET_IMAGE_FOLDER'], filename)
