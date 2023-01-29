@@ -154,3 +154,24 @@ input[type="submit"].button-primary:active{
 	background-color: #1EAEDB;
 	border-color: #1EAEDB; 
 }
+
+@media screen and (max-width: 480px)
+{ 
+	h1 {
+		text-align: center;
+	}
+
+	div.content {
+		margin-left: auto;
+	}
+
+	div.content-l2 {
+		margin-top:58px;
+		margin-left: 20px;
+	}
+
+	div.content-m2 {
+		margin-top:35px;
+		margin-left: 20px;
+	}
+}
