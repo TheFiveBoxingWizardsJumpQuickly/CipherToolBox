@@ -11,16 +11,25 @@ SATURATION = 0.4
 BRIGHTNESS = 0.3
 
 
-def setBGColor(input_file_path, bgcolor_prop):
+def setBGColor(img, input_file_path, bgcolor_prop, filler_direction):
     if bgcolor_prop == 'Auto':
-        img = Image.open(input_file_path).convert("RGBA")
-        img_filter = Image.new(
-            'RGBA', (int(img.size[0]), int(img.size[1]*0.8)), '#000000FF')
-        img.paste(
-            im=img_filter,
-            box=(int(img.size[0]), int(img.size[1]*0.1)),
-            mask=img_filter
-        )
+        if filler_direction == 'vertical':
+            img_filter = Image.new(
+                'RGBA', (int(img.size[0]), int(img.size[1]*0.8)), '#000000FF')
+            img.paste(
+                im=img_filter,
+                box=(int(img.size[0]), int(img.size[1]*0.1)),
+                mask=img_filter
+            )
+        elif filler_direction == 'horizontal':
+            img_filter = Image.new(
+                'RGBA', (int(img.size[0]*0.8), int(img.size[1])), '#000000FF')
+            img.paste(
+                im=img_filter,
+                box=(int(img.size[0]*0.1), int(img.size[1])),
+                mask=img_filter
+            )
+
         usedColors = sorted(img.getcolors(
             img.size[0] * img.size[1]), key=itemgetter(0), reverse=True)
 
@@ -40,13 +49,18 @@ def setBGColor(input_file_path, bgcolor_prop):
         return(r, g, b, 255)
 
 
-def setImages(canvas, input_file_path, canvas_size):
-    img = Image.open(input_file_path).convert("RGBA")
+def setImages(img, canvas, input_file_path, canvas_size, filler_direction):
     w, h = img.size
-    multiplier = canvas_size[0] / w
 
-    new_w, new_h = canvas_size[0],  int(h * canvas_size[0] / w)
-    position = (0, int((canvas_size[1] - new_h) / 2))
+    if filler_direction == 'vertical':
+        multiplier = canvas_size[0] / w
+        new_w, new_h = canvas_size[0],  int(h * canvas_size[0] / w)
+        position = (0, int((canvas_size[1] - new_h) / 2))
+    elif filler_direction == 'horizontal':
+        multiplier = canvas_size[1] / h
+        new_w, new_h = int(w * canvas_size[1] / h), canvas_size[1]
+        position = (int((canvas_size[0] - new_w) / 2), 0)
+
     img = img.resize((new_w, new_h), Image.LANCZOS)
     canvas.paste(
         im=img,
@@ -79,10 +93,18 @@ def resize_image(input_dir, output_dir, filename, canvas_w, canvas_h, bgcolor_pr
     canvas_size = [canvas_w, canvas_h]
     input_file_path = os.path.join(input_dir, filename)
     output_file_path = os.path.join(output_dir, final_output_name)
-    bg_color = setBGColor(input_file_path, bgcolor_prop)
+
+    img = Image.open(input_file_path).convert("RGBA")
+    w, h = img.size
+    if canvas_w / w <= canvas_h / h:
+        filler_direction = 'vertical'
+    else:
+        filler_direction = 'horizontal'
+
+    bg_color = setBGColor(img, input_file_path, bgcolor_prop, filler_direction)
     canvas = Image.new('RGBA', canvas_size, bg_color)
 
-    setImages(canvas, input_file_path, canvas_size)
+    setImages(img, canvas, input_file_path, canvas_size, filler_direction)
     canvas.save(output_file_path)
 
     delete_file(input_file_path)
