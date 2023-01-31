@@ -20,6 +20,8 @@ div.content-l2 {
 div.content-m2 {
 	margin-top:35px;
 	margin-left: 100px;
+	margin-right: 200px;
+	overflow-wrap: break-word;
 }
 
 h1 {
@@ -173,5 +175,7 @@ input[type="submit"].button-primary:active{
 	div.content-m2 {
 		margin-top:35px;
 		margin-left: 20px;
+		margin-right: 10px;
+		overflow-wrap: break-word;
 	}
 }
