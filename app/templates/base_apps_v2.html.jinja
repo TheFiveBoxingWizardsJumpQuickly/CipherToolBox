@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+        <link href="https://cdn.jsdelivr.net/npm/beercss@3.0.8/dist/cdn/beer.min.css" rel="stylesheet">
+        <link href="/static/css/style_v2.css" rel="stylesheet">
+        <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
+        <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+        <script type="module" src="https://cdn.jsdelivr.net/npm/beercss@3.0.8/dist/cdn/beer.min.js"></script>
+
+        <title>{% block title %}{% endblock %}</title>
+    </head>
+    <body class="dark">
+        <main class="responsive">
+            <div><a class="underline" href='./'>HOME</a> </div>
+            <h1>{% block h1 %}{% endblock %}</h1>
+            <p>{% block lead %}{% endblock %}</p>
+            <div id="app">
+                {% block input_area %}
+                {% endblock %}
+                <br>
+                <h5>Results</h5>
+                <div class="mono grey-text results_area" v-for="row in results">[[row]]</div>
+            </div>
+        </main>
+        <script>
+            var app = new Vue({
+                el: '#app',
+                data: {
+                        {% block vue_app_data %}
+                        {% endblock %}
+                        results:[]
+                },
+                methods: {
+                    {% block vue_app_methods %}
+                    {% endblock %}
+                },
+                delimiters: ['[[', ']]']
+            })
+        </script>
+    </body>
+</html>

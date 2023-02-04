@@ -1,13 +1,14 @@
-{% extends "base_apps.html.jinja" %}
+{% extends "base_apps_v2.html.jinja" %}
 {% block title %}Enigma{% endblock %}
 {% block h1 %}Enigma{% endblock %}
 {% block input_area %}
-            <textarea id="TXT" class="input_text_area" v-on:input="update"></textarea>
-            <p class="sec_title" style="margin-bottom:0px;">Rotors</p>
-            <ul style="display:flex; list-style:none; margin-top:0px;" >
-                <li style="text-align: left;">
-                    <p>Left</p>
-                    <div class="cp_ipselect cp_sl01 small"> 
+            <div class="field textarea border fill large mono">
+                <textarea class="grey2 black-text" id="TXT" v-on:input="update"></textarea>
+            </div>
+
+            <h5>Rotors and Settings</h5>
+            <div class="grid">
+                <div class="field no-margin label suffix border small fill s3 m2 l1">
                         <select required id="left_rotor" v-on:input="update">
                             <option value="" hidden>Choose</option>
                             <option value="1" selected>I</option>
@@ -16,11 +17,10 @@
                             <option value="4">IV</option>
                             <option value="5">V</option>
                         </select>
-                    </div>
-                </li>
-                <li style="margin-left:20px; text-align: left;">                
-                    <p>Mid</p>
-                    <div class="cp_ipselect cp_sl01 small"> 
+                        <label class="active">Left</label>
+                        <i>arrow_drop_down</i>
+                </div>
+                <div class="field no-margin label suffix border small fill s3 m2 l1">  
                         <select required id="mid_rotor" v-on:input="update">
                             <option value="" hidden>Choose</option>
                             <option value="1">I</option>
@@ -29,11 +29,10 @@
                             <option value="4">IV</option>
                             <option value="5">V</option>
                         </select>
-                    </div>
-                </li>
-                <li style="margin-left:20px; text-align: left;">
-                    <p>Right</p>
-                    <div class="cp_ipselect cp_sl01 small"> 
+                        <label class="active">Mid</label>
+                        <i>arrow_drop_down</i>
+                </div>
+                <div class="field no-margin label suffix border small fill s3 m2 l1">
                         <select required id="right_rotor" v-on:input="update">
                             <option value="" hidden>Choose</option>
                             <option value="1">I</option>
@@ -42,46 +41,35 @@
                             <option value="4">IV</option>
                             <option value="5">V</option>
                         </select>
-                    </div>
-                </li>
-                <li style="margin-left:20px; text-align: left;">
-                    <p>Reflector</p>
-                    <div class="cp_ipselect cp_sl01 small"> 
+                        <label class="active">Right</label>
+                      <i>arrow_drop_down</i>
+                </div>
+                <div class="field no-margin label suffix border small fill s3 m2 l1">
                         <select required id="reflector" v-on:input="update">
                             <option value="" hidden>Choose</option>
                             <option value="A">A</option>
                             <option value="B" selected>B</option>
                             <option value="C">C</option>
                         </select>
-                    </div>
-                </li>
-            </ul>
+                        <label class="active">Reflector</label>
+                      <i>arrow_drop_down</i>
+                </div>
+            </div>
 
-            <ul style="display:flex; list-style:none;" >
-                <li style="text-align: left;">
-                    <p>Rotator Key</p>
-                    <div class="input_text_area_key">
-                        <input size ="3" maxlength="3" id="rotor_key" v-on:input="update">
-                    </div>
-                </li>  
-                <li style="margin-left:20px; text-align: left;">
-                    <p>Ring Setting Key</p>
-                    <div class="input_text_area_key">
-                        <input size ="3" maxlength="3" id="ring_key" v-on:input="update">
-                    </div>
-                </li>            
-            
-            </ul>
-
-            <ul style="display:flex; list-style:none;">
-                <li>
-                    <p>Plug board</p>
-                    <div class="input_text_area_key">
-                        <input size ="45" id="plug_board" v-on:input="update">
-                    </div>
-
-                </li>
-            </ul>
+            <div class="grid">
+                <div class="field no-margin label border fill small s6 m2 l2">
+                    <input type="text" maxlength="3" id="rotor_key" v-on:input="update">
+                    <label>Rotator Key</label>
+                </div>
+                <div class="field no-margin label border fill small s6 m2 l2">
+                    <input maxlength="3" id="ring_key" v-on:input="update">
+                    <label>Ring Setting Key</label>
+                </div>
+                <div class="field no-margin label border fill small s12 m12 l4">
+                    <input id="plug_board" v-on:input="update">
+                    <label>Plug Board</label>
+                </div>
+            </div>
 {% endblock %}
 {% block vue_app_methods %}
                     update: function () {
