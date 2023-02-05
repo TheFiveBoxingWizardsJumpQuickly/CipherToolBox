@@ -1,19 +1,23 @@
-{% extends "base_apps.html.jinja" %}
+{% extends "base_apps_v2.html.jinja" %}
 {% block title %}Character Code{% endblock %}
 {% block h1 %}Character Code{% endblock %}
 {% block input_area %}
             <p>Text/Code points</p>
-            <textarea id="TXT" class="input_text_area" v-on:input="update"></textarea>
-            <div class="selector_type1">
+            <div class="field textarea border fill large mono">
+                <textarea class="grey2 black-text" id="TXT" v-on:input="update"></textarea>
+            </div>
+            <div class="field border small fill small-width">
                 <select required id="mode" v-on:input="update">
                     <option value="" hidden>Choose</option>
                     <option value="Char to Codepoint" selected>Char to Codepoint</option>
                     <option value="Codepoint to Char">Codepoint to Char</option>
                 </select>
+                <i>arrow_drop_down</i>
             </div>
-
-            <p>Number base<p>
-            <textarea id="base" cols ="3" style="width:auto;" class="input_text_area_key" inputmode="number" v-on:input="update">16</textarea>
+            <div class="field border mono small-width">
+                <p>Number base</p>
+                <input type="text" class="grey2 black-text" id="base" inputmode="numeric" v-on:input="update" value="16">
+            </div>
 {% endblock %}
 {% block vue_app_methods %}
                     update: function () {

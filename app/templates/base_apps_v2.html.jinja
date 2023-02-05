@@ -13,14 +13,14 @@
     <body class="dark">
         <main class="responsive">
             <div><a class="underline" href='./'>HOME</a> </div>
-            <h1>{% block h1 %}{% endblock %}</h1>
-            <p>{% block lead %}{% endblock %}</p>
+            <h1 class="small">{% block h1 %}{% endblock %}</h1>
+            <p class="cyan-text bold">{% block lead %}{% endblock %}</p>
             <div id="app">
                 {% block input_area %}
                 {% endblock %}
                 <br>
                 <h5>Results</h5>
-                <div class="mono grey-text results_area" v-for="row in results">[[row]]</div>
+                <div class="mono grey-text results_area large-text" v-for="row in results">[[row]]</div>
             </div>
         </main>
         <script>

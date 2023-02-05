@@ -497,10 +497,10 @@ def morse_gen(request):
             morse_wabun_d(input_text) + '\n'
     elif mode == 'Encode':
         results[0] =\
-            'Morse Decode:' + '\n' +\
+            'Morse Encode:' + '\n' +\
             morse_e(input_text) + '\n' +\
             '\n' +\
-            'Wabun Morse Decode:' + '\n' +\
+            'Wabun Morse Encode:' + '\n' +\
             morse_wabun_e(input_text) + '\n'
 
     return results

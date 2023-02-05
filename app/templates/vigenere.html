@@ -1,11 +1,16 @@
-{% extends "base_apps.html.jinja" %}
+{% extends "base_apps_v2.html.jinja" %}
 {% block title %}Vigenere{% endblock %}
-{% block h1 %}Vigenere, Beaufort, Auto key Vigenere{% endblock %}
+{% block h1 %}Vigenere{% endblock %}
+{% block lead %}Vigenere, Beaufort, Auto key Vigenere, Gronsfeld{% endblock %}
 {% block input_area %}
-            <p>Text</p>
-            <textarea id="TXT" class="input_text_area" v-on:input="update"></textarea>
-            <p>Key</p>
-            <textarea id="KEY" class="input_text_area_key" v-on:input="update"></textarea>
+            <h6 class="small">Text</h6>
+            <div class="field textarea border fill large mono">
+                <textarea class="grey2 black-text" id="TXT" v-on:input="update"></textarea>
+            </div>
+            <h6 class="small">Key</h6>
+            <div class="field border fill mono">
+                <input type="text" class="grey2 black-text" id="KEY" v-on:input="update">
+            </div>
 {% endblock %}
 {% block vue_app_methods %}
                     update: function () {

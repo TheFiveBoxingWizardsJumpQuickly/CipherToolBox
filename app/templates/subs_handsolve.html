@@ -1,13 +1,20 @@
-{% extends "base_apps.html.jinja" %}
+{% extends "base_apps_v2.html.jinja" %}
 {% block title %}subs_handsolve{% endblock %}
 {% block h1 %}subs_handsolve{% endblock %}
 {% block lead %}Substitution hand solver (not linked from top){% endblock %}
 {% block input_area %}
-            <p>Text</p>
-            <textarea id="TXT" class="input_text_area" v-on:input="update"></textarea>
-            <p>Substitution</p>
-            <textarea id="subs_from" class="input_text_area_key" v-on:input="update"></textarea>
-            <textarea id="subs_to" class="input_text_area_key" v-on:input="update"></textarea>
+            <h6 class="small">Text</h6>
+            <div class="field textarea border fill large mono">
+                <textarea class="grey2 black-text" id="TXT" v-on:input="update"></textarea>
+            </div>
+            <h6 class="small">Replace from</h6>
+            <div class="field border fill mono">
+                <input type="text" class="grey2 black-text" id="subs_from" v-on:input="update">
+            </div>
+            <h6 class="small">Replace to</h6>
+            <div class="field border fill mono">
+                <input type="text" class="grey2 black-text" id="subs_to" v-on:input="update">
+            </div>
 {% endblock %}
 {% block vue_app_methods %}
                     update: function () {

@@ -1,8 +1,8 @@
-{% extends "base_apps.html.jinja" %}
+{% extends "base_apps_v2.html.jinja" %}
 {% block title %}Password Generator{% endblock %}
 {% block h1 %}Password Generator{% endblock %}
 {% block input_area %}
-            <div class="selector_type1">
+            <div class="field border small fill medium-width">
                 <select required id="char_type" v-on:input="update">
                     <option value="" hidden>Choose</option>
                     <option value="0" selected>A-Z, a-z, 0-9</option>
@@ -15,9 +15,11 @@
                     <option value="7">A-Z, 0-9</option>
                     <option value="8">a-z, 0-9</option>
                 </select>
+                <i>arrow_drop_down</i>
             </div>
-
-            <p>Length<p><textarea id="length" class="input_text_area_key" inputmode="numeric" v-on:input="update"></textarea>
+            <div class="field border mono small-width">
+                <input type="text" class="grey2 black-text" id="length" inputmode="numeric" v-on:input="update" value="" placeholder="length">
+            </div>
 {% endblock %}
 {% block vue_app_methods %}
                     update: function () {

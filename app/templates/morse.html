@@ -1,14 +1,17 @@
-{% extends "base_apps.html.jinja" %}
+{% extends "base_apps_v2.html.jinja" %}
 {% block title %}Morse{% endblock %}
 {% block h1 %}Morse{% endblock %}
 {% block input_area %}
-        <textarea id="TXT" class="input_text_area" v-on:input="update"></textarea>
-        <div class="selector_type1">
+        <div class="field textarea border fill large mono">
+            <textarea class="grey2 black-text" id="TXT" v-on:input="update"></textarea>
+        </div>
+        <div class="field border small fill small-width">
             <select required id="mode" v-on:input="update">
                 <option value="" hidden>Choose</option>
                 <option value="Decode" selected>Decode</option>
                 <option value="Encode">Encode</option>
             </select>
+            <i>arrow_drop_down</i>
         </div>
 {% endblock %}
 {% block vue_app_methods %}

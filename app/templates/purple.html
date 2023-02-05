@@ -1,50 +1,48 @@
-{% extends "base_apps.html.jinja" %}
+{% extends "base_apps_v2.html.jinja" %}
 {% block title %}PURPLE{% endblock %}
 {% block h1 %}PURPLE{% endblock %}
 {% block lead %}Also known as パープル暗号, 九七式欧文印字機, 暗号機B型, 97-shiki-obun In-ji-ki, Angooki Taipu B{% endblock %}
 {% block input_area %}
-            <textarea id="TXT" class="input_text_area" v-on:input="update"></textarea>
+            <div class="field textarea border fill large mono">
+                <textarea class="grey2 black-text" id="TXT" v-on:input="update"></textarea>
+            </div>
             
-            <p class="sec_title" style="margin-bottom:0px;">Initial position</p>
-            <ul style="display:flex; list-style:none; margin-top:0px;" >
-                <li style="text-align: left;">
-                    <p>SIXes</p>
-                    <div class="cp_ipselect cp_sl01 small"> 
-                        <select required id="sixes_initial_position" v-on:input="update">
-                            <option v-for="n in switch_list" :key="n" :value="n">[[n]]</option>
-                        </select>
-                    </div>
-                </li>
-                <li style="margin-left:20px; text-align: left;">
-                    <p>TWENTIes-1</p>
-                    <div class="cp_ipselect cp_sl01 small"> 
-                        <select required id="twenties_1_initial_position" v-on:input="update">
-                            <option v-for="n in switch_list" :key="n" :value="n">[[n]]</option>
-                        </select>
-                    </div>
-                </li>
-                <li style="margin-left:20px; text-align: left;">
-                    <p>TWENTIes-2</p>
-                    <div class="cp_ipselect cp_sl01 small"> 
-                        <select required id="twenties_2_initial_position" v-on:input="update">
-                            <option v-for="n in switch_list" :key="n" :value="n">[[n]]</option>
-                        </select>
-                    </div>
-                </li>
-                <li style="margin-left:20px; text-align: left;">
-                    <p>TWENTIes-3</p>
-                    <div class="cp_ipselect cp_sl01 small"> 
-                        <select required id="twenties_3_initial_position" v-on:input="update">
-                            <option v-for="n in switch_list" :key="n" :value="n">[[n]]</option>
-                        </select>
-                    </div>
-                </li>
-            </ul>
-        
-            <ul style="display:flex; list-style:none; margin-top:0px;" >
-                <li>
-                    <p class="sec_title">Motion</p>
-                    <div class="cp_ipselect cp_sl01"> 
+            <h5>Initial position</h5>
+            <div class="grid">
+                <div class="field no-margin label border small fill s5 m2 l2">
+                    <select required id="sixes_initial_position" v-on:input="update">
+                        <option v-for="n in switch_list" :key="n" :value="n">[[n]]</option>
+                    </select>
+                    <label class="active">SIXes</label>
+                    <i>arrow_drop_down</i>
+                </div>
+                <div class="field no-margin label border small fill s5 m2 l2">
+                    <select required id="twenties_1_initial_position" v-on:input="update">
+                        <option v-for="n in switch_list" :key="n" :value="n">[[n]]</option>
+                    </select>
+                    <label class="active">TWENTIes-1</label>
+                    <i>arrow_drop_down</i>
+                </div>
+                <div class="field no-margin label border small fill s5 m2 l2">
+                    <select required id="twenties_2_initial_position" v-on:input="update">
+                        <option v-for="n in switch_list" :key="n" :value="n">[[n]]</option>
+                    </select>
+                    <label class="active">TWENTIes-2</label>
+                    <i>arrow_drop_down</i>
+                </div>
+                <div class="field no-margin label border small fill s5 m2 l2">
+                    <select required id="twenties_3_initial_position" v-on:input="update">
+                        <option v-for="n in switch_list" :key="n" :value="n">[[n]]</option>
+                    </select>
+                    <label class="active">TWENTIes-3</label>
+                    <i>arrow_drop_down</i>
+                </div>
+            </div>
+
+            <div class="grid">
+                <div class="s12 m6 l4">
+                    <h5>Motion</h5>
+                    <div class="field border small fill medium-width">
                         <select required id="rotor_motion_key" v-on:input="update">
                             <option value="" hidden>Choose</option>
                             <option value="123" selected>123: fast, middle, slow</option>
@@ -54,19 +52,18 @@
                             <option value="231">231: slow, fast, middle</option>
                             <option value="321">321: slow, middle, fast</option>
                         </select>
+                        <span class="helper">ex. 132 means Switch #1 is fast, Switch #3 is middle, and Switch #2 is slow</span>
+                        <i>arrow_drop_down</i>
                     </div>
-                    <p>ex. 132 means Switch #1 is fast, Switch #3 is middle and Switch #2 is slow</p>
-                </li>
-            </ul>
+                </div>
 
-            <ul style="display:flex; list-style:none; margin-top:0px;" >
-                <li>
-                    <p class="sec_title">Plugboard</p>
-                    <div class="input_text_area_key"> 
-                        <input size ="26" maxlength="26" id="plugboard" value="AEIOUYBCDFGHJKLMNPQRSTVWXZ" v-on:input="update">
+                <div class="s12 m6 l6">
+                    <h5>Plugboard</h5>
+                    <div class="field border fill medium-width">
+                        <input id="plugboard" value="AEIOUYBCDFGHJKLMNPQRSTVWXZ" v-on:input="update">
                     </div>
-                </li>
-            </ul>
+                </div>
+            </div>
 
 {% endblock %}
 {% block vue_app_data %}

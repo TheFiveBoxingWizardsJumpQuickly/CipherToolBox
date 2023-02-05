@@ -1,66 +1,69 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" >
-        <link rel="stylesheet" href="/static/css/cipher-tool.css">
-        <title>Resize image</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+        <link href="https://cdn.jsdelivr.net/npm/beercss@3.0.8/dist/cdn/beer.min.css" rel="stylesheet">
+        <link href="/static/css/style_v2.css" rel="stylesheet">
         <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
         <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-    </head>
-    <body>
-        <div class="menu_bar"><a class="menu_link_text" href='./'>HOME</a> </div>
-        <h1>Resize image</h1>
-        
-        <div id="app">
-            <form>
-                <input type="file" v-on:change="onFileChange" class="b1" style="color: #cccccc"><br>
-                <ul style="display:flex; list-style:none;" >
-                    <li style="text-align: left;">
-                        <p>Width (px)</p>
-                        <div class="input_text_area_key">
-                            <input size ="4" maxlength="4" id="img_width" v-on:change="onParamChange" value="1080" type="number" max="8192">
-                        </div>
-                    </li>  
-                    <li style="margin-left:20px; text-align: left;">
-                        <p>Height (px)</p>
-                        <div class="input_text_area_key">
-                            <input size ="4" maxlength="4" id="img_height" v-on:change="onParamChange"  value="2400" type="number" max="8192">
-                        </div>
-                    </li>            
-                </ul>
-                <ul>
-                    <p>Back ground color</p>
-                    <div>
-                    <input type="radio" id="auto" name="color" value="auto" checked v-on:change="onBGcolorChange">
-                    <label for="auto">Auto</label>
-                    
-                    <input type="radio" id="designated" name="color" value="designated" v-on:change="onBGcolorChange">
-                    <label for="designated">Designated color</label>
-                    
-                    <input type="radio" id="transparent" name="color" value="transparent" v-on:change="onBGcolorChange">
-                    <label for="transparent">Transparent</label>
-                    </div>
 
-                    <div id="designated-color-input" style="display:none;">
-                    <label for="rgb">RGB:</label>
-                    <input type="text" id="rgb" name="rgb" placeholder="e.g. FFFFFF" v-on:change="onBGcolorChange">
+        <title>Resize image</title>
+    </head>
+    <body class="dark">
+        <main class="responsive" id="app">
+            <div><a class="underline" href='./'>HOME</a> </div>
+            <h1 class="small">Resize image</h1>
+        
+            <div class="field label border small-width textOverFlowHidden" v-on:change="onFileChange">
+                <input type="text">
+                <input type="file">
+                <label>[[input_label]]</label>
+            </div>
+
+            <div class="grid">
+                <div class="field no-margin label border fill small s6 m2 l2">
+                    <input type="number" size ="4" maxlength="3" id="img_width" value="1080" v-on:input="onParamChange">
+                    <label class="active">Width (px)</label>
+                </div>
+                <div class="field no-margin label border fill small s6 m2 l2">
+                    <input type="number" size ="4" maxlength="3" id="img_height" value="2400" v-on:input="onParamChange">
+                    <label class="active">Height (px)</label>
+                </div>
+            </div>
+
+            <h6>Back ground color</h6>
+            <div class="field middle-align">
+                <div id="colorRadioButtons">
+                    <label class="radio">
+                        <input type="radio" name="bgcolor_radio" id="auto" value="auto" checked v-on:change="onBGcolorChange">
+                        <span>Auto</span>
+                    </label>
+                    <label class="radio">
+                        <input type="radio" name="bgcolor_radio" id="transparent" value="transparent" v-on:change="onBGcolorChange">
+                        <span>Transparent</span>
+                    </label>
+                    <label class="radio">
+                        <input type="radio" name="bgcolor_radio" id="designated" value="designated" v-on:change="onBGcolorChange">
+                        <span>Designated color</span>
+                    </label>
+                    <div id="designated-color-input" class="field no-margin label border fill small s6 m2 l2" style="display:none;">
+                        <label class="active">RGB</label>
+                        <input type="text" id="rgb" maxlength="6" placeholder="e.g. FFFFFF" v-on:change="onBGcolorChange">
                     </div>
-                </ul>
-                <ul style="display:flex; list-style:none;" >
-                    <li style="text-align: left;">
-                        <p>Output filename</p>
-                        <div class="input_text_area_key">
-                            <input size ="20" id="output_name" v-on:change="onParamChange">
-                        </div>
-                    </li>          
-                </ul>
-                <input type="submit" v-on:click.prevent="onSubmit" class="b1" style="width:auto" value="Upload and resize" />
-            </form>
+                </div>
+            </div>
+            <div id="output_name" class="field label border fill medium-width">
+                <label class="active">Output filename</label>
+                <input type="text" placeholder="If empty, the same name as the input file is used." v-on:change="onParamChange">
+            </div>
+            <button class="round" type="submit" v-on:click.prevent="onSubmit">
+                <span>Upload and resize</span>
+            </button>
             <br>
                 
             <p>[[status_message]]</p>
             <img style="width:80%" v-if="imageUrl" :src="imageUrl">
-        </div>
+        </main>
         <script>
             var app = new Vue({
                 el: '#app',
@@ -71,12 +74,14 @@
                     img_height: "2400",
                     output_name: "",
                     bgcolor: "Auto",
-                    status_message:""
+                    status_message:"",
+                    input_label:"Choose file"
                 },
                 methods: {
                     onFileChange(e){
                         this.image = e.target.files[0];
                         this.status_message = this.image.name;
+                        this.input_label = this.image.name;
                     },
                     onParamChange(e){
                         this.img_width = document.getElementById( "img_width" ).value;
@@ -121,10 +126,11 @@
             })
         </script>
         <script>
+            var colorRadioButtons = document.getElementById("colorRadioButtons");
             var designatedColorInput = document.getElementById("designated-color-input");
             var designatedColorRadio = document.getElementById("designated");
 
-            designatedColorRadio.addEventListener("change", function(){
+            colorRadioButtons.addEventListener("change", function(){
                 if(designatedColorRadio.checked){
                     designatedColorInput.style.display = "block";
                 } else {
