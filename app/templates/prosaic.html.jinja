@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+        <link href="https://cdn.jsdelivr.net/npm/beercss@3.0.8/dist/cdn/beer.min.css" rel="stylesheet">
+        <link href="/static/css/style_v2.css" rel="stylesheet">
+        <script type="module" src="https://cdn.jsdelivr.net/npm/beercss@3.0.8/dist/cdn/beer.min.js"></script>
+
+        <title>{% block title %}{% endblock %}</title>
+    </head>
+    <body class="dark">
+        <main class="responsive">
+            <div><a class="underline" href='./'>HOME</a> </div>
+            <h1 class="small orange-text">{% block h1 %}{% endblock %}</h1>
+                {% block input_area %}
+                {% endblock %}
+        </main>
+    </body>
+</html>

@@ -17,8 +17,9 @@
                 </select>
                 <i>arrow_drop_down</i>
             </div>
-            <div class="field border mono small-width">
+            <div class="field border mono small-width horizontal center-align middle-align">
                 <input type="text" class="grey2 black-text" id="length" inputmode="numeric" v-on:input="update" value="" placeholder="length">
+                <button class="transparent circle" v-on:click="update"><i class="large">Refresh</i></button>
             </div>
 {% endblock %}
 {% block vue_app_methods %}
