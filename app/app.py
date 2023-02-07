@@ -2,6 +2,7 @@ import os
 import app.gear as gear
 import app.secret.cryptobrella as cryptobrella
 
+from app.prosaic import prose
 from flask import Flask, render_template, request, send_from_directory, url_for, jsonify
 
 app = Flask(__name__)
@@ -60,6 +61,25 @@ def show_cryptobrella_page(pageid):
                                )
     else:
         return render_template('CryptoBrella/cb_404.html')
+
+
+@app.route('/prosaic/<string:pageid>')
+def show_prosaic_page(pageid):
+    existing_page_ids = prose(
+        mode='keys', pageid=None)
+    if pageid in existing_page_ids:
+        content = prose(
+            mode='page', pageid=pageid)
+        return render_template('prosaic.html.jinja',
+                               BASEURL=request.base_url,
+                               title=content['title'],
+                               about=content['about'],
+                               how_to_use_tool=content['how_to_use_tool'],
+                               test_cases=content['test_cases'],
+                               challenge=content['challenge'],
+                               )
+    else:
+        return '404'
 
 
 @app.route('/gear/<string:function>', methods=['post'])

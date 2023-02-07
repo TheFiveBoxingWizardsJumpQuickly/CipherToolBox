@@ -6,14 +6,30 @@
         <link href="/static/css/style_v2.css" rel="stylesheet">
         <script type="module" src="https://cdn.jsdelivr.net/npm/beercss@3.0.8/dist/cdn/beer.min.js"></script>
 
-        <title>{% block title %}{% endblock %}</title>
+        <title>{{title}}</title>
     </head>
-    <body class="dark">
+    <body class="dark bg_cryptodark">
         <main class="responsive">
-            <div><a class="underline" href='./'>HOME</a> </div>
-            <h1 class="small orange-text">{% block h1 %}{% endblock %}</h1>
-                {% block input_area %}
-                {% endblock %}
+            <div><a class="underline" href='../'>HOME</a> </div>
+            <h1 class="center-align middle-align bold small">{{title}}</h1>
+                <div class="prosaic large-text">
+                    <article class="gray9 white-text round center large-margin large-padding">
+                        <h3>暗号方式</h3>
+                        {{about}}
+                    </article>
+                    <article class="gray9 white-text round center large-margin large-padding">
+                        <h3>使い方</h3>
+                        {{how_to_use_tool}}
+                    </article>
+                    <article class="gray9 white-text round center large-margin large-padding">
+                        <h3>Test cases</h3>
+                        {{test_cases}}
+                    </article>
+                    <article class="gray9 white-text round center large-margin large-padding">
+                        <h3>Can you decode?</h3>
+                        {{challenge}}
+                    </article>
+                </div>
         </main>
     </body>
 </html>

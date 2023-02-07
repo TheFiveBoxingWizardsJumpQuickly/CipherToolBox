@@ -22,15 +22,20 @@ def code_table_d(text, table_dict, bin_swap_dict, bin_code=False, delimiter=" ")
     else:
         table_dict_inv = dict((j, i) for (i, j) in table_dict.items())
 
-    code_string = text.split(delimiter)
-    converted = ""
-    for s in code_string:
-        if s in table_dict_inv:
-            converted += table_dict_inv[s]
-        elif len(s) > 0:
-            converted += "[" + s + "]"
+    text_rows = text.split('\n')
 
-    return converted
+    decoded_rows =[]
+    for text_row in text_rows:
+        code_string = text_row.split(delimiter)
+        decoded_row = ""
+        for s in code_string:
+            if s in table_dict_inv:
+                decoded_row += table_dict_inv[s]
+            elif len(s) > 0:
+                decoded_row += "[" + s + "]"
+        decoded_rows.append(decoded_row)
+
+    return '\n'.join(decoded_rows)
 
 
 list_A = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"

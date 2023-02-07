@@ -2,6 +2,10 @@ body.dark{
   background: #2d3037;
 }
 
+.bg_cryptodark{
+  background-color: #2d3037;
+}
+
 h1, h2, h3, h4, h5 {
   color: #8ce1f5;
 }
@@ -16,4 +20,8 @@ h1, h2, h3, h4, h5 {
 
 .textOverFlowHidden{
   overflow: hidden;
+}
+
+.prosaic{
+  line-height:1.9;
 }
