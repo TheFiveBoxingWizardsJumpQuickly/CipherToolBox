@@ -73,10 +73,12 @@ def show_prosaic_page(pageid):
         return render_template('prosaic.html.jinja',
                                BASEURL=request.base_url,
                                title=content['title'],
+                               lang=content['lang'],
                                about=content['about'],
                                how_to_use_tool=content['how_to_use_tool'],
                                test_cases=content['test_cases'],
                                challenge=content['challenge'],
+                               link=content['link'],
                                )
     else:
         return '404'

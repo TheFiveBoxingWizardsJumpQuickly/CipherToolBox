@@ -106,11 +106,39 @@ def test_enigma4():
     print('')
 
 
+def test_rot1():
+    from .fn import rot
+    input = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'
+    result = rot(input, 8)
+    expected = 'IJKLMNOPQRSTUVWXYZABCDEFGHijklmnopqrstuvwxyzabcdefgh0123456789'
+
+    print(sys._getframe().f_code.co_name)
+    assert_function(expected, result)
+    print('')
+
+
+def test_rot2():
+    # https://multidec.web-lab.at/mr.php
+    from .fn import rot
+    input = 'The rabbit-hole went straight on like a tunnel for some way, and then dipped suddenly down, so suddenly that Alice had not a moment to think about stopping herself before she found herself falling down a very deep well.'
+
+    result = rot(input, 20)
+    expected = 'Nby luvvcn-bify qyhn mnlucabn ih fcey u nohhyf zil migy qus, uhx nbyh xcjjyx moxxyhfs xiqh, mi moxxyhfs nbun Ufcwy bux hin u gigyhn ni nbche uvion mnijjcha bylmyfz vyzily mby ziohx bylmyfz zuffcha xiqh u pyls xyyj qyff.'
+
+    print(sys._getframe().f_code.co_name)
+    assert_function(expected, result)
+    print('')
+
+
 """
 test_purple1()
 test_purple2()
-"""
+
 test_enigma1()
 test_enigma2()
 test_enigma3()
 test_enigma4()
+"""
+
+test_rot1()
+test_rot2()
