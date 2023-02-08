@@ -1,0 +1,21 @@
+{% extends "base_apps_v2.html.jinja" %}
+{% block title %}Playfair{% endblock %}
+{% block h1 %}Playfair{% endblock %}
+{% block input_area %}
+        <div class="field textarea border fill large mono">
+                <textarea class="grey2 black-text" id="TXT" v-on:input="update"></textarea>
+        </div>
+{% endblock %}
+{% block vue_app_methods %}
+                    update: function () {
+                        input_text = document.getElementById( "TXT" ).value;
+                        if (input_text == ""){
+                            this.results = [];
+                        } else {
+                            url = new URL('gear/playfair_gen', {{BASEURL|tojson}});
+                            axios.post(url, {
+                                input_text: input_text
+                            }).then(response => this.results = response.data);
+                        }
+                    }
+{% endblock %}

@@ -2,6 +2,7 @@ import base64
 import binascii
 import hashlib
 import math
+import what3words
 
 from .transposition import *
 from .common import *
@@ -701,6 +702,14 @@ def split_dakuten(text):
         'パ': 'ハ゜', 'ピ': 'ヒ゜', 'プ': 'フ゜', 'ペ': 'ヘ゜', 'ポ': 'ホ゜',
     }
     return text.translate(str.maketrans(dict))
+
+
+def convert_to_3wa(apikey, latitude, longitude, language):
+    geocoder = what3words.Geocoder(apikey)
+    res = geocoder.convert_to_3wa(what3words.Coordinates(
+        latitude, longitude), language=language)
+    return res
+
 
 # SECOM cipher
 # http://users.telenet.be/d.rijmenants/en/secom.htm

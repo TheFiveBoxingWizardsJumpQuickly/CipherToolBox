@@ -1,0 +1,47 @@
+{% extends "base_apps_v2.html.jinja" %}
+{% block title %}Convert to What3Words{% endblock %}
+{% block h1 %}Convert to What3Words{% endblock %}
+{% block input_area %}
+        <div class="grid margin">
+            <div class="field no-margin label border fill small s6 m2 l2">
+                <input inputmode="numeric" id="latitude">
+                <label>Latitude (緯度)</label>
+            </div>
+            <div class="field no-margin label border fill small s6 m2 l2">
+                <input inputmode="numeric" id="longitude">
+                <label>Longitude (経度)</label>
+            </div>
+        </div>
+        <div class="grid margin">
+            <div class="field no-margin label border small fill s6 m2 l2">
+                <select required id="language">
+                    <option value="" hidden>Choose</option>
+                    <option value="en" selected>en: English</option>
+                    <option value="ja">ja: Japanese</option>
+                    <option value="de">de: German</option>
+                    <option value="hi">hi: Hindi</option>
+                    <option value="zh">zh: Chinese</option>
+                </select>
+                <label class="active">language</label>
+                <i>arrow_drop_down</i>
+            </div>
+        </div>
+         <div class="grid margin">
+            <button class="round s12 m4 l4" type="submit" v-on:click.prevent="onSubmit">
+                <span>get 3 words</span>
+            </button>
+        </div>
+{% endblock %}
+{% block vue_app_methods %}
+                    onSubmit() {
+                        latitude = document.getElementById( "latitude" ).value;
+                        longitude = document.getElementById( "longitude" ).value;
+                        language = document.getElementById( "language" ).value;
+                        url = new URL('gear/to_what3words_gen', {{BASEURL|tojson}});
+                        axios.post(url, {
+                            latitude: latitude,
+                            longitude: longitude,
+                            language: language
+                        }).then(response => this.results = response.data);
+                    }
+{% endblock %}

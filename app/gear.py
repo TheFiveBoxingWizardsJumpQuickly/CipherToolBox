@@ -1,20 +1,11 @@
 import re
 from app.cipher.fn import *
 from app.cipher.resize import resize_image
+from app.secret.apikey import get_w3w_apikey
 
 
 def gear_globals():
     return globals()
-
-
-def play_ground(request):
-    input_text = request.json['input_text']
-
-    results = {}
-    results[0] = \
-        input_text + '\n' +\
-        input_text
-    return results
 
 
 def rot_gen(request):
@@ -23,6 +14,16 @@ def rot_gen(request):
     results = {}
     results[0] = '\n'.join(str(i).zfill(2) + ': ' +
                            rot(input_text, i) for i in range(26))
+    return results
+
+
+def playfair_gen(request):
+    input_text = request.json['input_text']
+
+    results = {}
+    results[0] = \
+        'Decoded: ' + playfair_d(input_text) + '\n' +\
+        'Encoded: ' + playfair_e(input_text)
     return results
 
 
@@ -463,6 +464,7 @@ def subs_handsolve_gen(request):
 
 def railfence_gen(request):
     input_text = request.json['input_text']
+    mode = request.json['mode']
     offset = request.json['offset']
     if offset == '':
         offset = 0
@@ -471,13 +473,22 @@ def railfence_gen(request):
 
     results = {}
 
-    results[0] =\
-        'Offset = ' + str(offset) + '\n' +\
-        'rails:' + '\n'
+    if mode == 'Decode':
+        results[0] =\
+            'Offset = ' + str(offset) + '\n' +\
+            'rails:' + '\n'
 
-    for i in range(2, len(input_text)):
-        results[0] += str(i).zfill(3) + ': ' +\
-            railfence_d(input_text, i, offset) + '\n'
+        for i in range(2, min(len(input_text), 100)):
+            results[0] += str(i).zfill(2) + ': ' +\
+                railfence_d(input_text, i, offset) + '\n'
+    elif mode == 'Encode':
+        results[0] =\
+            'Offset = ' + str(offset) + '\n' +\
+            'rails:' + '\n'
+
+        for i in range(2, min(len(input_text), 100)):
+            results[0] += str(i).zfill(2) + ': ' +\
+                railfence_e(input_text, i, offset) + '\n'
 
     return results
 
@@ -578,5 +589,27 @@ def hash_gen(request):
         hashlib.blake2b(input_text.encode()).hexdigest() + '\n' +\
         'BLAKE2s: ' + \
         hashlib.blake2s(input_text.encode()).hexdigest()
+
+    return results
+
+
+def what3words_gen(request):
+    latitude = request.json['latitude']
+    longitude = request.json['longitude']
+    language =request.json['language']
+    apikey = get_w3w_apikey()
+
+    results = {}
+    wa = convert_to_3wa(apikey, latitude, longitude, language)
+    results[0] = \
+        'Language: ' + wa['language'] + '\n' +\
+        'Words: ' + wa['words'] + '\n' +\
+        'Country: ' + wa['country'] + '\n' +\
+        'Coordinates: Lat= ' + str(wa['coordinates']['lat']) + ', Lng= ' + str(wa['coordinates']['lng']) + '\n' +\
+        'South West: Lat= ' + str(wa['square']['southwest']['lat']) + ', Lng= ' + str(wa['square']['southwest']['lng']) + '\n' +\
+        'North East: Lat= ' + str(wa['square']['northeast']['lat']) + \
+        ', Lng= ' + str(wa['square']['northeast']['lng']) + '\n' +\
+        'Nearest Place: ' + wa['nearestPlace'] + '\n' +\
+        'Map: ' + wa['map']
 
     return results
