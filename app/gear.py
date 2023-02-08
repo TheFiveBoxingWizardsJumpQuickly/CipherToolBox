@@ -593,10 +593,10 @@ def hash_gen(request):
     return results
 
 
-def what3words_gen(request):
+def to_what3words_gen(request):
     latitude = request.json['latitude']
     longitude = request.json['longitude']
-    language =request.json['language']
+    language = request.json['language']
     apikey = get_w3w_apikey()
 
     results = {}
