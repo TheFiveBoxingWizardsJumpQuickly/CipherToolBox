@@ -613,3 +613,29 @@ def to_what3words_gen(request):
         'Map: ' + wa['map']
 
     return results
+
+
+def to_coordinates_gen(request):
+    words = request.json['words']
+    apikey = get_w3w_apikey()
+
+    results = {}
+    wa = convert_to_coordinates(apikey, words)
+    if 'format error' in wa:
+        results[0] = wa['format error']
+    elif 'error' in wa:
+        results[0] = words
+        results[1] = wa['error']
+    else:
+        results[0] = \
+            'Language: ' + wa['language'] + '\n' +\
+            'Words: ' + wa['words'] + '\n' +\
+            'Country: ' + wa['country'] + '\n' +\
+            'Coordinates: Lat= ' + str(wa['coordinates']['lat']) + ', Lng= ' + str(wa['coordinates']['lng']) + '\n' +\
+            'South West: Lat= ' + str(wa['square']['southwest']['lat']) + ', Lng= ' + str(wa['square']['southwest']['lng']) + '\n' +\
+            'North East: Lat= ' + str(wa['square']['northeast']['lat']) + \
+            ', Lng= ' + str(wa['square']['northeast']['lng']) + '\n' +\
+            'Nearest Place: ' + wa['nearestPlace'] + '\n' +\
+            'Map: ' + wa['map']
+
+    return results

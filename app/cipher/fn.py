@@ -711,6 +711,18 @@ def convert_to_3wa(apikey, latitude, longitude, language):
     return res
 
 
+def convert_to_coordinates(apikey, words):
+    words = str(words).strip(' ').replace(' ', '.').replace(
+        ',', '.').replace('・', '.').replace('。', '.').replace('、', '.').replace('　', '.')
+    pattern = re.compile(r'^[^\.]+\.[^\.]+\.[^\.]+$')
+    if pattern.search(words):
+        geocoder = what3words.Geocoder(apikey)
+        res = geocoder.convert_to_coordinates(words)
+        return res
+    else:
+        return {'format error': words + ' is not W3W format.'}
+
+
 # SECOM cipher
 # http://users.telenet.be/d.rijmenants/en/secom.htm
 # http://kryptografie.de/kryptografie/chiffre/secom.htm
