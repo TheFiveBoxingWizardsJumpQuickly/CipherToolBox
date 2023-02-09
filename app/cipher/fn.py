@@ -45,6 +45,8 @@ def decode_help():
         table_subtitution(text, method) the method should be the right name. See the code for avaliable names.
         hiragana_to_katakana(text)
         split_dakuten(text): ガ to カ゛ 
+        convert_to_3wa(apikey, latitude, longitude, language): 
+        convert_to_coordinates(apikey, words):
         '''
     return(txt)
 
@@ -722,6 +724,10 @@ def convert_to_coordinates(apikey, words):
     else:
         return {'format error': words + ' is not W3W format.'}
 
+
+def braille_d(braille_dots):
+    ascii_hex = braille_table[braille_dots]
+    return chr(int(ascii_hex, 16))
 
 # SECOM cipher
 # http://users.telenet.be/d.rijmenants/en/secom.htm

@@ -639,3 +639,14 @@ def to_coordinates_gen(request):
             'Map: ' + wa['map']
 
     return results
+
+
+def braille_gen(request):
+    b1 = '1' if request.json['b1'] else '0'
+    b2 = '1' if request.json['b2'] else '0'
+    b3 = '1' if request.json['b3'] else '0'
+    b4 = '1' if request.json['b4'] else '0'
+    b5 = '1' if request.json['b5'] else '0'
+    b6 = '1' if request.json['b6'] else '0'
+
+    return braille_d(b1+b2+b3+b4+b5+b6)
