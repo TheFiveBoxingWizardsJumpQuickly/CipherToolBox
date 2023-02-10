@@ -15,6 +15,13 @@
             </button>
         </div>
 {% endblock %}
+{% block standard_results_area %}
+{% endblock %}
+{% block spcial_results_area %}
+        <br>
+        <h5>Results</h5>
+        <div class="mono grey-text results_area large-text" v-for="row in results" v-html="row">[[row]]</div>
+{% endblock %}
 {% block vue_app_methods %}
                     onSubmit() {
                         words = document.getElementById( "words" ).value;

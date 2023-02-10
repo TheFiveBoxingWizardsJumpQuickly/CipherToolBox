@@ -1,19 +1,7 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-        <link href="https://cdn.jsdelivr.net/npm/beercss@3.0.8/dist/cdn/beer.min.css" rel="stylesheet">
-        <link href="/static/css/style_v2.css" rel="stylesheet">
-        <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
-        <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-
-        <title>Resize image</title>
-    </head>
-    <body class="dark">
-        <main class="responsive" id="app">
-            <div><a class="underline" href='./'>HOME</a> </div>
-            <h1 class="small">Resize image</h1>
-        
+{% extends "base_apps_v2.html.jinja" %}
+{% block title %}Resize image{% endblock %}
+{% block h1 %}Resize image{% endblock %}
+{% block input_area %}
             <div class="field label border small-width textOverFlowHidden" v-on:change="onFileChange">
                 <input type="text">
                 <input type="file">
@@ -54,20 +42,21 @@
             </div>
             <div id="output_name" class="field label border fill medium-width">
                 <label class="active">Output filename</label>
-                <input type="text" placeholder="If empty, the same name as the input file is used." v-on:change="onParamChange">
+                <input type="text" v-on:change="onParamChange">
+                <span class="helper">If empty, the same name as the input file is used.</span>
             </div>
             <button class="round" type="submit" v-on:click.prevent="onSubmit">
                 <span>Upload and resize</span>
             </button>
-            <br>
-                
+{% endblock %}
+{% block standard_results_area %}
+{% endblock %}
+{% block spcial_results_area %}
+            <br>                
             <p>[[status_message]]</p>
             <img style="width:80%" v-if="imageUrl" :src="imageUrl">
-        </main>
-        <script>
-            var app = new Vue({
-                el: '#app',
-                data: {
+{% endblock %}
+{% block vue_app_data %}
                     image: null,
                     imageUrl: null,
                     img_width: "1080",
@@ -75,9 +64,9 @@
                     output_name: "",
                     bgcolor: "Auto",
                     status_message:"",
-                    input_label:"Choose file"
-                },
-                methods: {
+                    input_label:"Choose file",
+{% endblock %}
+{% block vue_app_methods %}
                     onFileChange(e){
                         this.image = e.target.files[0];
                         this.status_message = this.image.name;
@@ -121,10 +110,8 @@
                                 this.status_message = "completed!"});
                         }
                     }
-                },
-                delimiters: ['[[', ']]']
-            })
-        </script>
+{% endblock %}
+{% block extra_script %}
         <script>
             var colorRadioButtons = document.getElementById("colorRadioButtons");
             var designatedColorInput = document.getElementById("designated-color-input");
@@ -138,7 +125,4 @@
                 }
             });
         </script>
-    </body>
-
-</html>
-
+{% endblock %}

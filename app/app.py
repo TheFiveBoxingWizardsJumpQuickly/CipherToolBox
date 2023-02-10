@@ -27,7 +27,7 @@ def favicon():
 @app.route('/<string:file>')
 def show_page(file):
     file = file.split('.')[0]
-    return render_template(file+'.html', BASEURL=request.base_url)
+    return render_template('Tools/'+file+'.html', BASEURL=request.base_url)
 
 
 @app.route('/cryptobrella/')

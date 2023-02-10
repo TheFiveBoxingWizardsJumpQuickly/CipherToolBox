@@ -1,20 +1,7 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-        <link href="https://cdn.jsdelivr.net/npm/beercss@3.0.8/dist/cdn/beer.min.css" rel="stylesheet">
-        <link href="/static/css/style_v2.css" rel="stylesheet">
-        <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
-        <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-        <script type="module" src="https://cdn.jsdelivr.net/npm/beercss@3.0.8/dist/cdn/beer.min.js"></script>
-
-        <title>Braille</title>
-    </head>
-    <body class="dark">
-        <main class="responsive small-margin">
-            <div><a class="underline" href='./'>HOME</a> </div>
-            <h1 class="small">Braille</h1>
-            <div id="app">
+{% extends "base_apps_v2.html.jinja" %}
+{% block title %}Braille{% endblock %}
+{% block h1 %}Braille{% endblock %}
+{% block input_area %}
                 <div class="grid center" style="width:80%;">
                     <button class="circle center s6 m2 l2 grey" v-if="isOn_1 === false" v-on:click="click_1">
                         <span>1</span>
@@ -63,7 +50,7 @@
                 
                 <div class="grid center" style="width:80%;">
                     <div class="center-align s12 m4 l4">
-                        <h5 class="mono grey-text" style="display:inline;">[[results]]</h5>
+                        <h5 class="mono grey-text" style="display:inline;">[[result_value]]</h5>
                         <button class="circle small" v-on:click="assign">
                         <i>send</i>
                         </button>
@@ -75,12 +62,10 @@
                         <textarea class="grey2 black-text" v-model="output"></textarea>
                     </div>
                 </div>
-            </div>
-        </main>
-        <script>
-            var app = new Vue({
-                el: '#app',
-                data: {
+            {% endblock %}
+            {% block standard_results_area %}
+            {% endblock %}
+            {% block vue_app_data %}
                         isOn_1:false,
                         isOn_2:false,
                         isOn_3:false,
@@ -88,9 +73,9 @@
                         isOn_5:false,
                         isOn_6:false,
                         output:"",
-                        results:"",
-                },
-                methods: {
+                        result_value:"",
+            {% endblock %}
+            {% block vue_app_methods %}
                     update: function () {
                         url = new URL('gear/braille_gen', {{BASEURL|tojson}});
                         axios.post(url, {
@@ -100,7 +85,7 @@
                             b4: this.isOn_4,
                             b5: this.isOn_5,
                             b6: this.isOn_6
-                        }).then(response => this.results = response.data);
+                        }).then(response => this.result_value = response.data);
                     },
                     click_1: function (){
                         this.isOn_1 = !this.isOn_1;
@@ -127,12 +112,6 @@
                         this.update();
                     },
                     assign: function (){
-                        this.output = this.output + this.results;
+                        this.output = this.output + this.result_value;
                     },
-
-                },
-                delimiters: ['[[', ']]']
-            })
-        </script>
-    </body>
-</html>
+                {% endblock %}

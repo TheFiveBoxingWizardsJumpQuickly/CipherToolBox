@@ -714,7 +714,7 @@ def convert_to_3wa(apikey, latitude, longitude, language):
 
 
 def convert_to_coordinates(apikey, words):
-    words = str(words).strip(' ').replace(' ', '.').replace(
+    words = str(words).strip().replace(' ', '.').replace(
         ',', '.').replace('・', '.').replace('。', '.').replace('、', '.').replace('　', '.')
     pattern = re.compile(r'^[^\.]+\.[^\.]+\.[^\.]+$')
     if pattern.search(words):

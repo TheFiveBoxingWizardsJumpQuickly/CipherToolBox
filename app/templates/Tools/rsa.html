@@ -1,0 +1,45 @@
+{% extends "base_apps_v2.html.jinja" %}
+{% block title %}RSA{% endblock %}
+{% block h1 %}RSA{% endblock %}
+{% block lead %}Assuming n = pq, m^e mod n for encode, m^d mod n for decode{% endblock %}
+{% block input_area %}
+                <div class="grid">
+                    <div class="s12 m6 l4">
+                        <div class="grid">
+                            <div class="field no-margin label border fill small s12 m12 l12">
+                                <input type="numeric" id="m" autocomplete="off" v-on:input="update">
+                                <label>m (message)</label>
+                            </div>
+                            <div class="field no-margin label border fill small s12 m12 l12">
+                                <input type="numeric" id="e" autocomplete="off" v-on:input="update">
+                                <label>e (exponential)</label>
+                            </div>
+                            <div class="field no-margin label border fill small s12 m12 l12">
+                                <input type="numeric" id="n" autocomplete="off" v-on:input="update">
+                                <label>n (modular)</label>
+                            </div>
+                            <div class="field no-margin label border fill small s12 m12 l12">
+                                <input type="numeric" id="p" autocomplete="off" v-on:input="update">
+                                <label>p (factor of n) </label>
+                            </div>
+                            <div class="field no-margin label border fill small s12 m12 l12">
+                                <input type="numeric" id="q" autocomplete="off" v-on:input="update">
+                                <label>q (factor of n)</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+{% endblock %}
+{% block vue_app_methods %}
+                    update: function () {
+                            url = new URL('gear/rsa_gen', {{BASEURL|tojson}});
+                            axios.post(url, {
+                                m: document.getElementById( "m" ).value,
+                                e: document.getElementById( "e" ).value,
+                                n: document.getElementById( "n" ).value,
+                                p: document.getElementById( "p" ).value,
+                                q: document.getElementById( "q" ).value
+                            }).then(response => this.results = response.data);
+                    }
+{% endblock %}

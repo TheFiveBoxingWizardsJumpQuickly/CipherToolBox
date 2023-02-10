@@ -1,0 +1,70 @@
+{% extends "base_apps_v2.html.jinja" %}
+{% block title %}Split text{% endblock %}
+{% block h1 %}Split text{% endblock %}
+{% block lead %}Split by certain length{% endblock %}
+{% block input_area %}
+        <div class="field textarea border fill large mono">
+            <textarea class="grey2 black-text" id="TXT" v-on:input="update"></textarea>
+        </div>
+
+        <div class="field no-margin label border fill small small-width">
+            <input type="numeric" id="length" autocomplete="off" v-on:input="update">
+            <label>length</label>
+        </div>
+
+        <h6 class="small">separater</h6>
+        <nav class="no-space">
+            <button v-bind:class=[[btn_toggle_space_class]] v-on:click="click_space">
+                <span>space</span>
+            </button>
+            <button v-bind:class=[[btn_toggle_comma_class]] v-on:click="click_comma">
+                <span>comma</span>
+            </button>
+            <button v-bind:class=[[btn_toggle_newline_class]] v-on:click="click_newline">
+                <span>new line</span>
+            </button>
+        </nav>
+{% endblock %}
+{% block vue_app_data %}
+                        mode:"space",
+                        btn_toggle_space_class:"border left-round cyan8 white-text",
+                        btn_toggle_comma_class:"border no-round grey-text",
+                        btn_toggle_newline_class:"border right-round grey-text",
+{% endblock %}
+{% block vue_app_methods %}
+                    update: function () {
+                        input_text = document.getElementById( "TXT" ).value;
+                        length = document.getElementById( "length" ).value;
+                        if (input_text == ""||length == ""){
+                            this.results = [];
+                        } else {
+                            url = new URL('gear/split_text_gen', {{BASEURL|tojson}});
+                            axios.post(url, {
+                                input_text: input_text,
+                                length: length,
+                                mode: this.mode,
+                            }).then(response => this.results = response.data);
+                        }
+                    },
+                    click_space: function (){
+                        this.btn_toggle_space_class="border left-round cyan8 white-text";
+                        this.btn_toggle_comma_class="border no-round grey-text";
+                        this.btn_toggle_newline_class="border right-round grey-text";
+                        this.mode="space";
+                        this.update();
+                    },
+                    click_comma: function (){
+                        this.btn_toggle_space_class="border left-round grey-text";
+                        this.btn_toggle_comma_class="border no-round cyan8 white-text";
+                        this.btn_toggle_newline_class="border right-round grey-text";
+                        this.mode="comma";
+                        this.update();
+                    },
+                    click_newline: function (){
+                        this.btn_toggle_space_class="border left-round grey-text";
+                        this.btn_toggle_comma_class="border no-round grey-text";
+                        this.btn_toggle_newline_class="border right-round cyan8 white-text";
+                        this.mode="newline";
+                        this.update();
+                    }
+{% endblock %}

@@ -604,13 +604,14 @@ def to_what3words_gen(request):
     results[0] = \
         'Language: ' + wa['language'] + '\n' +\
         'Words: ' + wa['words'] + '\n' +\
-        'Country: ' + wa['country'] + '\n' +\
         'Coordinates: Lat= ' + str(wa['coordinates']['lat']) + ', Lng= ' + str(wa['coordinates']['lng']) + '\n' +\
         'South West: Lat= ' + str(wa['square']['southwest']['lat']) + ', Lng= ' + str(wa['square']['southwest']['lng']) + '\n' +\
         'North East: Lat= ' + str(wa['square']['northeast']['lat']) + \
         ', Lng= ' + str(wa['square']['northeast']['lng']) + '\n' +\
+        'Country: ' + wa['country'] + '\n' +\
         'Nearest Place: ' + wa['nearestPlace'] + '\n' +\
-        'Map: ' + wa['map']
+        'Map: <a href="' + \
+        wa['map'] + '" target="_blank" class="link">' + wa['map'] + '</a>'
 
     return results
 
@@ -630,13 +631,14 @@ def to_coordinates_gen(request):
         results[0] = \
             'Language: ' + wa['language'] + '\n' +\
             'Words: ' + wa['words'] + '\n' +\
-            'Country: ' + wa['country'] + '\n' +\
             'Coordinates: Lat= ' + str(wa['coordinates']['lat']) + ', Lng= ' + str(wa['coordinates']['lng']) + '\n' +\
             'South West: Lat= ' + str(wa['square']['southwest']['lat']) + ', Lng= ' + str(wa['square']['southwest']['lng']) + '\n' +\
             'North East: Lat= ' + str(wa['square']['northeast']['lat']) + \
             ', Lng= ' + str(wa['square']['northeast']['lng']) + '\n' +\
+            'Country: ' + wa['country'] + '\n' +\
             'Nearest Place: ' + wa['nearestPlace'] + '\n' +\
-            'Map: ' + wa['map']
+            'Map: <a href="' + \
+            wa['map'] + '" target="_blank" class="link">' + wa['map'] + '</a>'
 
     return results
 
@@ -650,3 +652,102 @@ def braille_gen(request):
     b6 = '1' if request.json['b6'] else '0'
 
     return braille_d(b1+b2+b3+b4+b5+b6)
+
+
+def rsa_gen(request):
+    def force_int(txt):
+        txt_trunc = re.sub(r"[^0-9]", "", txt)
+
+        if txt_trunc == '':
+            return 0
+        else:
+            return int(txt_trunc)
+
+    m = force_int(request.json['m'])
+    e = force_int(request.json['e'])
+    n = force_int(request.json['n'])
+    p = force_int(request.json['p'])
+    q = force_int(request.json['q'])
+
+    results = {}
+    results[0] = \
+        'm = ' + str(m) + '\n' +\
+        'e = ' + str(e) + '\n' +\
+        'n = ' + str(n) + '\n'
+
+    if m == 0 or e == 0 or n == 0:
+        return results
+
+    results[1] = '\n' + 'RSA Encode: ' + str(rsa_encode(m, e, n))
+    if p == 0 or q == 0:
+        return results
+
+    results[2] = '\n' + \
+        'p = ' + str(p) + '\n' +\
+        'q = ' + str(q) + '\n' +\
+        'check: ' + '\n' +\
+        'p*q = ' + str(p*q)+'\n' +\
+        'n   = ' + str(n)
+
+    [decode, d] = rsa_decode(m, e, n, p, q)
+    if d == 0:
+        results[3] = '\n' + 'Modular inverse does not exist'
+    else:
+        results[3] = '\n' + 'calculated d = ' + \
+            str(rsa_decode(m, e, n, p, q)[1])
+        results[4] = 'RSA Decode: ' + \
+            str(rsa_decode(m, e, n, p, q)[0])
+
+    return results
+
+
+def affine_gen(request):
+    input_text = request.json['input_text']
+    mode = request.json['mode']
+
+    results = {}
+
+    if mode == 'Decode':
+        results[0] = 'Affine Cipher Decode:'
+        t = 0
+        for i in [1, 3, 5, 7, 9, 11, 15, 17, 19, 21, 23, 25]:
+            for j in range(26):
+                t += 1
+                results[t] = 'a=' + str(i).zfill(2) + ', b=' + str(j).zfill(2) + ': ' +\
+                    affine_d(input_text, i, j)
+
+    elif mode == 'Encode':
+        results[0] = 'Affine Cipher Encode:'
+        t = 0
+        for i in [1, 3, 5, 7, 9, 11, 15, 17, 19, 21, 23, 25]:
+            for j in range(26):
+                t += 1
+                results[t] = 'a=' + str(i).zfill(2) + ', b=' + str(j).zfill(2) + ': ' +\
+                    affine_e(input_text, i, j)
+
+    return results
+
+
+def split_text_gen(request):
+    input_text = request.json['input_text']
+    length_text = request.json['length']
+    mode = request.json['mode']
+
+    if length_text == '':
+        length = 0
+    else:
+        length = int(length_text)
+
+    map = {
+        'space': ' ',
+        'comma': ',',
+        'newline': '\n'
+    }
+    separater = map.get(mode)
+
+    results = {}
+
+    results[0] = 'split length: ' + str(length)
+    results[1] = text_split(input_text, length, separater)
+
+    return results
