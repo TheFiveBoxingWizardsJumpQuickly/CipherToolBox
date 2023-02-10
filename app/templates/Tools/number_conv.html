@@ -1,0 +1,28 @@
+{% extends "base_apps_v2.html.jinja" %}
+{% block title %}Number conversion{% endblock %}
+{% block h1 %}Number conversion{% endblock %}
+{% block lead %}Convert number to other bases{% endblock %}
+{% block input_area %}
+        <div class="field textarea border fill large mono">
+            <textarea class="grey2 black-text" id="TXT" v-on:input="update"></textarea>
+        </div>
+        <div class="field border mono small-width">
+            <p>Base of input</p>
+            <input class="grey2 black-text" id="base" inputmode="numeric" v-on:input="update" value="10">
+        </div>
+{% endblock %}
+{% block vue_app_methods %}
+                    update: function () {
+                        input_text = document.getElementById( "TXT" ).value;
+                        base = document.getElementById( "base" ).value;
+                        if (input_text == ""){
+                            this.results = [];
+                        } else {
+                            url = new URL('gear/number_conv_gen', {{BASEURL|tojson}});
+                            axios.post(url, {
+                                input_text: input_text,
+                                base: base
+                            }).then(response => this.results = response.data);
+                        }
+                    }
+{% endblock %}

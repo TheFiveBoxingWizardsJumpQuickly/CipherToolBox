@@ -751,3 +751,75 @@ def split_text_gen(request):
     results[1] = text_split(input_text, length, separater)
 
     return results
+
+
+def number_conv_gen(request):
+    input_text = request.json['input_text']
+    base = request.json['base']
+
+    if base == '':
+        base = 10
+    else:
+        base = int(base)
+
+    input_text = input_text.replace(' ', ',')
+    input_text = re.sub(r"[^a-zA-Z0-9,]", "", input_text).upper()
+    nlist = input_text.split(',')
+    nlist = [a for a in nlist if a != '']
+
+    results = {}
+
+    results[0] = 'Converting ' + ','.join(nlist)
+    results[1] = 'from base: ' + str(base)
+
+    t = 2
+    for i in range(2, 37):
+        results[t] = 'to base ' + str(i).zfill(2) + ': ' +\
+            ','.join(base_a_to_base_b(nlist, base, i))
+        t += 1
+
+    return results
+
+
+def phonetic_gen(request):
+    input_text = request.json['input_text']
+    mode = request.json['mode']
+
+    tables = {
+        '#International Radiotelephony Spelling Alphabet (NATO phonetic alphabet)': spelling_alphabet_icao_2008,
+        '#1951 ICAO code words': spelling_alphabet_icao_1951,
+        '#1949 ICAO code words': spelling_alphabet_icao_1949,
+        '#1947 ICAO Latin America/Caribbean': spelling_alphabet_icao_1947_1,
+        '#1947 ICAO alphabet': spelling_alphabet_icao_1947_2
+    }
+    input_text_lower = input_text.lower()
+
+    results = {}
+
+    if mode == 'Decode':
+        results[0] = 'Phonetic Alphabet Decode:'
+        results[1] = 'Input text = ' + '\n' + input_text_lower
+
+        t = 2
+        for table_description, table in tables.items():
+            results[t] = '\n' + '------'
+            t += 1
+            results[t] = table_description + '\n' +\
+                return_phonetic_alphabet_values(table) + '\n' +\
+                phonetic_alphabet_d(input_text_lower, table)
+            t += 1
+
+    elif mode == 'Encode':
+        results[0] = 'Phonetic Alphabet Encode:'
+        results[1] = 'Input text = ' + '\n' + input_text_lower
+
+        t = 2
+        for table_description, table in tables.items():
+            results[t] = '\n' + '------'
+            t += 1
+            results[t] = table_description + '\n' +\
+                return_phonetic_alphabet_values(table) + '\n' +\
+                phonetic_alphabet_e(input_text_lower, table)
+            t += 1
+
+    return results
