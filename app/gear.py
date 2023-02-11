@@ -992,3 +992,32 @@ def vigenere_ex_gen(request):
         'Auto key Decoded: ' + vig_d_auto(input_text, key, nc=True) + '\n' +\
         'Auto key Encoded: ' + vig_e_auto(input_text, key, nc=True)
     return results
+
+
+def charcode_ex_gen(request):
+    input_text = request.json['input_text']
+    results = {}
+
+    results[0] = 'Attempt to decode by DEC'
+    number_string = auto_split_number_string(input_text, 'DEC')
+    results[1] = 'Extracted numbers: ' + \
+        ' '.join(number_string)
+    results[2] = ''.join(chr(int(i)) for i in number_string)
+    results[3] = '------'
+
+    results[10] = 'Attempt to decode by HEX'
+    number_string = auto_split_number_string(input_text, 'HEX')
+    results[11] = 'Extracted numbers: ' + \
+        ' '.join(number_string)
+    results[12] = ''.join(chr(int(base_a_to_base_b_onenumber(
+        i, 16, 10))) for i in number_string)
+    results[13] = '------'
+
+    results[20] = 'Attempt to decode by OCT'
+    number_string = auto_split_number_string(input_text, 'OCT')
+    results[21] = 'Extracted numbers: ' + \
+        ' '.join(number_string)
+    results[22] = ''.join(chr(int(base_a_to_base_b_onenumber(
+        i, 8, 10))) for i in number_string)
+
+    return results

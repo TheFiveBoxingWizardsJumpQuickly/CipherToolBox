@@ -729,6 +729,24 @@ def braille_d(braille_dots):
     ascii_hex = braille_table[braille_dots]
     return chr(int(ascii_hex, 16))
 
+
+def auto_split_number_string(text, pattern):
+    text = text.upper()
+    if pattern == 'DEC':
+        # 32-122
+        split_numbers = re.findall(
+            r'3[2-9]|[4-9][0-9]|1[0-1][0-9]|12[0-2]', text)
+    elif pattern == 'HEX':
+        # 20-7A
+        split_numbers = re.findall(
+            r'[2-6][0-9A-F]|7[0-9A]', text)
+    elif pattern == 'OCT':
+        # 40-172
+        split_numbers = re.findall(
+            r'[4-7][0-7]|1[0-6][0-7]|17[0-2]', text)
+
+    return [number for number in split_numbers]
+
 # Riddle tables
 
 
