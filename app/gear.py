@@ -823,3 +823,64 @@ def phonetic_gen(request):
             t += 1
 
     return results
+
+
+def polybius_gen(request):
+    input_text = request.json['input_text']
+    mode = request.json['mode']
+
+    results = {}
+
+    if mode == 'Decode':
+        input_text = re.sub(r"[^0-9]", "", input_text).upper()
+        results[0] =\
+            'Input: ' + input_text + '\n' +\
+            'Polybius Cipher Decode:' + polybius_d(input_text)
+    elif mode == 'Encode':
+        input_text = re.sub(r"[^a-zA-Z]", "", input_text).upper()
+        results[0] =\
+            'Input: ' + input_text + '\n' +\
+            'Polybius Cipher Encode:' + polybius_e(input_text)
+
+    return results
+
+
+def riddle_tables_gen(request):
+    mode = request.json['mode']
+
+    results = {}
+
+    if mode == 'jp_trad_month_name':
+        results[0] = 'Japan Traditional Month Name'
+        japan_traditional_month_names_list = return_japan_traditional_month_names_list()
+        t = 1
+        for a in japan_traditional_month_names_list:
+            results[t] = a
+            t += 1
+
+    elif mode == 'zodiac':
+        results[0] = 'Zodiac Name (Latin, Japanese, English, Greek)'
+        zodiac_list = return_zodiac_list()
+        t = 1
+        for a in zodiac_list:
+            results[t] = '<p>'+a+'</p>'
+            t += 1
+
+    elif mode == 'japanese_zodiac':
+        results[0] = '十二支 (Japanese Zodiac)'
+        japanese_zodiac_list = return_japanese_zodiac_list()
+        t = 1
+        for a in japanese_zodiac_list:
+            results[t] = a
+            t += 1
+
+    elif mode == 'keyboard_layout':
+        results[0] = 'US Keyboard Layout'
+        results[1] = '<img class="responsive large-width" src="/static/image/640px-US_ANSI_keyboard_character_layout_JIS_comparison.svg.png">'
+        results[2] = ''
+        results[3] = 'Japanese Keyboard Layout'
+        results[4] = '<img class="responsive large-width" src="/static/image/640px-JIS_keyboard_character_layout_US_ANSI_comparison.svg.png">'
+        results[5] = ''
+        results[6] = 'Images are from https://ja.wikipedia.org/wiki/%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB:US_ANSI_keyboard_character_layout_JIS_comparison.svg and https://ja.wikipedia.org/wiki/%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB:JIS_keyboard_character_layout_US_ANSI_comparison.svg'
+
+    return results

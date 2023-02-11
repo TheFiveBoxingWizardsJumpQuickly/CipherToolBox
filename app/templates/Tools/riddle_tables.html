@@ -1,0 +1,53 @@
+{% extends "base_apps_v2.html.jinja" %}
+{% block title %}Riddle tables{% endblock %}
+{% block h1 %}Riddle tables{% endblock %}
+{% block input_area %}
+        <div class="grid">
+                <button class="border no-round large fill s6 m2 l2" v-on:click="click_jp_trad_month_name">
+                    <span>Japan traditional month name</span>
+                </button>
+                <button class="border no-round large fill s6 m2 l2" v-on:click="click_zodiac">
+                    <span>Zodiac name</span>
+                </button>
+                <button class="border no-round large fill s6 m2 l2" v-on:click="click_japanese_zodiac">
+                    <span>十二支 (Japanese Zodiac)</span>
+                </button>
+                <button class="border no-round large fill s6 m2 l2" v-on:click="click_keyboard_layout">
+                    <span>Keyboard</span>
+                </button>              
+        </div>
+{% endblock %}
+{% block standard_results_area %}
+{% endblock %}
+{% block spcial_results_area %}
+        <br>
+        <h5>Results</h5>
+        <div class="mono grey-text results_area large-text" v-for="row in results" v-html="row">[[row]]</div>
+{% endblock %}
+{% block vue_app_data %}
+                        mode:"",
+{% endblock %}
+{% block vue_app_methods %}
+                    update: function () {
+                        url = new URL('gear/riddle_tables_gen', {{BASEURL|tojson}});
+                        axios.post(url, {
+                            mode: this.mode
+                        }).then(response => this.results = response.data);
+                    },
+                    click_jp_trad_month_name: function (){
+                        this.mode="jp_trad_month_name";
+                        this.update();
+                    },
+                    click_zodiac: function (){
+                        this.mode="zodiac";
+                        this.update();
+                    },
+                    click_japanese_zodiac: function (){
+                        this.mode="japanese_zodiac";
+                        this.update();
+                    },
+                    click_keyboard_layout: function (){
+                        this.mode="keyboard_layout";
+                        this.update();
+                    }
+{% endblock %}
