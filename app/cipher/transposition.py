@@ -157,6 +157,18 @@ def rect(text, col):
     return [text[i:i+col] for i in range(0, len(text), col)]
 
 
+def rect_reverse_even(text, col):
+    fill_count = -len(text) % col
+    text = text + ' ' * fill_count
+
+    direction = 1
+    result = []
+    for i in range(0, len(text), col):
+        result.append(text[i:i+col][::direction])
+        direction *= -1
+    return result
+
+
 def periodic_transposition_e(text, key):
     result = ''
     text_length = len(text)
@@ -215,4 +227,4 @@ def swap_xy_axes(text):
             c += a2[y][x]
         b.append(c)
 
-    return '<BR>'.join(b)
+    return '\n'.join(b)

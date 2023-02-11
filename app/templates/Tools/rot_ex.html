@@ -1,0 +1,56 @@
+{% extends "base_apps_v2.html.jinja" %}
+{% block title %}ROT ex.{% endblock %}
+{% block h1 %}ROT ex.{% endblock %}
+{% block lead %}ROT and atbash affect on numbers{% endblock %}
+{% block input_area %}
+        <div class="field textarea border fill large mono">
+            <textarea class="grey2 black-text" id="TXT" v-on:input="update"></textarea>
+        </div>
+        <div class="grid">
+                <button class="border no-round large fill s6 m2 l2" v-on:click="click_rotplus_atbash">
+                    <span>ROT+ -> Atbash</span>
+                </button>
+                <button class="border no-round large fill s6 m2 l2" v-on:click="click_rotminus_atbash">
+                    <span>ROT- -> Atbash</span>
+                </button>
+                <button class="border no-round large fill s6 m2 l2" v-on:click="click_atbash_rotplus">
+                    <span>Atbash -> ROT+</span>
+                </button>
+                <button class="border no-round large fill s6 m2 l2" v-on:click="click_atbash_rotminus">
+                    <span>Atbash -> ROT-</span>
+                </button>              
+        </div>
+{% endblock %}
+{% block vue_app_data %}
+                        mode:"rotplus_atbash",
+{% endblock %}
+{% block vue_app_methods %}
+                    update: function () {
+                        input_text = document.getElementById( "TXT" ).value;
+                        if (input_text == ""){
+                            this.results = [];
+                        } else {
+                            url = new URL('gear/rot_ex_gen', {{BASEURL|tojson}});
+                            axios.post(url, {
+                                input_text: input_text,
+                                mode: this.mode
+                            }).then(response => this.results = response.data);
+                        }
+                    },
+                    click_rotplus_atbash: function (){
+                        this.mode="rotplus_atbash";
+                        this.update();
+                    },
+                    click_rotminus_atbash: function (){
+                        this.mode="rotminus_atbash";
+                        this.update();
+                    },
+                    click_atbash_rotplus: function (){
+                        this.mode="atbash_rotplus";
+                        this.update();
+                    },
+                    click_atbash_rotminus: function (){
+                        this.mode="atbash_rotminus";
+                        this.update();
+                    }
+{% endblock %}

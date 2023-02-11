@@ -884,3 +884,111 @@ def riddle_tables_gen(request):
         results[6] = 'Images are from https://ja.wikipedia.org/wiki/%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB:US_ANSI_keyboard_character_layout_JIS_comparison.svg and https://ja.wikipedia.org/wiki/%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB:JIS_keyboard_character_layout_US_ANSI_comparison.svg'
 
     return results
+
+
+def swap_xy_gen(request):
+    input_text = request.json['input_text']
+
+    results = {}
+    results[0] = swap_xy_axes(input_text)
+    return results
+
+
+def rot_ex_gen(request):
+    input_text = request.json['input_text']
+    mode = request.json['mode']
+
+    results = {}
+    if mode == 'rotplus_atbash':
+        results[0] = 'ROT+'
+        results[1] = '\n'.join(str(i).zfill(2) + ': ' +
+                               rot(c=input_text, k=i, nc=True) for i in range(26))
+        results[2] = '-----'
+        results[3] = 'ROT+ -> Atbash'
+        results[4] = '\n'.join(str(i).zfill(2) + ': ' +
+                               atbash(c=rot(c=input_text, k=i, nc=True), nc=True) for i in range(26))
+    elif mode == 'rotminus_atbash':
+        results[0] = 'ROT-'
+        results[1] = '\n'.join(str(i).zfill(2) + ': ' +
+                               rot(c=input_text, k=-i, nc=True) for i in range(26))
+        results[2] = '-----'
+        results[3] = 'ROT- -> Atbash'
+        results[4] = '\n'.join(str(i).zfill(2) + ': ' +
+                               atbash(c=rot(c=input_text, k=-i, nc=True), nc=True) for i in range(26))
+    elif mode == 'atbash_rotplus':
+        results[0] = 'ROT+'
+        results[1] = '\n'.join(str(i).zfill(2) + ': ' +
+                               rot(c=input_text, k=i, nc=True) for i in range(26))
+        results[2] = '-----'
+        results[3] = 'Atbash -> ROT+'
+        results[4] = '\n'.join(str(i).zfill(2) + ': ' +
+                               rot(c=atbash(c=input_text, nc=True), k=i, nc=True) for i in range(26))
+    elif mode == 'atbash_rotminus':
+        results[0] = 'ROT-'
+        results[1] = '\n'.join(str(i).zfill(2) + ': ' +
+                               rot(c=input_text, k=-i, nc=True) for i in range(26))
+        results[2] = '-----'
+        results[3] = 'Atbash -> ROT-'
+        results[4] = '\n'.join(str(i).zfill(2) + ': ' +
+                               rot(c=atbash(c=input_text, nc=True), k=-i, nc=True) for i in range(26))
+
+    return results
+
+
+def rectangle_ex_gen(request):
+    input_text = request.json['input_text']
+    mode = request.json['mode']
+    mode_ex = request.json['mode_ex']
+
+    results = {}
+
+    t = 0
+
+    if mode_ex == 'normal':
+        results[t] = 'Text length = ' + str(len(input_text))
+        t += 1
+        for i in range(2, math.ceil(len(input_text)/2)+1):
+            if len(input_text) % i == 0 or mode == 'All pattern':
+                rectangle_i = rect(input_text, i)
+
+                results[t] = '-----'
+                t += 1
+
+                results[t] = 'Column count = ' + str(i)
+                t += 1
+                for r in range(len(rectangle_i)):
+                    results[t] = rectangle_i[r]
+                    t += 1
+    elif mode_ex == 'reverse_even':
+        results[t] = 'Text length = ' + str(len(input_text))
+        t += 1
+        for i in range(2, math.ceil(len(input_text)/2)+1):
+            if len(input_text) % i == 0 or mode == 'All pattern':
+                rectangle_i = rect_reverse_even(input_text, i)
+
+                results[t] = '-----'
+                t += 1
+
+                results[t] = 'Column count = ' + str(i)
+                t += 1
+                for r in range(len(rectangle_i)):
+                    results[t] = rectangle_i[r]
+                    t += 1
+
+    return results
+
+
+def vigenere_ex_gen(request):
+    input_text = request.json['input_text']
+    key = request.json['key']
+    results = {}
+
+    results[0] = \
+        'Text: ' + input_text + '\n' +\
+        'Key: ' + key + '\n' +\
+        'Decoded: ' + vig_d(input_text, key, nc=True) + '\n' +\
+        'Encoded: ' + vig_e(input_text, key, nc=True) + '\n' +\
+        'Beaufort: ' + beaufort(input_text, key, nc=True) + '\n' +\
+        'Auto key Decoded: ' + vig_d_auto(input_text, key, nc=True) + '\n' +\
+        'Auto key Encoded: ' + vig_e_auto(input_text, key, nc=True)
+    return results

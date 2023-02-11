@@ -1,0 +1,29 @@
+{% extends "base_apps_v2.html.jinja" %}
+{% block title %}Vigenere ex{% endblock %}
+{% block h1 %}Vigenere ex{% endblock %}
+{% block lead %}Vigenere, Beaufort, Auto key Vigenere, Gronsfeld. Affects on numbers.{% endblock %}
+{% block input_area %}
+            <h6 class="small">Text</h6>
+            <div class="field textarea border fill large mono">
+                <textarea class="grey2 black-text" id="TXT" v-on:input="update"></textarea>
+            </div>
+            <h6 class="small">Key</h6>
+            <div class="field border fill mono">
+                <input type="text" class="grey2 black-text" id="KEY" v-on:input="update">
+            </div>
+{% endblock %}
+{% block vue_app_methods %}
+                    update: function () {
+                        input_text = document.getElementById( "TXT" ).value;
+                        key = document.getElementById( "KEY" ).value;
+                        if (input_text == "" || key == ""){
+                            this.results = [];
+                        } else {
+                            url = new URL('gear/vigenere_ex_gen', {{BASEURL|tojson}});
+                            axios.post(url, {
+                                input_text: input_text,
+                                key: key
+                            }).then(response => this.results = response.data);
+                        }
+                    }
+{% endblock %}
