@@ -30,12 +30,12 @@ def show_page(file):
     return render_template('Tools/'+file+'.html', BASEURL=request.base_url)
 
 
-@app.route('/cryptobrella/')
+@app.route('/challenge/')
 def cryptobrella_index():
-    return render_template('CryptoBrella/index.html')
+    return render_template('Challenge/index.html')
 
 
-@app.route('/cryptobrella/<string:pageid>')
+@app.route('/challenge/<string:pageid>')
 def show_cryptobrella_page(pageid):
     existing_challenge_page_ids = cryptobrella.cb_challenge_contents(
         mode='keys', pageid=None)
@@ -44,7 +44,7 @@ def show_cryptobrella_page(pageid):
     if pageid in existing_challenge_page_ids:
         content = cryptobrella.cb_challenge_contents(
             mode='page', pageid=pageid)
-        return render_template('CryptoBrella/challenge.html.jinja',
+        return render_template('Challenge/challenge.html.jinja',
                                BASEURL=request.base_url,
                                title=content['title'],
                                puzzle=content['puzzle'],
@@ -54,13 +54,13 @@ def show_cryptobrella_page(pageid):
     elif pageid in existing_page_ids:
         content = cryptobrella.cb_contents(
             mode='page', pageid=pageid)
-        return render_template('CryptoBrella/challenge_no_form.html.jinja',
+        return render_template('Challenge/challenge_no_form.html.jinja',
                                BASEURL=request.base_url,
                                title=content['title'],
                                content=content['content'],
                                )
     else:
-        return render_template('CryptoBrella/cb_404.html')
+        return render_template('Challenge/cb_404.html')
 
 
 @app.route('/prosaic/<string:pageid>')
