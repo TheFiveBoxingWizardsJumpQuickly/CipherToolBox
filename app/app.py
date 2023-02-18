@@ -31,12 +31,59 @@ def show_page(file):
 
 
 @app.route('/challenge/')
-def cryptobrella_index():
+def challenge_index():
     return render_template('Challenge/index.html')
 
 
+@app.route('/passcode/')
+@app.route('/passcode/<int:id>')
+def passcode_index(id=None, mode=''):
+    if id == None:
+        mode = 'today'
+        id = gear.passcode_get_today_id()
+    passcode = gear.passcode_gen(id)
+    return render_template('Passcode/index.html',
+                           id=passcode['id'],
+                           code=passcode['code'],
+                           date=passcode['date'],
+                           format=passcode['format'],
+                           tag=passcode['tag'],
+                           hint=passcode['hint'],
+                           hint2=passcode['hint2'],
+                           BASEURL=request.url_root,
+                           mode=mode,
+                           )
+
+
+@app.route('/passcode/random')
+def passcode_random():
+    id = gear.passcode_get_random_id()
+    return passcode_index(id=id, mode='random')
+
+
+@app.route('/passcode/list')
+def passcode_list():
+    return render_template('Passcode/index.html',
+                           id=1,
+                           BASEURL=request.url_root,
+                           mode='list',
+                           )
+
+
+@app.route('/passcode/howtoplay')
+def passcode_howtoplay():
+    return passcode_index(id=1, mode='howtoplay')
+
+
+@app.route('/passcode/changelog')
+def passcode_changelog():
+    return render_template('Passcode/changelog.html',
+                           BASEURL=request.url_root,
+                           )
+
+
 @app.route('/challenge/<string:pageid>')
-def show_cryptobrella_page(pageid):
+def show_challenge_page(pageid):
     existing_challenge_page_ids = cryptobrella.cb_challenge_contents(
         mode='keys', pageid=None)
     existing_page_ids = cryptobrella.cb_contents(

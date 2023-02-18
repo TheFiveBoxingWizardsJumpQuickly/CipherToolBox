@@ -40,6 +40,10 @@
                     {% block vue_app_methods %}
                     {% endblock %}
                 },
+                created() {
+                    {% block vue_app_created %}
+                    {% endblock %}
+                },
                 delimiters: ['[[', ']]']
             })
         </script>

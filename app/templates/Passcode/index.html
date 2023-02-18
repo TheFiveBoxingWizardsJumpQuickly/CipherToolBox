@@ -1,0 +1,151 @@
+{% extends "base_apps_v2.html.jinja" %}
+{% block title %}Passcode Challenge{% endblock %}
+{% block h1 %}<span class="center">Passcode Challenge</span>{% endblock %}
+{% block input_area %}
+    <nav class="no-space center-align">
+        <div class="grid no-space large-width">
+            {% if mode =="today" %}
+                <a href="./" class="s6 m3 l3"><button class="border no-round no-margin cyan8 white-text" style="width:100%;">
+            {% else %}
+                <a href="./" class="s6 m3 l3"><button class="border no-round no-margin grey-text" style="width:100%;">
+            {% endif %}
+                    <span>Today's Challenge</span>
+                </button></a>
+
+            {% if mode =="random" %}
+                <a href="./random" class="s6 m3 l3"><button class="border no-round no-margin cyan8 white-text" style="width:100%;">
+            {% else %}
+                <a href="./random" class="s6 m3 l3"><button class="border no-round no-margin grey-text" style="width:100%;">
+            {% endif %}
+                    <span>Random</span>
+                </button></a>
+
+            {% if mode =="list" %}
+                <a href="./list" class="s6 m3 l3"><button class="border no-round no-margin cyan8 white-text" style="width:100%;">
+            {% else %}
+                <a href="./list" class="s6 m3 l3"><button class="border no-round no-margin grey-text" style="width:100%;">
+            {% endif %}
+                    <span>List</span>
+                </button></a>
+
+            {% if mode =="howtoplay" %}
+                <a href="./howtoplay" class="s6 m3 l3"><button class="border no-round no-margin cyan8 white-text" style="width:100%;">
+            {% else %}
+                <a href="./howtoplay" class="s6 m3 l3"><button class="border no-round no-margin grey-text" style="width:100%;">
+            {% endif %}
+                    <span>How to play</span>
+                </button></a>
+
+        </div>
+    </nav>
+
+    {% if mode == "list" %}
+        <div class="center large-width margin">
+            <div class="grey-text results_area left-align large-text margin" v-for="row in q_list" v-html="row">[[row]]</div>
+        </div>
+    {% elif mode == "howtoplay" %}
+        <div class="center large-width margin">
+            <h3 class="small">How to play</h3>
+            <h4 class="small">概要</h4>
+                <p>このコーナー(Passcode Challenge)では、かつてイングレスで出題されたパスコードの解読に挑戦できます。</p>
+                <p>イングレスではその2012年のスタート時から暗号解読の要素を積極的に組み込んでおり、ストーリー展開において暗号解読を組み込んだり、アノマリーにおいて重要情報を陣営で奪い合う暗号解読の勝負が行われたりしていました。</p>
+                <p>また上記に加え、毎日の更新の中に暗号が隠されており、これを解くことでアイテムの手に入るパスコードが得られるというミニゲームも提供されていました。</p>
+                <p>2019年のGoogle+閉鎖に伴う新コミュニティサイト(ingress.com)の立ち上げ頃まで、この毎日の暗号解読ミニゲームは続いていましたが、いくつかの事情のためこの頃を境にイングレスの暗号要素は急激に減少していき、暗号解読ミニゲームもなくなってしまいました。</p>
+                <p>このあたりの歴史などについて、公式から発表されている資料も多くはないため、覚えている範囲でもう少し詳しいことをそのうち書きたいとは思っていますが・・</p>
+                <p>ともあれ、いまでは問題を確認することすら難しくなった「毎日の暗号解読ミニゲーム」の一部について挑戦できるようにしたのがこのコーナーになります。</p>
+            <h4 class="small">例</h4>
+                <p>2013年 Niantic.com における例です。</p>
+                <a class="link" href="http://www.nianticproject.com/?id=sc1001i"><p>http://www.nianticproject.com/?id=sc1001i</p></a>
+                <p>こちらの上部のFILE IDが下記のように暗号の文字列になっています。</p>
+                <p>EEMEMMKKEMKEMIKCKIMEECEKEQMM</p>
+                <p>2文字ずつ分けると<br>
+                EE ME MM KK EM KE MI KC KI ME EC EK EQ MM<br>
+                となり、数字が入るべき箇所(1,5文字目および後ろから2-4文字目)がEで始まることから、アルファベットを数字に置き換えてASCIIコードにするのではないかと察しがつきます。</p>
+                <p>使われている文字がC, E, I, K, M, Q と、アルファベットの奇数番目の文字だけが使われていることからA=1, C=2, E=3… として<br>
+                33 73 77 66 37 63 75 62 65 73 32 36 39 77<br>
+                となり、これを16進数のASCIIコードとすると<b>3swf7cubes269w</b>となり、パスコードを得ることができました。</p>
+    
+            <h4 class="small">ルール</h4>
+                <p>パスコードには出題時期などによっていくつかのフォーマットがあります。下記に代表的なものを挙げます。なお、aはアルファベット、#は数字、kwはキーワードを意味します。</p>
+                <p>#aa#kwa#a#a</p>
+                <p>#aaa#kwa###a</p>
+                <p>#aaa#kwa#a#a</p>
+                <p>kw#aa##aa#</p>
+                <p>aaa##kw###aa</p>
+                <p>a#a#kwa#aa</p>
+                <p>aaaaaaaa#kw#</p>
+                <p>数字部分について2-9を許可するフォーマットと、0-9を許可するフォーマットがあります。またアルファベット部分も、一部のフォーマットではa-hやp-zに限定されている箇所などもあります。さらにこれらのフォーマットに当てはまらないものなどもあり、その全容はかなり複雑なものとなっています。</p>
+                <p>このサイトで取り扱っているフォーマットおよび使用文字のルールは下記の2つです。</p>
+                <p>#aaa#kwa#a#a 数字部分は2-9、英字部分はA-Z (LとIを除く)</p>
+                <p>kw#aa##aa# 数字部分は2-9、英字部分はA-Z (LとIを除く)</p>
+                <p>パスコードの仕様として、大文字小文字は区別しません。また、0,O,Qを同じ文字として取り扱います。さらに1とIを同じ文字として取り扱います。このサイトでもこの取扱を踏襲して正解判定を行います。</p>
+                <p>キーワードはイングレスに関係した単語などから選ばれており、これまでに使用されたキーワードをこちらにまとめています。</p>
+                <a class="link" href="https://www.cryptobrella.app/ingress_keywords"><p>https://www.cryptobrella.app/ingress_keywords</p></a>
+                <p>多くの問題で「このフォーマットに当てはまるはず」とか「とりうるキーワードはこれしかない」といったことを手がかりに解くため、このフォーマット及びキーワードの理解はイングレスのパスコードにおいて重要な知識となっています。</p>
+            <h4 class="small">このサイトの使い方</h4>
+                <p>「Today's Challenge」 日替わりでランダムに選ばれた一題を表示します。</p>
+                <p>「Random」 押すたびに、ランダムで一題を表示します。</p>
+                <p>「List」 現在登録されている出題の一覧です。</p>
+                <p>出題にはそれぞれ出題時期と答えのフォーマットを表示しています。難易度(NORMAL/HARD)も表示していますが、あくまで私の主観によるものであることにご留意ください。2 codesや3 codesと書いてある場合は、2つあるいは3つの異なるパスコードが含まれています。</p>
+                <p>答えを入力して”Passcode confirmed”と表示されたら正解です。”Invalid”の場合は不正解です。</p>
+                <p>ヒント機能として、キーワードがあっているとき、キーワード以外が合っているとき、数字部分以外が合っているときにはその旨のメッセージが表示されます。ただしフォーマットと異なる形式を入力している場合などでは誤判定することもあるので、入力形式などに気をつけた上で参考としてください。</p>
+            <h4 class="small">その他</h4>
+                <p>正解時にAP等を獲得するリワードが表示されますが、当然ながらジョークであり実際のイングレスには反映されません。実際にイングレスで使用した際のリワードとも異なり、あくまでこのサイトにおけるランダムな表示となっています。</p>
+                <p>パスコードはすべて実際にイングレスで用いられたパスコードですが、このサイトに載っているほぼ全てはすでにFully Redeemed となっています。(ごくまれに、まだ使えるものも混ざっているようです。)</p>
+
+            <br><br>
+            <p>Enjoy!</p>
+            <a class="link" href="./changelog"><p>change log</p></a>
+        </div>
+    {% else %}
+        <div class="padding center large-width" style="overflow-wrap: break-word;">
+            <p>#{{id}}</p>
+            <p>Date: {{date}}</p>
+            <p>Format: {{format}}</p>
+            <p>{{tag}}</p>
+            <div class="medium-divider"></div>
+            <p>{{code}}</p>
+
+        </div>
+        <div class="field label fill border small center medium-width">
+            <input type="text" id="input_answer" v-on:keypress.enter="onSubmit">
+            <label>PASSCODE</label>
+        </div>
+        <button class="center" type="submit" v-on:click.prevent="onSubmit">Submit</button>
+    {% endif %}
+
+{% endblock %}
+{% block standard_results_area %}
+{% endblock %}
+{% block spcial_results_area %}
+        <br><br>
+        <div class="padding center large-width">
+        <div v-html="result_value" style="white-space: pre-line;">[[result_value]]</div>
+        </div>
+{% endblock %}
+{% block vue_app_data %}
+                        id:{{id}},
+                        q_list:[],
+                        mode:"{{mode}}",
+                        result_value:"",
+{% endblock %}
+{% block vue_app_created %}
+        this.load_q_list()
+{% endblock %}
+{% block vue_app_methods %}
+                    onSubmit() {
+                        input_answer = document.getElementById( "input_answer" ).value;
+                        url = new URL('gear/passcode_validate', {{BASEURL|tojson}});
+                        axios.post(url, {
+                            input_answer: input_answer,
+                            id: this.id
+                        }).then(response => this.result_value = response.data);
+                    },
+                    load_q_list() {
+                        if (this.mode == "list"){
+                            url = new URL('gear/passcode_list', {{BASEURL|tojson}});
+                            axios.post(url, {
+                            }).then(response => this.q_list=response.data);
+                        }
+                    }
+{% endblock %}

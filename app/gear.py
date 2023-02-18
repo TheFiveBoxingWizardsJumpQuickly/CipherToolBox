@@ -1,7 +1,11 @@
+import os
 import re
+import sqlite3
+import html
 from app.cipher.fn import *
 from app.cipher.resize import resize_image
 from app.secret.apikey import get_w3w_apikey
+from app.cipher.ingress_passcode import passcode_get_record_by_id, passcode_validate_answer, passcode_get_reward, passcode_get_today_id, passcode_get_random_id, passcode_get_list, passcode_get_filtered_keywords
 
 
 def gear_globals():
@@ -1020,4 +1024,92 @@ def charcode_ex_gen(request):
     results[22] = ''.join(chr(int(base_a_to_base_b_onenumber(
         i, 8, 10))) for i in number_string)
 
+    return results
+
+
+def passcode_gen(id):
+    return passcode_get_record_by_id(id)
+
+
+def passcode_random_id(request):
+    return str(passcode_get_random_id())
+
+
+def passcode_today_id(request):
+    return str(passcode_get_today_id())
+
+
+def passcode_list(request):
+    passcode_list_raw = passcode_get_list()
+    q_list = {}
+    i = 1
+    for item in passcode_list_raw:
+        q_list[i] = \
+            '<a class="link" href="./' + str(item['id']) + '">' +\
+            '#' + str(item['id']) + ' ' +\
+            item['date'] + ' ' +\
+            html.escape(item['code'][:10]) + '... | ' +\
+            item['tag'].replace('Difficulty: ', '') + ' ' +\
+            '</a>'
+        i += 1
+
+    return q_list
+
+
+def passcode_validate(request):
+    id = int(request.json['id'])
+    input_answer = request.json['input_answer']
+    validate_results = passcode_validate_answer(id, input_answer)
+
+    confirmed = False
+    if validate_results[0] == 'Confirmed':
+        index = 1
+        confirmed = True
+    elif validate_results[1] == 'Confirmed':
+        index = 2
+        confirmed = True
+    elif validate_results[2] == 'Confirmed':
+        index = 3
+        confirmed = True
+
+    if confirmed:
+        re, w, a, r, d = passcode_get_reward(id, index)
+        results_value = \
+            '<article class="border">' +\
+            '<h6 class="cyan-text">Passcode confirmed.</h6>' +\
+            '<p class="large-text amber-text">' +\
+            'Gained:' + '\n' +\
+            re + '\n' +\
+            w + '\n' +\
+            a + '\n' +\
+            r + '\n' +\
+            d +\
+            '</p>' + '\n' +\
+            '</article>'
+    else:
+        if validate_results[0] != 'Invalid.':
+            results_value = '<div class="mono orange-text results_area large-text">' + \
+                validate_results[0] + '<div>'
+        elif validate_results[1] != 'Invalid.':
+            results_value = '<div class="mono orange-text results_area large-text">' + \
+                validate_results[1] + '<div>'
+        elif validate_results[2] != 'Invalid.':
+            results_value = '<div class="mono orange-text results_area large-text">' + \
+                validate_results[2] + '<div>'
+        else:
+            results_value = '<div class="mono gray-text results_area large-text">Invalid.<div>'
+
+    return results_value
+
+
+def ingress_keywords_gen(request):
+    pattern = request.json['pattern']
+    results = {}
+
+    keywords_list = passcode_get_filtered_keywords(pattern)
+
+    i = 0
+    for keyword in keywords_list:
+        results[i] = keyword
+        i += 1
     return results

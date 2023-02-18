@@ -1,0 +1,21 @@
+{% extends "base_apps_v2.html.jinja" %}
+{% block title %}Ingress Keywords{% endblock %}
+{% block h1 %}Ingress Keywords{% endblock %}
+{% block input_area %}
+            <h6 class="small">Regex pattern</h6>
+            <div class="field border fill mono">
+                <input type="text" class="grey2 black-text" id="pattern" v-on:input="update">
+            </div>
+{% endblock %}
+{% block vue_app_created %}
+        this.update()
+{% endblock %}
+{% block vue_app_methods %}
+                    update: function () {
+                        pattern = document.getElementById( "pattern" ).value;
+                        url = new URL('gear/ingress_keywords_gen', {{BASEURL|tojson}});
+                        axios.post(url, {
+                            pattern: pattern
+                        }).then(response => this.results = response.data);
+                    }
+{% endblock %}
