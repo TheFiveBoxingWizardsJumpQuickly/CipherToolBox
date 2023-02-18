@@ -1085,7 +1085,7 @@ def passcode_validate(request):
             r + '\n' +\
             d +\
             '</p>' + '\n' +\
-            '</article>'
+            '</article><p class="grey-text">* Not actually gained in Ingress.</p>'
     else:
         if validate_results[0] != 'Invalid.':
             results_value = '<div class="mono orange-text results_area large-text">' + \

@@ -75,6 +75,11 @@ def passcode_howtoplay():
     return passcode_index(id=1, mode='howtoplay')
 
 
+@app.route('/passcode/howtoplay_ja')
+def passcode_howtoplay_ja():
+    return passcode_index(id=1, mode='howtoplay_ja')
+
+
 @app.route('/passcode/changelog')
 def passcode_changelog():
     return render_template('Passcode/changelog.html',

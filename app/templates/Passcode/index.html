@@ -28,7 +28,7 @@
                     <span>List</span>
                 </button></a>
 
-            {% if mode =="howtoplay" %}
+            {% if mode =="howtoplay" or mode == "howtoplay_ja" %}
                 <a href="./howtoplay" class="s6 m3 l3"><button class="border no-round no-margin cyan8 white-text" style="width:100%;">
             {% else %}
                 <a href="./howtoplay" class="s6 m3 l3"><button class="border no-round no-margin grey-text" style="width:100%;">
@@ -46,6 +46,63 @@
     {% elif mode == "howtoplay" %}
         <div class="center large-width margin">
             <h3 class="small">How to play</h3>
+            <p class="link right-align"><a href="./howtoplay_ja">Change to Japanese</a></p>
+            <h4 class="small">About</h4>
+                <p>In this corner (Passcode Challenge), you can challenge yourself to crack the passcodes that were given in Ingress.</p>
+                <p>Since its launch in 2012, Ingress had been actively incorporating elements of code-breaking, including decoding in the storyline, and a decoding battle in Anomaly for pursueing important information.</p>
+                <p>In addition to the above, there was also a mini-game where a code was hidden in the daily story-line update, and by solving it, we could get a passcode to get an item.</p>
+                <p>This daily code-breaking mini-game continued until around the time of the launch of the new community site (ingress.com) following the shutdown of Google+ in 2019. Due to some reasons, the decoding contents dropped sharply, and the daily code-breaking mini-game disappeared.</p>
+                <p>There aren't many official materials about the history of this topic, so I'd like to write a little more detailed information as far as I can remember sometime...</p>
+                <p>Anyway, this corner is developed so that you can challenge the good-old "daily code-breaking mini-game" that is now difficult to even looking for the original posts.</p>
+            <h4 class="small">Example</h4>
+                <p>Example from Niantic.com in 2013.</p>
+                <a class="link" href="http://www.nianticproject.com/?id=sc1001i"><p>http://www.nianticproject.com/?id=sc1001i</p></a>
+                <p>The FILE ID at the top of this document is a cipher string as shown below.</p>
+                <p>EEMEMMKKEMKEMIKCKIMEECEKEQMM</p>
+                <p>Separated by two characters<br>
+                EE ME MM KK EM KE MI KC KI ME EC EK EQ MM<br>
+                Since the places where numbers should be entered (the 1st and 5th characters and the 2nd to 4th characters from the end) start with E, we can guess that the alphabet will be replaced with numbers to make it an ASCII code.</p>
+                <p>Since the letters used are C, E, I, K, M, Q, which are only the odd-numbered letters of the alphabet, we set A=1, C=2, E=3... and get<br>
+                33 73 77 66 37 63 75 62 65 73 32 36 39 77<br>
+                Taking these as the hexadecimal ASCII codes, we obtain a valid passcode <b>3swf7cubes269w</b>.</p>
+    
+            <h4 class="small">Rule</h4>
+                <p>There are several formats for the passcode depending on the provided period. Some typical formats are listed below. "a" means an alphabet, "#"" means a number, and "kw" means a keyword.</p>
+                <p>#aa#kwa#a#a</p>
+                <p>#aaa#kwa###a</p>
+                <p>#aaa#kwa#a#a</p>
+                <p>kw#aa##aa#</p>
+                <p>aaa##kw###aa</p>
+                <p>a#a#kwa#aa</p>
+                <p>aaaaaaaa#kw#</p>
+                <p>Some formats allow 2-9 for the numeric portion, while others allow 0-9. Also, there are positions where the alphabet part is limited to a-h or p-z in some formats. Furthermore, there are some exceptions. Comprehensive format rule is quite complicated.</p>
+                <p>The format and character rules used in this site are the following two.</p>
+                <p>#aaa#kwa#a#a Numbers 2-9, Alphabets are A-Z (excluding L and I)</p>
+                <p>kw#aa##aa# Numbers 2-9, Alphabets are A-Z (excluding L and I)</p>
+                <p>The actual passcode specification is case insensitive. Also, 0, O, Q are treated as the same character. It also treats 1 and I as the same character. This site follows these rules for validating the answer.</p>
+                <p>Keywords are derived from words related to Ingress. The known keywords are collected to here.</p>
+                <a class="link" href="https://www.cryptobrella.app/ingress_keywords"><p>https://www.cryptobrella.app/ingress_keywords</p></a>
+                <p>Understanding the rules od format and keywords is an important part of Ingress passcode decoding because many problems are solved with clues such as "this format should apply" or "this is the only possible keyword".</p>
+            <h4 class="small">How to use this site</h4>
+                <p>"Today's Challenge": Displays a randomly selected daily challenge.</p>
+                <p>"Random": Each time you press "Random", one challenge will be displayed at random.</p>
+                <p>"List": List of currently registered chellenges.</p>
+                <p>For each challenge, the posted date and answer format are displayed. Difficulty (NORMAL/HARD) is also displayed, but please note that it is based on my perspective. If it shows "2 codes" or "3 codes", it contains 2 or 3 different passcodes.</p>
+                <p>If you enter the answer and "Passcode confirmed" is displayed, the answer is correct. If it is "Invalid", it is incorrect.</p>
+                <p>As a hint, a message is shown when the input is near to the answer such as keyword is correct, prefix/suffix is correct, or other than number parts are correct. However, if the input does not follow a right format, it may be misjudged. So please be careful of the input format when using the hint.</p>
+            <h4 class="small">Others</h4>
+                <p>Rewards such as gaining AP will be displayed when you submit the right answer. However, of course it is a joke and will not be reflected in the actual Ingress. Also, the rewards are not the same as the actual rewards for the code in Ingress. They are just random.</p>
+                <p>All the passcodes are real passcodes used in Ingress, but almost everything on this site is already Fully Redeemed. (In rare cases, it seems that some of them are still usable.)</p>
+                <p>Some challenges require the knowledge of Ingress, but it is not the same as the latest Ingress playing.<a class="link" href="https://niantic.wiki/">https://niantic.wiki</a> will be helpful.</p>
+                    <br><br>
+            <p>Enjoy!</p>
+            <a class="link" href="./changelog"><p>change log</p></a>
+        </div>
+
+    {% elif mode == "howtoplay_ja" %}
+        <div class="center large-width margin">
+            <h3 class="small">How to play</h3>
+            <p class="link right-align"><a href="./howtoplay">Change to English</a></p>
             <h4 class="small">概要</h4>
                 <p>このコーナー(Passcode Challenge)では、かつてイングレスで出題されたパスコードの解読に挑戦できます。</p>
                 <p>イングレスではその2012年のスタート時から暗号解読の要素を積極的に組み込んでおり、ストーリー展開において暗号解読を組み込んだり、アノマリーにおいて重要情報を陣営で奪い合う暗号解読の勝負が行われたりしていました。</p>
@@ -92,6 +149,7 @@
             <h4 class="small">その他</h4>
                 <p>正解時にAP等を獲得するリワードが表示されますが、当然ながらジョークであり実際のイングレスには反映されません。実際にイングレスで使用した際のリワードとも異なり、あくまでこのサイトにおけるランダムな表示となっています。</p>
                 <p>パスコードはすべて実際にイングレスで用いられたパスコードですが、このサイトに載っているほぼ全てはすでにFully Redeemed となっています。(ごくまれに、まだ使えるものも混ざっているようです。)</p>
+                <p>いくつかの問題ではIngressに関する知識を用いますが、現在のイングレスをプレイするのとは異なる知識も必要となります。<a class="link" href="https://niantic.wiki/">https://niantic.wiki</a> が参考になると思います。</p>
 
             <br><br>
             <p>Enjoy!</p>
