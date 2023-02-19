@@ -755,6 +755,10 @@ def auto_split_number_string(text, pattern):
         # 40-172
         split_numbers = re.findall(
             r'[4-7][0-7]|1[0-6][0-7]|17[0-2]', text)
+    elif pattern == 'BIN':
+        # 00100000-01111010
+        split_numbers = re.findall(
+            r'001[0-1]{5}|010[0-1]{5}|0110[0-1]{4}|01110[0-1]{3}|01111000|01111001|01111010', text)
 
     return [number for number in split_numbers]
 

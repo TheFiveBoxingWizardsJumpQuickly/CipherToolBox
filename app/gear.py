@@ -1026,6 +1026,14 @@ def charcode_ex_gen(request):
         ' '.join(number_string)
     results[22] = ''.join(chr(int(base_a_to_base_b_onenumber(
         i, 8, 10))) for i in number_string)
+    results[23] = '------'
+
+    results[30] = 'Attempt to decode by BIN'
+    number_string = auto_split_number_string(input_text, 'BIN')
+    results[31] = 'Extracted numbers: ' + \
+        ' '.join(number_string)
+    results[32] = ''.join(chr(int(base_a_to_base_b_onenumber(
+        i, 2, 10))) for i in number_string)
 
     return results
 
