@@ -1,0 +1,27 @@
+{% extends "base_apps_v2.html.jinja" %}
+{% block title %}Bifid{% endblock %}
+{% block h1 %}Bifid{% endblock %}
+{% block input_area %}
+        <div class="field textarea border fill large mono">
+                <textarea class="grey2 black-text" id="TXT" v-on:input="update"></textarea>
+        </div>
+        <h6 class="small">Key</h6>
+        <div class="field border fill mono">
+            <input type="text" class="grey2 black-text" id="KEY" v-on:input="update">
+        </div>
+{% endblock %}
+{% block vue_app_methods %}
+                    update: function () {
+                        input_text = document.getElementById( "TXT" ).value;
+                        key = document.getElementById( "KEY" ).value;
+                        if (input_text == ""){
+                            this.results = [];
+                        } else {
+                            url = new URL('gear/bifid_gen', {{BASEURL|tojson}});
+                            axios.post(url, {
+                                input_text: input_text,
+                                key:key
+                            }).then(response => this.results = response.data);
+                        }
+                    }
+{% endblock %}

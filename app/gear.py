@@ -1141,3 +1141,25 @@ def skip_gen(request):
                 skip_e(input_text, i) + '\n'
 
     return results
+
+
+def bifid_gen(request):
+    input_text = request.json['input_text']
+    key = request.json['key']
+    table = mixed_alphabet(key, True)
+
+    results = {}
+    results[0] = \
+        'Key table:' + '\n' +\
+        table[0:5] + '\n' +\
+        table[5:10] + '\n' +\
+        table[10:15] + '\n' +\
+        table[15:20] + '\n' +\
+        table[20:25]
+
+    results[1] = '\n'
+
+    results[2] = \
+        'Decoded: ' + bifid_d(input_text, key) + '\n' +\
+        'Encoded: ' + bifid_e(input_text, key)
+    return results
