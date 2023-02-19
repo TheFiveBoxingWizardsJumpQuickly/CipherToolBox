@@ -342,7 +342,10 @@ def simplesub_gen(request):
         'US keyboard to Dvorak keyboard',
         'Dvorak keyboard to US keyboard',
         'US keyboard to MALTRON keyboard',
-        'MALTRON keyboard to US keyboard']
+        'MALTRON keyboard to US keyboard',
+        '!@#_to_123',
+        'ABC to 123',
+        'ABC to 012']
 
     for menu in menus:
         results[t] = menu + ': ' + \
