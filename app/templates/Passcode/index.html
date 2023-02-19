@@ -90,6 +90,7 @@
                 <p>For each challenge, the posted date and answer format are displayed. Difficulty (NORMAL/HARD) is also displayed, but please note that it is based on my perspective. If it shows "2 codes" or "3 codes", it contains 2 or 3 different passcodes.</p>
                 <p>If you enter the answer and "Passcode confirmed" is displayed, the answer is correct. If it is "Invalid", it is incorrect.</p>
                 <p>As a hint, a message is shown when the input is near to the answer such as keyword is correct, prefix/suffix is correct, or other than number parts are correct. However, if the input does not follow a right format, it may be misjudged. So please be careful of the input format when using the hint.</p>
+                <p>For some challenges, submitting "hint" will shows a hint.</p>
             <h4 class="small">Others</h4>
                 <p>Rewards such as gaining AP will be displayed when you submit the right answer. However, of course it is a joke and will not be reflected in the actual Ingress. Also, the rewards are not the same as the actual rewards for the code in Ingress. They are just random.</p>
                 <p>All the passcodes are real passcodes used in Ingress, but almost everything on this site is already Fully Redeemed. (In rare cases, it seems that some of them are still usable.)</p>
@@ -146,6 +147,7 @@
                 <p>出題にはそれぞれ出題時期と答えのフォーマットを表示しています。難易度(NORMAL/HARD)も表示していますが、あくまで私の主観によるものであることにご留意ください。2 codesや3 codesと書いてある場合は、2つあるいは3つの異なるパスコードが含まれています。</p>
                 <p>答えを入力して”Passcode confirmed”と表示されたら正解です。”Invalid”の場合は不正解です。</p>
                 <p>ヒント機能として、キーワードがあっているとき、キーワード以外が合っているとき、数字部分以外が合っているときにはその旨のメッセージが表示されます。ただしフォーマットと異なる形式を入力している場合などでは誤判定することもあるので、入力形式などに気をつけた上で参考としてください。</p>
+                <p>問題によっては入力欄にhintと入力するとヒントが表示されます。</p>
             <h4 class="small">その他</h4>
                 <p>正解時にAP等を獲得するリワードが表示されますが、当然ながらジョークであり実際のイングレスには反映されません。実際にイングレスで使用した際のリワードとも異なり、あくまでこのサイトにおけるランダムな表示となっています。</p>
                 <p>パスコードはすべて実際にイングレスで用いられたパスコードですが、このサイトに載っているほぼ全てはすでにFully Redeemed となっています。(ごくまれに、まだ使えるものも混ざっているようです。)</p>
@@ -185,6 +187,7 @@
                         id:{{id}},
                         q_list:[],
                         mode:"{{mode}}",
+                        hint:"{{hint}}",
                         result_value:"",
 {% endblock %}
 {% block vue_app_created %}
@@ -193,11 +196,20 @@
 {% block vue_app_methods %}
                     onSubmit() {
                         input_answer = document.getElementById( "input_answer" ).value;
-                        url = new URL('gear/passcode_validate', {{BASEURL|tojson}});
-                        axios.post(url, {
-                            input_answer: input_answer,
-                            id: this.id
-                        }).then(response => this.result_value = response.data);
+                        if (input_answer.toUpperCase() == "HINT"){
+                            if (this.hint == ""){
+                                hint_message = "No hint is set for now."
+                            } else {
+                                hint_message = this.hint
+                            }
+                            this.result_value = '<div class="mono gray-text results_area large-text">' + hint_message+ "<div>"
+                        }else{
+                            url = new URL('gear/passcode_validate', {{BASEURL|tojson}});
+                            axios.post(url, {
+                                input_answer: input_answer,
+                                id: this.id
+                            }).then(response => this.result_value = response.data);
+                        }
                     },
                     load_q_list() {
                         if (this.mode == "list"){
