@@ -1116,3 +1116,28 @@ def ingress_keywords_gen(request):
         results[i] = keyword
         i += 1
     return results
+
+
+def skip_gen(request):
+    input_text = request.json['input_text']
+    mode = request.json['mode']
+
+    results = {}
+
+    if mode == 'Decode':
+        results[0] =\
+            'step:' + '\n'
+
+        for i in range(2, min(len(input_text), 100)):
+            results[0] += str(i).zfill(2) + ': ' +\
+                skip_d(input_text, i) + '\n'
+
+    elif mode == 'Encode':
+        results[0] =\
+            'step:' + '\n'
+
+        for i in range(2, min(len(input_text), 100)):
+            results[0] += str(i).zfill(2) + ': ' +\
+                skip_e(input_text, i) + '\n'
+
+    return results

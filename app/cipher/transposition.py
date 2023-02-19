@@ -228,3 +228,37 @@ def swap_xy_axes(text):
         b.append(c)
 
     return '\n'.join(b)
+
+
+def skip_e(text, step):
+    step = int(step)
+    order = []
+    position = 0
+    l = len(text)
+    for i in range(l):
+        if position in order:
+            position += 1
+        order.append(position)
+        position = (position + step) % l
+
+    result = ''.join([text[i] for i in order])
+    return result
+
+
+def skip_d(text, step):
+    step = int(step)
+    order = []
+    position = 0
+    l = len(text)
+    for i in range(l):
+        if position in order:
+            position += 1
+        order.append(position)
+        position = (position + step) % l
+
+    reverse_order = [0]*l
+    for i in range(l):
+        reverse_order[order[i]] = i
+
+    result = ''.join([text[i] for i in reverse_order])
+    return result

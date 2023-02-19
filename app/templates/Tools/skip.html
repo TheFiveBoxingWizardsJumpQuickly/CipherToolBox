@@ -1,0 +1,47 @@
+{% extends "base_apps_v2.html.jinja" %}
+{% block title %}Skip{% endblock %}
+{% block h1 %}Skip{% endblock %}
+{% block input_area %}
+        <div class="field textarea border fill large mono">
+            <textarea class="grey2 black-text" id="TXT" v-on:input="update"></textarea>
+        </div>
+        <nav class="no-space">
+            <button v-bind:class=[[btn_toggle_encode_class]] v-on:click="click_encode">
+                <span>Encode</span>
+            </button>
+            <button v-bind:class=[[btn_toggle_decode_class]] v-on:click="click_decode">
+                <span>Decode</span>
+            </button>
+        </nav>
+{% endblock %}
+{% block vue_app_data %}
+                        mode:"Encode",
+                        btn_toggle_encode_class:"border left-round cyan8 white-text",
+                        btn_toggle_decode_class:"border right-round grey-text",
+{% endblock %}
+{% block vue_app_methods %}
+                    update: function () {
+                        input_text = document.getElementById( "TXT" ).value;
+                        if (input_text == ""){
+                            this.results = [];
+                        } else {
+                            url = new URL('gear/skip_gen', {{BASEURL|tojson}});
+                            axios.post(url, {
+                                input_text: input_text,
+                                mode: this.mode
+                            }).then(response => this.results = response.data);
+                        }
+                    },
+                    click_encode: function (){
+                        this.btn_toggle_encode_class="border left-round cyan8 white-text";
+                        this.btn_toggle_decode_class="border right-round grey-text";
+                        this.mode="Encode";
+                        this.update();
+                    },
+                    click_decode: function (){
+                        this.btn_toggle_encode_class="border left-round grey-text";
+                        this.btn_toggle_decode_class="border right-round cyan8 white-text";
+                        this.mode="Decode";
+                        this.update();
+                    }
+{% endblock %}
