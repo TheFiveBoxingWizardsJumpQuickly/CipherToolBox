@@ -487,12 +487,12 @@ def abc012(text, delimiter=" "):
     return code_table_e(text, abc012_table, {}, False, delimiter)
 
 
-def affine_e_a(text, a, b):
+def affine_e_a(text, a, b, nc=False):
     if list_A.find(text) >= 0:
         list = list_A
     elif list_a.find(text) >= 0:
         list = list_a
-    elif list_0.find(text) >= 0:
+    elif list_0.find(text) >= 0 and nc:
         list = list_0
     else:
         return text
@@ -503,12 +503,12 @@ def affine_e_a(text, a, b):
     return "".join(list[converted])
 
 
-def affine_d_a(text, a, b):
+def affine_d_a(text, a, b, nc=False):
     if list_A.find(text) >= 0:
         list = list_A
     elif list_a.find(text) >= 0:
         list = list_a
-    elif list_0.find(text) >= 0:
+    elif list_0.find(text) >= 0 and nc:
         list = list_0
     else:
         return text
