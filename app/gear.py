@@ -1171,3 +1171,49 @@ def bifid_gen(request):
         'Decoded: ' + bifid_d(input_text, key) + '\n' +\
         'Encoded: ' + bifid_e(input_text, key)
     return results
+
+
+def vanity_gen(request):
+    input_text = request.json['input_text']
+    mode = request.json['mode']
+
+    results = {}
+
+    if mode == 'Encode':
+        input_text = input_text.upper()
+        input_text = re.sub(r"[^A-Z]", "", input_text)
+
+        results[0] = 'Text:'
+        results[1] = input_text
+        results[2] = '\n'
+
+        results[3] = 'Toggle style:'
+        results[4] = vanity_e(input_text, 'toggle')
+        results[5] = '\n'
+
+        results[10] = 'Press count - Number style:'
+        results[11] = vanity_e(input_text, 'rept_number')
+        results[12] = '\n'
+
+        results[20] = 'Number - Press count style:'
+        results[21] = vanity_e(input_text, 'number_rept')
+        results[22] = '\n'
+    elif mode == 'Decode':
+        results[0] = 'Toggle style:'
+        results[1] = ' '.join(auto_split_number_string(
+            input_text, 'vanity_toggle'))
+        results[2] = vanity_d(input_text, 'toggle')
+        results[3] = '\n'
+
+        results[10] = 'Press count - Number style:'
+        results[11] = ' '.join(auto_split_number_string(
+            input_text, 'vanity_rept_number'))
+        results[12] = vanity_d(input_text, 'rept_number')
+        results[13] = '\n'
+
+        results[20] = 'Number - Press count style:'
+        results[21] = ' '.join(auto_split_number_string(
+            input_text, 'vanity_number_rept'))
+        results[22] = vanity_d(input_text, 'number_rept')
+        results[23] = '\n'
+    return results

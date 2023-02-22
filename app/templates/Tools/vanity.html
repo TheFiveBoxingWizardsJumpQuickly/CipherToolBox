@@ -1,0 +1,63 @@
+{% extends "base_apps_v2.html.jinja" %}
+{% block title %}Vanity Number{% endblock %}
+{% block h1 %}Vanity Number{% endblock %}
+{% block input_area %}
+        <div class="field textarea border fill large mono">
+            <textarea class="grey2 black-text" id="TXT" v-on:input="update"></textarea>
+        </div>
+        <nav class="no-space">
+            <button v-bind:class=[[btn_toggle_encode_class]] v-on:click="click_encode">
+                <span>Encode</span>
+            </button>
+            <button v-bind:class=[[btn_toggle_decode_class]] v-on:click="click_decode">
+                <span>Decode</span>
+            </button>
+        </nav>
+        <div class="grid medium-width">
+            <div class="s4 m2 l2 center-align border">1<br></div>
+            <div class="s4 m2 l2 center-align border">2<br>ABC</div>
+            <div class="s4 m2 l2 center-align border">3<br>DEF</div>
+        </div>
+        <div class="grid medium-width">
+            <div class="s4 m2 l2 center-align border">4<br>GHI</div>
+            <div class="s4 m2 l2 center-align border">5<br>JKL</div>
+            <div class="s4 m2 l2 center-align border">6<br>MNO</div>
+        </div>
+        <div class="grid medium-width">
+            <div class="s4 m2 l2 center-align border">7<br>PQRS</div>
+            <div class="s4 m2 l2 center-align border">8<br>TUV</div>
+            <div class="s4 m2 l2 center-align border">9<br>WXYZ</div>
+        </div>
+
+{% endblock %}
+{% block vue_app_data %}
+                        mode:"Encode",
+                        btn_toggle_encode_class:"border left-round cyan8 white-text",
+                        btn_toggle_decode_class:"border right-round grey-text",
+{% endblock %}
+{% block vue_app_methods %}
+                    update: function () {
+                        input_text = document.getElementById( "TXT" ).value;
+                        if (input_text == ""){
+                            this.results = [];
+                        } else {
+                            url = new URL('gear/vanity_gen', {{BASEURL|tojson}});
+                            axios.post(url, {
+                                input_text: input_text,
+                                mode: this.mode,
+                            }).then(response => this.results = response.data);
+                        }
+                    },
+                    click_encode: function (){
+                        this.btn_toggle_encode_class="border left-round cyan8 white-text";
+                        this.btn_toggle_decode_class="border right-round grey-text";
+                        this.mode="Encode";
+                        this.update();
+                    },
+                    click_decode: function (){
+                        this.btn_toggle_encode_class="border left-round grey-text";
+                        this.btn_toggle_decode_class="border right-round cyan8 white-text";
+                        this.mode="Decode";
+                        this.update();
+                    }
+{% endblock %}
