@@ -1,0 +1,209 @@
+{% extends "base_apps_v2.html.jinja" %}
+{% block title %}Japanese Braille{% endblock %}
+{% block h1 %}Japanese Braille{% endblock %}
+{% block input_area %}
+                <div class="grid center" style="width:80%;">
+                    <button class="circle center s3 m1 l1 grey8" v-if="isOn_L1 === false" v-on:click="click_l1">
+                        <span>L1</span>
+                    </button>
+                    <button class="circle center s3 m1 l1 blue" v-else="isOn_L1 === true" v-on:click="click_l1">
+                        <span>L1</span>
+                    </button>
+
+                    <button class="circle center s3 m1 l1 grey8" v-if="isOn_L4 === false" v-on:click="click_l4">
+                        <span>L4</span>
+                    </button>
+                    <button class="circle center s3 m1 l1 blue" v-else="isOn_L4 === true" v-on:click="click_l4">
+                        <span>L4</span>
+                    </button>  
+                    
+                    <button class="circle center s3 m1 l1 grey" v-if="isOn_R1 === false" v-on:click="click_r1">
+                        <span>R1</span>
+                    </button>
+                    <button class="circle center s3 m1 l1 blue" v-else="isOn_R1 === true" v-on:click="click_r1">
+                        <span>R1</span>
+                    </button>
+
+                    <button class="circle center s3 m1 l1 grey" v-if="isOn_R4 === false" v-on:click="click_r4">
+                        <span>R4</span>
+                    </button>
+                    <button class="circle center s3 m1 l1 blue" v-else="isOn_R4 === true" v-on:click="click_r4">
+                        <span>R4</span>
+                    </button>          
+                </div>
+
+                <div class="grid center" style="width:80%;">
+                    <button class="circle center s3 m1 l1 grey8" v-if="isOn_L2 === false" v-on:click="click_l2">
+                        <span>L2</span>
+                    </button>
+                    <button class="circle center s3 m1 l1 blue" v-else="isOn_L2 === true" v-on:click="click_l2">
+                        <span>L2</span>
+                    </button>
+
+                    <button class="circle center s3 m1 l1 grey8" v-if="isOn_L5 === false" v-on:click="click_l5">
+                        <span>L5</span>
+                    </button>
+                    <button class="circle center s3 m1 l1 blue" v-else="isOn_L5 === true" v-on:click="click_l5">
+                        <span>L5</span>
+                    </button>  
+                    
+                    <button class="circle center s3 m1 l1 grey" v-if="isOn_R2 === false" v-on:click="click_r2">
+                        <span>R2</span>
+                    </button>
+                    <button class="circle center s3 m1 l1 blue" v-else="isOn_R2 === true" v-on:click="click_r2">
+                        <span>R2</span>
+                    </button>
+
+                    <button class="circle center s3 m1 l1 grey" v-if="isOn_R5 === false" v-on:click="click_r5">
+                        <span>R5</span>
+                    </button>
+                    <button class="circle center s3 m1 l1 blue" v-else="isOn_R5 === true" v-on:click="click_r5">
+                        <span>R5</span>
+                    </button>          
+                </div>
+
+                <div class="grid center" style="width:80%;">
+                    <button class="circle center s3 m1 l1 grey8" v-if="isOn_L3 === false" v-on:click="click_l3">
+                        <span>L3</span>
+                    </button>
+                    <button class="circle center s3 m1 l1 blue" v-else="isOn_L3 === true" v-on:click="click_l3">
+                        <span>L3</span>
+                    </button>
+
+                    <button class="circle center s3 m1 l1 grey8" v-if="isOn_L6 === false" v-on:click="click_l6">
+                        <span>L6</span>
+                    </button>
+                    <button class="circle center s3 m1 l1 blue" v-else="isOn_L6 === true" v-on:click="click_l6">
+                        <span>L6</span>
+                    </button>  
+                    
+                    <button class="circle center s3 m1 l1 grey" v-if="isOn_R3 === false" v-on:click="click_r3">
+                        <span>R3</span>
+                    </button>
+                    <button class="circle center s3 m1 l1 blue" v-else="isOn_R3 === true" v-on:click="click_r3">
+                        <span>R3</span>
+                    </button>
+
+                    <button class="circle center s3 m1 l1 grey" v-if="isOn_R6 === false" v-on:click="click_r6">
+                        <span>R6</span>
+                    </button>
+                    <button class="circle center s3 m1 l1 blue" v-else="isOn_R6 === true" v-on:click="click_r6">
+                        <span>R6</span>
+                    </button>          
+                </div>
+                
+                <div class="grid center" style="width:80%;">
+                    <div class="center-align s12 m4 l4">
+                        <h5 class="mono grey-text" style="display:inline;">[[result_value]]</h5>
+                        <button class="circle small" v-on:click="assign">
+                        <i>send</i>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="grid center" style="width:80%;">
+                    <div class="field border fill mono s12 m4 l4">
+                        <textarea class="grey2 black-text" v-model="output"></textarea>
+                    </div>
+                </div>
+            {% endblock %}
+            {% block standard_results_area %}
+            {% endblock %}
+            {% block vue_app_data %}
+                        isOn_L1:false,
+                        isOn_L2:false,
+                        isOn_L3:false,
+                        isOn_L4:false,
+                        isOn_L5:false,
+                        isOn_L6:false,
+                        isOn_R1:false,
+                        isOn_R2:false,
+                        isOn_R3:false,
+                        isOn_R4:false,
+                        isOn_R5:false,
+                        isOn_R6:false,
+                        output:"",
+                        result_value:"",
+            {% endblock %}
+            {% block vue_app_methods %}
+                    update: function () {
+                        url = new URL('gear/braille_ja_gen', {{BASEURL|tojson}});
+                        axios.post(url, {
+                            bl1: this.isOn_L1,
+                            bl2: this.isOn_L2,
+                            bl3: this.isOn_L3,
+                            bl4: this.isOn_L4,
+                            bl5: this.isOn_L5,
+                            bl6: this.isOn_L6,
+                            br1: this.isOn_R1,
+                            br2: this.isOn_R2,
+                            br3: this.isOn_R3,
+                            br4: this.isOn_R4,
+                            br5: this.isOn_R5,
+                            br6: this.isOn_R6
+                        }).then(response => this.result_value = response.data);
+                    },
+                    click_l1: function (){
+                        this.isOn_L1 = !this.isOn_L1;
+                        this.update();
+                    },
+                    click_l2: function (){
+                        this.isOn_L2 = !this.isOn_L2;
+                        this.update();
+                    },
+                    click_l3: function (){
+                        this.isOn_L3 = !this.isOn_L3;
+                        this.update();
+                    },
+                    click_l4: function (){
+                        this.isOn_L4 = !this.isOn_L4;
+                        this.update();
+                    },
+                    click_l5: function (){
+                        this.isOn_L5 = !this.isOn_L5;
+                        this.update();
+                    },
+                    click_l6: function (){
+                        this.isOn_L6 = !this.isOn_L6;
+                        this.update();
+                    },
+                    click_r1: function (){
+                        this.isOn_R1 = !this.isOn_R1;
+                        this.update();
+                    },
+                    click_r2: function (){
+                        this.isOn_R2 = !this.isOn_R2;
+                        this.update();
+                    },
+                    click_r3: function (){
+                        this.isOn_R3 = !this.isOn_R3;
+                        this.update();
+                    },
+                    click_r4: function (){
+                        this.isOn_R4 = !this.isOn_R4;
+                        this.update();
+                    },
+                    click_r5: function (){
+                        this.isOn_R5 = !this.isOn_R5;
+                        this.update();
+                    },
+                    click_r6: function (){
+                        this.isOn_R6 = !this.isOn_R6;
+                        this.update();
+                    },
+                    assign: function (){
+                        this.output = this.output + this.result_value;
+                        this.isOn_L1 = false;
+                        this.isOn_L2 = false;
+                        this.isOn_L3 = false;
+                        this.isOn_L4 = false;
+                        this.isOn_L5 = false;
+                        this.isOn_L6 = false;
+                        this.isOn_R1 = false;
+                        this.isOn_R2 = false;
+                        this.isOn_R3 = false;
+                        this.isOn_R4 = false;
+                        this.isOn_R5 = false;
+                        this.isOn_R6 = false;
+                    },
+                {% endblock %}

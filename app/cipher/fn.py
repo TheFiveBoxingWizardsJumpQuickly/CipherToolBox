@@ -742,6 +742,10 @@ def braille_d(braille_dots):
     return chr(int(ascii_hex, 16))
 
 
+def braille_ja_d(braille_dots):
+    return braille_ja_table.get(braille_dots, '')
+
+
 def auto_split_number_string(text, pattern):
     text = text.upper()
     if pattern == 'DEC':

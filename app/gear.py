@@ -661,6 +661,23 @@ def braille_gen(request):
     return braille_d(b1+b2+b3+b4+b5+b6)
 
 
+def braille_ja_gen(request):
+    bl1 = '1' if request.json['bl1'] else '0'
+    bl2 = '1' if request.json['bl2'] else '0'
+    bl3 = '1' if request.json['bl3'] else '0'
+    bl4 = '1' if request.json['bl4'] else '0'
+    bl5 = '1' if request.json['bl5'] else '0'
+    bl6 = '1' if request.json['bl6'] else '0'
+    br1 = '1' if request.json['br1'] else '0'
+    br2 = '1' if request.json['br2'] else '0'
+    br3 = '1' if request.json['br3'] else '0'
+    br4 = '1' if request.json['br4'] else '0'
+    br5 = '1' if request.json['br5'] else '0'
+    br6 = '1' if request.json['br6'] else '0'
+
+    return braille_ja_d(bl1+bl2+bl3+bl4+bl5+bl6+br1+br2+br3+br4+br5+br6)
+
+
 def rsa_gen(request):
     def force_int(txt):
         txt_trunc = re.sub(r"[^0-9]", "", txt)
