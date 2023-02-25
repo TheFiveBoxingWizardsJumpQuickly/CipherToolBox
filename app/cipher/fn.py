@@ -566,17 +566,17 @@ def table_subtitution(text, method):
         t1 = '1234567890abcdefghijklmnopqrstuvwxyz' + 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
         t2 = '4321098765a?cgtyd?mvrqinsxlkoewjupfz' + 'A?CGTYD?MVRQINSXLKOEWJUPFZ'
     elif method == 'US keyboard left shift':
-        t1 = '1234567890abcdefghijklmnopqrstuvwxyz-=[]\;,./`ABCDEFGHIJKLMNOPQRSTUVWXYZ'
-        t2 = '`123456789?vxswdfguhjknbio?earycqzt?0-p[]lm,.??VXSWDFGUHJKNBIO?EARYCQZT?'
+        t1 = r'1234567890abcdefghijklmnopqrstuvwxyz-=[]\;,./`ABCDEFGHIJKLMNOPQRSTUVWXYZ~!@#$%^&*()_+'
+        t2 = r'`123456789?vxswdfguhjknbio?earycqzt?0-p[]lm,.??VXSWDFGUHJKNBIO?EARYCQZT??~!@#$%^&*()_'
     elif method == 'US keyboard right shift':
-        t1 = '1234567890abcdefghijklmnopqrstuvwxyz-=[]\;,./`ABCDEFGHIJKLMNOPQRSTUVWXYZ'
-        t2 = "234567890-snvfrghjokl;,mp[wtdyibecux=?]\?'./?1SNVFRGHJOKL;,MP[WTDYIBECUX"
+        t1 = r'1234567890abcdefghijklmnopqrstuvwxyz-=[]\;,./`ABCDEFGHIJKLMNOPQRSTUVWXYZ~!@#$%^&*()_+'
+        t2 = r"234567890-snvfrghjokl;,mp[wtdyibecux=?]\?'./?1SNVFRGHJOKL;,MP[WTDYIBECUX!@#$%^&*()_+?"
     elif method == 'US keyboard right <-> left':
-        t1 = '1234567890abcdefghijklmnopqrstuvwxyz-=[]\;,./`ABCDEFGHIJKLMNOPQRSTUVWXYZ'
-        t2 = "0987654321;n,kijhgefdsvbwqpulyrmo.t/`????acxz-;N,KIJHGEFDSVBWQPULYRMO.T/"
+        t1 = r'1234567890abcdefghijklmnopqrstuvwxyz-=[]\;,./`ABCDEFGHIJKLMNOPQRSTUVWXYZ~!@#$%^&*()_+'
+        t2 = r"0987654321;n,kijhgefdsvbwqpulyrmo.t/`????acxz-;N,KIJHGEFDSVBWQPULYRMO.T/_)(*&^%$#@!~?"
     elif method == 'US keyboard up <-> down':
-        t1 = '1234567890abcdefghijklmnopqrstuvwxyz-=[]\;,./`ABCDEFGHIJKLMNOPQRSTUVWXYZ'
-        t2 = "zxcvbnm,..q53edrtykuio76l;afwgj4s2h1?????p890?Q53EDRTYKUIO76L;AFWGJ4S2H1"
+        t1 = r'1234567890abcdefghijklmnopqrstuvwxyz-=[]\;,./`ABCDEFGHIJKLMNOPQRSTUVWXYZ~!@#$%^&*()_+'
+        t2 = r"zxcvbnm,..q53edrtykuio76l;afwgj4s2h1?????p*()?Q%#EDRTYKUIO&^L;AFWGJ$S@H!?ZXCVBNM<>???"
     elif method == 'US keyboard to Dvorak keyboard':
         t1 = '1234567890abcdefghijklmnopqrstuvwxyz-=[]\;,./`ABCDEFGHIJKLMNOPQRSTUVWXYZ'
         t2 = "1234567890axje.uidchtnmbrl'poygk,qf;[]/=\swvz`AXJE.UIDCHTNMBRL'POYGK,QF;"

@@ -1,3 +1,4 @@
+import re
 from .cipher.fn import *
 """
 Run
@@ -24,6 +25,123 @@ def test_rot():
     assert rot('The rabbit-hole went straight on like a tunnel for some way, and then dipped suddenly down, so suddenly that Alice had not a moment to think about stopping herself before she found herself falling down a very deep well.',
                20) == \
         'Nby luvvcn-bify qyhn mnlucabn ih fcey u nohhyf zil migy qus, uhx nbyh xcjjyx moxxyhfs xiqh, mi moxxyhfs nbun Ufcwy bux hin u gigyhn ni nbche uvion mnijjcha bylmyfz vyzily mby ziohx bylmyfz zuffcha xiqh u pyls xyyj qyff.'
+
+
+def test_vigenere():
+    # Vigenere encode
+    assert vig_e(
+        'ABCDEFGHIJKLMNOpqrstuvwxyz0123456789', 'CBA') ==\
+        'CCCFFFIIILLLOOOrrruuuxxxaa0123456789'
+
+    # Checked with https://rumkin.com/tools/cipher/vigenere/ 2023/2/25
+    assert vig_e(
+        'The rabbit-hole went straight on like a tunnel for some way, and then dipped suddenly down, so suddenly that Alice had not a moment to think about stopping herself before she found herself falling down a very deep well.',
+        'whiterabbit') ==\
+        'Pom kesbju-phhl exrk susibcob hr cilf i mquvxp wos twfa dir, eed uimg zpxiiu svelxjsg wsnn, tp anzkmgpp tibb Thpkx lrd opb t ivuxrk tp upbjr iuslt tuwilpvz lvrtfty xlnhvv sif nhqul aiisfmn ywstbrx dpxv t rlzr hveq xmeh.'
+
+    # Vigenere decode
+    assert vig_d(
+        'CCCFFFIIILLLOOOrrruuuxxxaa0123456789', 'CBA') ==\
+        'ABCDEFGHIJKLMNOpqrstuvwxyz0123456789'
+
+    assert vig_d(
+        'Pom kesbju-phhl exrk susibcob hr cilf i mquvxp wos twfa dir, eed uimg zpxiiu svelxjsg wsnn, tp anzkmgpp tibb Thpkx lrd opb t ivuxrk tp upbjr iuslt tuwilpvz lvrtfty xlnhvv sif nhqul aiisfmn ywstbrx dpxv t rlzr hveq xmeh.',
+        'whiterabbit') ==\
+        'The rabbit-hole went straight on like a tunnel for some way, and then dipped suddenly down, so suddenly that Alice had not a moment to think about stopping herself before she found herself falling down a very deep well.'
+
+    # Beaufort
+    assert beaufort(
+        'ABCDEFGHIJKLMNOpqrstuvwxyz0123456789', 'ABC'
+    ) ==\
+        'AAAXXXUUURRROOOllliiifffcc0123456789'
+
+    # Check with https://cryptii.com/pipes/beaufort-cipher 2023/2/25
+    assert beaufort(
+        'The rabbit-hole went straight on like a tunnel for some way, and then dipped suddenly down, so suddenly that Alice had not a moment to think about stopping herself before she found herself falling down a very deep well.',
+        'whiterabbit') ==\
+        'Dae ceqzti-bfld mpry iikilqap fr gsrx i acuvpt mmk juhs liv, eex iueg tzteao ihyfpjwk qqvn, jn qzteegtt hubp Tlzgp xrx onp t ktwpry hn ibljx isqxh jiuehzvn xnjjxxo vddfnn iux dfcuf maaixqd owwxlrl xnfv t bdrv bnwm feil.'
+
+    # Autokey Vigenere
+    assert vig_e_auto(
+        'The rabbit-hole went straight on like a tunnel for some way, and then dipped suddenly down, so suddenly that Alice had not a moment to think about stopping herself before she found herself falling down a very deep well.', 'whiterabbit'
+    ) == \
+        vig_e('The rabbit-hole went straight on like a tunnel for some way, and then dipped suddenly down, so suddenly that Alice had not a moment to think about stopping herself before she found herself falling down a very deep well.',
+              'whiterabbit' + re.sub(r"[^a-zA-Z]", "", 'The rabbit-hole went straight on like a tunnel for some way, and then dipped suddenly down, so suddenly that Alice had not a moment to think about stopping herself before she found herself falling down a very deep well.'))
+
+    assert vig_d_auto(
+        vig_e_auto(
+            'The rabbit-hole went straight on like a tunnel for some way, and then dipped suddenly down, so suddenly that Alice had not a moment to think about stopping herself before she found herself falling down a very deep well.', 'whiterabbit'
+        ), 'whiterabbit') ==\
+        'The rabbit-hole went straight on like a tunnel for some way, and then dipped suddenly down, so suddenly that Alice had not a moment to think about stopping herself before she found herself falling down a very deep well.'
+
+
+def test_simplesub():
+    test_strings = r'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-=[]\;,./~!@#$%^&*()_+'
+    # As of 2023/2/25
+    assert table_subtitution(
+        test_strings, 'A-a swap') == r'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-=[]\;,./~!@#$%^&*()_+'
+    assert table_subtitution(
+        test_strings, 'Atbash') == r'ZYXWVUTSRQPONMLKJIHGFEDCBAzyxwvutsrqponmlkjihgfedcba0123456789-=[]\;,./~!@#$%^&*()_+'
+    assert table_subtitution(
+        test_strings, 'Morse .- swap') == \
+        r'NJ?WTQU?MBRYIASXFKOEG?DPL?nj?wtqu?mbryiasxfkoeg?dpl?5678901234-=[]\;,./~!@#$%^&*()_+'
+    assert table_subtitution(
+        test_strings, 'Morse reverse') == \
+        r'NV?UELWHI?KFMAOPYRSTDBGXQ?nv?uelwhi?kfmaopyrstdbgxq?0987654321-=[]\;,./~!@#$%^&*()_+'
+    assert table_subtitution(
+        test_strings, 'Morse .- swap and reverse') == \
+        r'A?CGTYD?MVRQINSXLKOEWJUPFZa?cgtyd?mvrqinsxlkoewjupfz5432109876-=[]\;,./~!@#$%^&*()_+'
+    assert table_subtitution(
+        test_strings, 'US keyboard left shift') == \
+        r'?VXSWDFGUHJKNBIO?EARYCQZT??vxswdfguhjknbio?earycqzt?9`123456780-p[]lm,.?~!@#$%^&*()_'
+    assert table_subtitution(
+        test_strings, 'US keyboard right shift') == \
+        r"SNVFRGHJOKL;,MP[WTDYIBECUXsnvfrghjokl;,mp[wtdyibecux-234567890=?]\?'./?!@#$%^&*()_+?"
+    assert table_subtitution(
+        test_strings, 'US keyboard right <-> left') == \
+        r";N,KIJHGEFDSVBWQPULYRMO.T/;n,kijhgefdsvbwqpulyrmo.t/1098765432`????acxz_)(*&^%$#@!~?"
+    assert table_subtitution(
+        test_strings, 'US keyboard up <-> down') == \
+        r'Q%#EDRTYKUIO&^L;AFWGJ$S@H!q53edrtykuio76l;afwgj4s2h1.zxcvbnm,.?????p*()?ZXCVBNM<>???'
+    assert table_subtitution(
+        test_strings, 'US keyboard to Dvorak keyboard') == \
+        r"AXJE.UIDCHTNMBRL'POYGK,QF;axje.uidchtnmbrl'poygk,qf;0123456789[]/=\swvz~!@#$%^&*()_+"
+    assert table_subtitution(
+        test_strings, 'Dvorak keyboard to US keyboard') == \
+        r"ANIHDYUJGCVPMLSRXO;KF.,BT/anihdyujgcvpmlsrxo;kf.,bt/0123456789']-=\zwe[~!@#$%^&*()_+"
+    assert table_subtitution(
+        test_strings, 'US keyboard to MALTRON keyboard') == \
+        r"A,JIYSFDUTHOW>ZLQCNBMGP>V<a,jiysfduthow>zlqcnbmgp>v<0123456789?????rk-x~!@#$%^&*()_+"
+    assert table_subtitution(
+        test_strings, 'MALTRON keyboard to US keyboard') == \
+        r"ATRH?GVKDC,PUSLWQ;FJIYM/EOatrh?gvkdc,puslwq;fjiym/eo0123456789>????????~!@#$%^&*()_+"
+    assert table_subtitution(
+        test_strings, '!@#_to_123') == r'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-=[]\;,./~1234567890_+'
+    assert table_subtitution(
+        test_strings, 'ABC to 123') == \
+        r'123456789101112131415161718192021222324252612345678910111213141516171819202122232425260123456789-=[]\;,./~!@#$%^&*()_+'
+    assert table_subtitution(
+        test_strings, 'ABC to 012') == \
+        r'0123456789101112131415161718192021222324250123456789101112131415161718192021222324250123456789-=[]\;,./~!@#$%^&*()_+'
+
+
+def test_affine():
+    # Sample in Wikipedia 2023/2/26
+    assert affine_e('AFFINECIPHER', 5, 8) == 'IHHWVCSWFRCP'
+    assert affine_d('IHHWVCSWFRCP', 5, 8) == 'AFFINECIPHER'
+
+    # Check with https://rumkin.com/tools/cipher/affine/ 2023/2/26
+    assert affine_e(
+        'The rabbit-hole went straight on like a tunnel for some way, and then dipped suddenly down, so suddenly that Alice had not a moment to think about stopping herself before she found herself falling down a very deep well.',
+        9, 13
+    ) == \
+        'Cyx knwwhc-yjix dxac tcknhpyc ja ihzx n claaxi gjk tjrx dnv, nao cyxa ohssxo tlooxaiv ojda, tj tlooxaiv cync Nihfx yno ajc n rjrxac cj cyhaz nwjlc tcjsshap yxktxig wxgjkx tyx gjlao yxktxig gniihap ojda n uxkv oxxs dxii.'
+
+    assert affine_d(
+        affine_e(
+            'The rabbit-hole went straight on like a tunnel for some way, and then dipped suddenly down, so suddenly that Alice had not a moment to think about stopping herself before she found herself falling down a very deep well.',
+            3, 1), 3, 1) == \
+        'The rabbit-hole went straight on like a tunnel for some way, and then dipped suddenly down, so suddenly that Alice had not a moment to think about stopping herself before she found herself falling down a very deep well.'
 
 
 def test_enigma():
