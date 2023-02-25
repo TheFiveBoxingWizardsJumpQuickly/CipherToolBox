@@ -34,6 +34,9 @@ def playfair_gen(request):
 def vigenere_gen(request):
     input_text = request.json['input_text']
     key = request.json['key']
+
+    key = re.sub(r"[^a-zA-Z0-9]", "", key)
+
     results = {}
 
     results[0] = \
@@ -1005,6 +1008,9 @@ def rectangle_ex_gen(request):
 def vigenere_ex_gen(request):
     input_text = request.json['input_text']
     key = request.json['key']
+
+    key = re.sub(r"[^a-zA-Z0-9]", "", key)
+
     results = {}
 
     results[0] = \
