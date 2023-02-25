@@ -7,7 +7,7 @@ rot_about_ja = """
 
 ROT Nでエンコードされた文章は、ROT -Nでデコードすることができます。アルファベットの文字数が26文字であるため、「ROT -13」は「ROT 13」と同一であり、そのためROT13でエンコードされた文章はROT13でデコードすることができます。このエンコード・デコードの向きを気にしなくていいという対象性も、上記のユースケースでROT13が好まれた理由の一つだと考えています。例えば「ROT 5です」と言われて暗号文を渡されたときに、+5したらデコードできるのか-5したらデコードできるのか迷うことがありますが、ROT13にはそういう心配がありません。
 
-ROT暗号は古代ローマのカエサル（シーザー）が使用したという逸話から、カエサル暗号やシーザー暗号とも呼ばれます。当時でもこの方式に暗号としての十分な強度があったとは考えづらく、もう少し複雑な文脈があるか、あるいは根も葉もないか・・と個人的には考えていますが、調査するのも難しいため踏み込みません。
+ROT暗号は古代ローマのカエサル(シーザー)が使用したという逸話から、カエサル暗号やシーザー暗号とも呼ばれます。当時でもこの方式に暗号としての十分な強度があったとは考えづらく、もう少し複雑な文脈があるか、あるいは根も葉もないか・・と個人的には考えていますが、調査するのも難しいため踏み込みません。
 
 ROTという呼び名はアルファベットの環を回すイメージでRotateあたりの単語由来かと思われます。
 """
@@ -63,6 +63,78 @@ contents = {
         'test_cases': rot_test_cases,
         'challenge': rot_challenge,
         'link': rot_link,
+    },
+    'vigenere-ja': {
+        'title': 'Vigenere',
+        'lang': 'Ja',
+        'about': '',
+        'how_to_use_tool': '',
+        'test_cases': '',
+        'challenge': '',
+        'link': '',
+    },
+    'vigenere-en': {
+        'title': 'Vigenere',
+        'lang': 'En',
+        'about': '',
+        'how_to_use_tool': '',
+        'test_cases': '',
+        'challenge': '',
+        'link': '',
+    },
+    'simplesub-ja': {
+        'title': 'Simple substitutions',
+        'lang': 'Ja',
+        'about': '',
+        'how_to_use_tool': '',
+        'test_cases': '',
+        'challenge': '',
+        'link': '',
+    },
+    'simplesub-en': {
+        'title': 'Simple substitutions',
+        'lang': 'En',
+        'about': '',
+        'how_to_use_tool': '',
+        'test_cases': '',
+        'challenge': '',
+        'link': '',
+    },
+    'affine-ja': {
+        'title': 'Affine',
+        'lang': 'Ja',
+        'about': '',
+        'how_to_use_tool': '',
+        'test_cases': '',
+        'challenge': '',
+        'link': '',
+    },
+    'affine-en': {
+        'title': 'Affine',
+        'lang': 'En',
+        'about': '',
+        'how_to_use_tool': '',
+        'test_cases': '',
+        'challenge': '',
+        'link': '',
+    },
+    'polybius-ja': {
+        'title': 'Polybius',
+        'lang': 'Ja',
+        'about': '',
+        'how_to_use_tool': '',
+        'test_cases': '',
+        'challenge': '',
+        'link': '',
+    },
+    'polybius-en': {
+        'title': 'Polybius',
+        'lang': 'En',
+        'about': '',
+        'how_to_use_tool': '',
+        'test_cases': '',
+        'challenge': '',
+        'link': '',
     },
 }
 

@@ -1137,7 +1137,7 @@ def passcode_validate(request):
 
 
 def ingress_keywords_gen(request):
-    pattern = request.json['pattern']
+    pattern = request.json['pattern'].lower()
     results = {}
 
     keywords_list = passcode_get_filtered_keywords(pattern)

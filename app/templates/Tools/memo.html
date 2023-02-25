@@ -1,0 +1,51 @@
+{% extends "base_apps_v2.html.jinja" %}
+{% block title %}Memo{% endblock %}
+{% block h1 %}Memo{% endblock %}
+{% block input_area %}
+                <div class="field textarea border fill large mono">
+                    <textarea class="grey2 black-text" id="TXT"></textarea>
+                </div>
+
+                <div class="grid">
+                        <button class="border no-round large fill s6 m2 l2" v-on:click="click_push1">
+                            <span>Push to memo 1</span>
+                        </button>
+                        <button class="border no-round large fill s6 m2 l2" v-on:click="click_pull1">
+                            <span>Pull from memo 1</span>
+                        </button>
+                        <button class="border no-round large fill s6 m2 l2" v-on:click="click_push2">
+                            <span>Push to memo 2</span>
+                        </button>
+                        <button class="border no-round large fill s6 m2 l2" v-on:click="click_pull2">
+                            <span>Pull from memo 2</span>
+                        </button>              
+                </div>
+{% endblock %}
+{% block standard_results_area %}
+{% endblock %}
+{% block spcial_results_area %}
+                <br>
+                <h6>memo 1</h6>
+                <div class="results_area mono">[[memo1]]</div>
+                <br>
+                <h6>memo 2</h6>
+                <div style="results_area mono">[[memo2]]</div>
+{% endblock %}
+{% block vue_app_data %}
+                        memo1:"",
+                        memo2:"",
+{% endblock %}
+{% block vue_app_methods %}
+                    click_push1: function (){
+                        this.memo1=document.getElementById( "TXT" ).value;
+                    },
+                    click_pull1: function (){
+                        document.getElementById( "TXT" ).value=this.memo1;
+                    },
+                    click_push2: function (){
+                        this.memo2=document.getElementById( "TXT" ).value;
+                    },
+                    click_pull2: function (){
+                        document.getElementById( "TXT" ).value = this.memo2;
+                    }
+{% endblock %}
