@@ -2,8 +2,8 @@
 {% block title %}Memo{% endblock %}
 {% block h1 %}Memo{% endblock %}
 {% block input_area %}
-                <div class="field textarea border fill large mono">
-                    <textarea class="grey2 black-text" id="TXT"></textarea>
+                <div class="field textarea border fill large mono" id="TXT_parent" style="min-height: 150px; max-height: 500px;">
+                    <textarea class="grey2 black-text" id="TXT" v-on:input="update" style="min-height: 150px; max-height: 500px;"></textarea>
                 </div>
 
                 <div class="grid">
@@ -36,6 +36,15 @@
                         memo2:"",
 {% endblock %}
 {% block vue_app_methods %}
+                    update: function () {
+                        const textarea = document.getElementById( "TXT" );
+                        const textarea_parent = document.getElementById( "TXT_parent" );
+                        textarea.style.height = 'auto';
+                        textarea_parent.style.height = 'auto';
+                        textarea.style.height = textarea.scrollHeight + 'px';
+                        textarea_parent.style.height = textarea.scrollHeight + 'px';
+                        
+                    },
                     click_push1: function (){
                         this.memo1=document.getElementById( "TXT" ).value;
                     },
