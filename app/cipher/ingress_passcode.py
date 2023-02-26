@@ -76,6 +76,15 @@ def validate_one_answer(correct_answer, input_answer, format):
                 return 'Suffix might be wrong.'
             else:
                 return 'Invalid.'
+        elif format == 'aaa##kw###aa':
+            if re.sub(r"[0-9]", "", input_answer) == re.sub(r"[0-9]", "", correct_answer):
+                return 'Number part might be wrong.'
+            elif input_answer[0:5] == correct_answer[0:5] and input_answer[-5:] == correct_answer[-5:]:
+                return 'Keyword might be wrong.'
+            elif input_answer[5:-5] == correct_answer[5:-5]:
+                return 'Suffix or Prefix might be wrong.'
+            else:
+                return 'Invalid.'
 
 
 def passcode_validate_answer(id, input_answer):
