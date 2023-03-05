@@ -19,6 +19,11 @@ def index():
     return render_template('index.html')
 
 
+@app.route('/about')
+def about():
+    return render_template('about.html')
+
+
 @app.route('/favicon.ico')
 def favicon():
     return send_from_directory(os.path.join(app.root_path, 'static/image'), 'favicon.ico', )
@@ -28,11 +33,6 @@ def favicon():
 def show_page(file):
     file = file.split('.')[0]
     return render_template('Tools/'+file+'.html', BASEURL=request.url_root)
-
-
-@app.route('/challenge/')
-def challenge_index():
-    return render_template('Challenge/index.html')
 
 
 @app.route('/passcode/')
@@ -85,6 +85,11 @@ def passcode_changelog():
     return render_template('Passcode/changelog.html',
                            BASEURL=request.url_root,
                            )
+
+
+@app.route('/challenge/')
+def challenge_index():
+    return render_template('Challenge/index.html')
 
 
 @app.route('/challenge/<string:pageid>')

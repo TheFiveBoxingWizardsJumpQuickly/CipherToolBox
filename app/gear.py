@@ -1,7 +1,6 @@
-import os
 import re
-import sqlite3
 import html
+from math import ceil
 from app.cipher.fn import *
 from app.cipher.resize import resize_image
 from app.secret.apikey import get_w3w_apikey
@@ -310,7 +309,7 @@ def rectangle_gen(request):
 
     results[t] = 'Text length = ' + str(len(input_text))
     t += 1
-    for i in range(2, math.ceil(len(input_text)/2)+1):
+    for i in range(2, ceil(len(input_text)/2)+1):
         if len(input_text) % i == 0 or mode == 'All pattern':
             rectangle_i = rect(input_text, i)
 
@@ -974,7 +973,7 @@ def rectangle_ex_gen(request):
     if mode_ex == 'normal':
         results[t] = 'Text length = ' + str(len(input_text))
         t += 1
-        for i in range(2, math.ceil(len(input_text)/2)+1):
+        for i in range(2, ceil(len(input_text)/2)+1):
             if len(input_text) % i == 0 or mode == 'All pattern':
                 rectangle_i = rect(input_text, i)
 
@@ -989,7 +988,7 @@ def rectangle_ex_gen(request):
     elif mode_ex == 'reverse_even':
         results[t] = 'Text length = ' + str(len(input_text))
         t += 1
-        for i in range(2, math.ceil(len(input_text)/2)+1):
+        for i in range(2, ceil(len(input_text)/2)+1):
             if len(input_text) % i == 0 or mode == 'All pattern':
                 rectangle_i = rect_reverse_even(input_text, i)
 
