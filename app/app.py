@@ -21,7 +21,7 @@ def index():
 
 @app.route('/about')
 def about():
-    return render_template('about.html')
+    return render_template('about.html', BASEURL=request.url_root,)
 
 
 @app.route('/favicon.ico')
