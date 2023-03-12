@@ -166,7 +166,11 @@
             <p>Format: {{format}}</p>
             <p>{{tag}}</p>
             <div class="medium-divider"></div>
-            <p>{{code}}</p>
+            <p>
+                {% for line in code.split('\n') %}
+                    {{ line }}<br>
+                {% endfor %}
+            </p>
 
         </div>
         <div class="field label fill border small center medium-width">
@@ -182,7 +186,7 @@
 {% block spcial_results_area %}
         <br><br>
         <div class="padding center large-width">
-        <div v-html="result_value" style="white-space: break-spaces;">[[result_value]]</div>
+        <div v-html="result_value" style="white-space: pre-line;">[[result_value]]</div>
         </div>
 {% endblock %}
 {% block vue_app_data %}
